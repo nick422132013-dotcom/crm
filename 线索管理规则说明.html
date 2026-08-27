@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>线索管理规则说明</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: #20252d; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 15px; }
+  .doc { padding: 0 16px 28px; }
+  h1 { margin: 0 0 24px; padding-top: 2px; font-size: 25px; line-height: 1.35; font-weight: 750; }
+  h2 { margin: 26px 0 14px; font-size: 20px; line-height: 1.45; font-weight: 700; }
+  h3 { margin: 20px 0 10px; font-size: 17px; line-height: 1.5; font-weight: 700; }
+  p { margin: 0 0 10px; line-height: 1.7; }
+  ul { margin: 0 0 14px; padding-left: 24px; }
+  li { margin: 5px 0; line-height: 1.65; }
+  table { width: 100%; margin: 10px 0 14px; border-collapse: collapse; table-layout: fixed; }
+  th, td { padding: 9px 10px; border-bottom: 1px solid #e7eaee; text-align: left; vertical-align: top; line-height: 1.5; word-break: break-word; }
+  th { color: #252a31; background: #fafbfc; font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+</style>
+</head>
+<body><main class="doc">
+  <h1>线索管理</h1>
+
+  <h2>1. 目标</h2>
+  <p>汇总企业微信、HIS、飞书线索，完成入库、分配、回访前置管理，提升试管线索签约转化。</p>
+
+  <h2>2. 来源与入库</h2>
+  <h3>2.1 来源渠道</h3>
+  <ul>
+    <li>来源：企业微信、HIS、飞书；每日批量同步入库。</li>
+    <li>“今日入库”分别统计同步入库和手工新增。</li>
+    <li>列表右上角支持手工同步；同步异常由系统自动重试和处理。</li>
+    <li>首次回访时限从线索分配给顾问并进入跟进中后开始计算。</li>
+  </ul>
+  <h3>2.2 手工新建</h3>
+  <ul>
+    <li>仅线索管理员可手工新建。</li>
+    <li>系统为每条线索生成唯一线索 ID，作为唯一标识；手机号可为空。</li>
+    <li>有手机号时按手机号查重；发现重复时提示是否继续创建。确认创建后，当前线索标记为“重复线索待处理”。</li>
+  </ul>
+  <h3>2.3 重复线索处理</h3>
+  <ul>
+    <li>允许手机号为空或重复；每条线索必须拥有不同的线索 ID。</li>
+    <li>仅对非空手机号进行重复识别；重复线索正常入库，并在手机号左上角显示红色“重复”角标。</li>
+    <li>线索管理员可删除当前线索，或保留为独立线索。</li>
+  </ul>
+  <h3>2.4 统一线索登记表</h3>
+  <ul>
+    <li>HIS、企业微信、飞书均使用统一登记表结构，列表操作列均可查看。</li>
+    <li>飞书展示原始登记表快照；企业微信展示会话提交记录；HIS 将已同步的建档、就诊和检查摘要转换为登记表。</li>
+    <li>登记表只读，不得覆盖来源系统原始数据；缺失内容显示“未同步/未填写”。</li>
+  </ul>
+  <h3>2.5 企业微信会话登记</h3>
+  <ul><li>企业微信 CRM 管理栏支持会话内登记，字段与统一登记表一致。</li><li>会话客户名称、手机号和来源可自动带入；手机号非空时按手机号标记重复，并记录提交人、时间和会话信息。</li></ul>
+
+  <h2>3. 分院人员与线索分配</h2>
+  <h3>3.1 分院人员配置</h3>
+  <ul><li>每个分院至少配置 1 名线索管理员，可配置多名线索管理员和顾问。</li><li>人员须维护在岗和可接收新线索状态；停用、离岗人员不可参与分配。</li><li>同一分院的任一在岗线索管理员均可处理本分院待分配线索。</li></ul>
+  <h3>3.2 线索分配</h3>
+  <ul><li>仅 1 名可接收顾问时，系统自动分配并进入跟进中；多名顾问时，由任一线索管理员分配。</li><li>无可接收顾问时，线索保持待分配。</li><li>超过 7 天未分配时，线索进入公共池。</li><li>多人同时分配时，以先提交成功者为准。</li></ul>
+  <h3>3.3 公共池与留痕</h3>
+  <ul><li>公共池仍由原提供分院的线索管理员共同负责，任一在岗人员可重新分配。</li><li>重新分配后立即锁定顾问归属。</li><li>同步、重复处理、分配、公共池处理、终止、激活和签约均须记录操作人、时间、内容和备注。</li></ul>
+
+  <h2>4. 状态与回访</h2>
+  <table><thead><tr><th>状态</th><th>处理规则</th></tr></thead><tbody>
+    <tr><td>重复线索待处理</td><td>仅可删除或保留为独立线索</td></tr>
+    <tr><td>待分配</td><td>等待分配；超过 7 天进入公共池</td></tr>
+    <tr><td>跟进中</td><td>顾问按回访规则跟进；可更换顾问、终止跟进或发起合同签约</td></tr>
+    <tr><td>终止跟进</td><td>必填终止原因；停止自动回访，可激活恢复跟进</td></tr>
+    <tr><td>已签约</td><td>法大大合同签署回写；停止自动回访</td></tr>
+    <tr><td>公共池</td><td>可重新分配或终止跟进</td></tr>
+  </tbody></table>
+  <ul><li>公共池、跟进中、终止跟进、已签约线索可查看回访；无记录时提示“暂无回访记录”。</li><li>时间轴只展示线索管理操作；回访计划和结果在回访管理中查看。</li><li>跟进中线索可发起合同签约，录入法大大合同 ID 并关联合同；关联成功后状态更新为已签约并停止自动回访。</li><li>终止跟进、已签约线索保留最后一次意向分级。</li></ul>
+
+  <h2>5. 角色职责</h2>
+  <table><thead><tr><th>角色</th><th>职责</th></tr></thead><tbody>
+    <tr><td>线索管理员</td><td>手工建线索、处理重复、分配线索、重新分配公共池线索</td></tr>
+    <tr><td>顾问</td><td>跟进已分配线索、维护回访和意向等级</td></tr>
+    <tr><td>总部</td><td>维护分院、人员、回访规则和可配置参数</td></tr>
+  </tbody></table>
+
+  <h2>6. 关键约束</h2>
+  <ul><li>提供分院必填；公共池保留原提供分院和超时原因。</li><li>1 名可接收顾问自动分配；多名顾问人工分配；0 名顾问不自动分配。</li><li>签约以法大大合同签署为唯一依据；签约归属最终负责的分院和顾问。</li></ul>
+</main></body>
+</html>

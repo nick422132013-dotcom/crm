@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>胚胎冻存管理规则说明</title>
+  <style>
+    *{box-sizing:border-box} body{margin:0;padding:24px;font:14px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:#172238;background:#fff} h1{margin:0 0 8px;font-size:25px} h2{margin:28px 0 10px;padding-bottom:8px;border-bottom:1px solid #dce5ef;font-size:18px} p{margin:8px 0} ul,ol{padding-left:24px} li{margin:5px 0} table{width:100%;border-collapse:collapse;margin:12px 0} th,td{padding:9px 11px;border:1px solid #dce5ef;text-align:left;vertical-align:top} th{background:#f4f8fc;color:#51627a} .note{padding:12px 14px;border:1px solid #b8d9e7;border-radius:8px;background:#eef9fc;color:#17647d}.rule{display:inline-block;padding:2px 8px;border-radius:999px;background:#e7f0ff;color:#2467d9;font-weight:700}.warn{padding:12px 14px;border-left:4px solid #e0a13a;background:#fff7e8}.muted{color:#6e7f96}
+  </style>
+</head>
+<body>
+  <h1>胚胎冻存管理规则说明</h1>
+  <p class="muted">适用于 CRM 胚胎冻存管理页面；统计提醒以实验室确认的当前保存有效期为准。</p>
+  <div class="note"><strong>页面核心：</strong>顾问确认患者是否续费和续多久，财务确认是否入账，实验室最终确认续存并更新有效期。三个状态必须独立展示。</div>
+
+  <h2>1. 页面定位</h2>
+  <p>统一管理冷冻胚胎的有效期、提醒、续费意向、缴费入账、实验室确认与终止保存。页面面向顾问、财务、实验室人员、区域负责人和管理员。</p>
+
+  <h2>2. 管理对象与唯一标识</h2>
+  <ol><li>一次独立冻存批次对应一个全局唯一“冻存档案 ID”；列表中冻存档案 ID、女方姓名和男方姓名分列展示，姓名下显示对应身份证号。</li><li>同一对夫妻可以有多个冻存批次，分别维护数量、管数和有效期。</li><li>互创未建档时病历号显示“-”。</li><li>合同编号和周期号仅用于关联，不能替代冻存档案 ID。</li></ol>
+
+  <h2>3. 数据来源 <span class="rule">ES-01</span></h2>
+  <ul><li>胚胎数量、管数、冷冻日期和实验室保存有效期以实验室/HIS 为准。</li><li>CRM 负责提醒、协同和留痕，不得覆盖实验室主数据。</li><li>“套餐免费保存截止”“当前保存有效期”“实验室保存有效期”分列展示。</li><li>合同包含时长以患者实际合同版本为准，不设置全机构统一默认期限。</li></ul>
+
+  <h2>4. 核心状态</h2>
+  <table><thead><tr><th>状态组</th><th>示例</th><th>说明</th></tr></thead><tbody><tr><td>保存状态</td><td>保存有效、90天内到期、60天内到期、30天内到期、7天内到期、逾期、已续费、终止保存</td><td>用于顾问工作优先级和台账排序</td></tr><tr><td>续费意向</td><td>暂未决定、续费6个月/1年/2年、明确不续费</td><td>由顾问录入；不提供“待确认”</td></tr></tbody></table>
+
+  <h2>5. 到期提醒 <span class="rule">ES-02</span></h2>
+  <ul><li>到期前 90 天生成首次续费沟通任务。</li><li>到期前 30 天升级重点任务，必须记录意向和下次跟进日期。</li><li>到期前 7 天提醒顾问与区域负责人；未明确意向时每日提醒。</li><li>到期后显示逾期天数并按机构宽限期规则升级。</li></ul>
+  <div class="warn"><strong>禁止自动放弃：</strong>未联系、失联、欠费或超过提醒日期，均不得自动认定患者放弃胚胎。</div>
+  <p><strong>台账排序：</strong>默认按保存有效、90天内到期、60天内到期、30天内到期、7天内到期、逾期、已续费、终止保存的顺序展示；筛选支持冻存档案 ID、姓名、身份证号和病历号，不展示客户档案 ID，也不展示缴费状态、实验室状态列。当前保存有效期由确认续费自动生成，实验室保存有效期仅显示互创同步的实际有效期。</p>
+  <h2>5.1 消息名单提醒</h2>
+  <ul><li>每天在顶部消息提醒中生成“胚胎冷冻30天到期名单”和“胚胎冷冻逾期名单”。</li><li>名单按冻存档案 ID 展开，同一患者多个冻存批次不合并。</li><li>名单弹窗首列展示冻存档案 ID（唯一标识），并展示夫妻双方姓名和身份证号、病历号、胚胎冷冻日、截止时间、剩余/逾期天数、胚胎枚数和管数。</li><li>标记消息已读不关闭顾问任务，也不改变冻存状态。</li></ul>
+
+  <h2>6. 续费闭环 <span class="rule">ES-03</span></h2>
+  <ol><li>顾问通过“录入意向”记录联系方式、意向、备注和下次跟进。</li><li>“沟通记录”按时间倒序展示最近 3 次完整沟通数据。</li><li>除保存有效、已续费、终止保存外，所有保存状态均展示“确认续费”和“确认终止”。</li><li>“确认续费”展示只读的原截止日期与续费后截止日期；选择续费期限和日期后自动计算续费后截止日期，并在确认后写入当前保存有效期。</li><li>“续费记录”按时间倒序展示全部既往续费记录；保存有效状态不展示此按钮。</li><li>实验室保存有效期仍以互创同步为准。</li><li>确认终止后，保存状态更新为终止保存。</li></ol>
+
+  <h2>7. 不续费与终止保存 <span class="rule">ES-04</span></h2>
+  <p>“明确不续费”只代表患者意向。终止保存必须经过身份与授权核验、知情文件、内部审批、实验室确认和结果回写，CRM 不直接执行实验室处置。</p>
+
+  <h2>8. 历史与审计 <span class="rule">ES-05</span></h2>
+  <p>联系、意向、续存期限、金额、付款、入账、实验室确认、新旧有效期及终止流程均按时间追加，不得覆盖历史，并保留操作人、时间和凭证。</p>
+
+  <h2>9. 角色权限</h2>
+  <table><thead><tr><th>角色</th><th>主要权限</th></tr></thead><tbody><tr><td>顾问</td><td>查看负责患者、记录联系/意向、发起续费与终止申请</td></tr><tr><td>区域负责人</td><td>查看区域临期/逾期并督办、升级异常</td></tr><tr><td>财务</td><td>确认缴费入账和对账结果</td></tr><tr><td>实验室人员</td><td>确认续存、更新有效期、执行审批通过的终止流程</td></tr><tr><td>管理员</td><td>配置提醒、宽限期、收费标准和权限，查看完整审计</td></tr></tbody></table>
+
+  <h2>10. 验收标准</h2>
+  <ol><li>套餐免费保存截止与当前保存有效期可正确区分。</li><li>90/60/30/7 天及逾期提醒可生成和升级。</li><li>保存状态按保存有效、临期、逾期、已续费、终止保存分层展示。</li><li>未完成实验室确认，不得显示续存完成。</li><li>不续费只能发起终止审批，不得直接终止。</li><li>全部关键变更可追溯。</li></ol>
+</body>
+</html>
