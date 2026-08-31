@@ -2141,10 +2141,6 @@
       padding: 7px 9px;
     }
 
-    .lead-new-dialog .registration-item strong {
-      margin-bottom: 3px;
-    }
-
     .lead-new-dialog .registration-item.wide {
       grid-column: auto;
     }
@@ -2161,6 +2157,7 @@
       display: flex;
       gap: 8px;
       align-items: center;
+      flex: 1;
     }
 
     .phone-check-row input { flex: 1; }
@@ -2244,40 +2241,46 @@
       border-radius: 8px;
       padding: 10px 12px;
       background: #fbfdfe;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .registration-item.wide {
       grid-column: 1 / -1;
     }
 
-    .registration-item strong,
-    .registration-item span {
-      display: block;
-    }
-
-    .registration-item strong {
+    .registration-item > strong {
+      flex: 0 0 auto;
       font-size: 12px;
       color: var(--muted);
-      margin-bottom: 5px;
+      margin: 0;
+      white-space: nowrap;
     }
 
-    .registration-item span {
+    .registration-item > span {
+      flex: 1;
       color: var(--text);
       line-height: 1.55;
     }
 
-    .registration-item input,
-    .registration-item select,
-    .registration-item textarea {
-      width: 100%;
+    .registration-item > input,
+    .registration-item > select,
+    .registration-item > textarea {
+      flex: 1;
+      width: auto;
       min-height: 34px;
       margin: 0;
     }
 
-    .registration-item textarea {
+    .registration-item > textarea {
       min-height: 68px;
       resize: vertical;
     }
+
+    .registration-item > .attachment-upload-row { flex: 1; }
+    .registration-item.phone-check-item { flex-wrap: wrap; }
+    .registration-item.phone-check-item > .phone-check-result { flex: 0 0 100%; margin-left: 112px; }
 
     @media (max-width: 680px) {
       .registration-grid { grid-template-columns: 1fr; }
@@ -3656,6 +3659,9 @@
       activeView: "lead",
       duplicateLeadResults: { guangzhou: "", shenzhen: "" },
       recycleBinSeedVisible: true,
+      deletedLeadIds: [],
+      deletedLeads: [],
+      leadDeleteTarget: { id: "", name: "", phone: "", source: "", branch: "" },
       duplicateLeadTarget: "",
       newLeadDuplicate: { name: "", phone: "", existingId: "" },
       leadAssignmentCompleted: false,
@@ -4013,13 +4019,13 @@
     function renderLeadView() {
       mainEl.classList.add("module-page");
       mainEl.dataset.view = "lead";
-      const recycleCount = (state.recycleBinSeedVisible ? 1 : 0) + Object.values(state.duplicateLeadResults).filter((result) => result === "delete").length;
+      const recycleCount = (state.recycleBinSeedVisible ? 1 : 0) + state.deletedLeads.length;
       mainEl.innerHTML = `
         <section class="module-grid full">
           <div class="panel"><div class="panel-body">
             ${statCards([
               ["今日入库", "39", "同步入库 36（企微 12 / HIS 17 / 飞书 7）｜手动新增 3", "R-13"],
-              ["重复待处理", String(Object.values(state.duplicateLeadResults).filter((result) => !result).length), "仅线索管理员可处理", "R-01"],
+              ["疑似重复手机号", "2", "仅作手机号重复标识，不影响线索流转", "R-01"],
               ["待分配", "7", "线索管理员待分配", "R-15"],
               ["跟进中", "16", "顾问已分配，开始回访跟进", "R-18"],
               ["终止跟进", state.leadFollowTerminated ? "4" : "3", "已停止自动回访并留存原因", "R-20"],
@@ -4030,7 +4036,6 @@
             <div class="lead-toolbar">
               <div class="filter-row">
                 <button class="chip is-active" data-lead-filter="all">全部 39</button>
-                <button class="chip" data-lead-filter="duplicate">重复待处理 ${Object.values(state.duplicateLeadResults).filter((result) => !result).length}</button>
                 <button class="chip" data-lead-filter="assign">待分配 7</button>
                 <button class="chip" data-lead-filter="following">跟进中 16</button>
                 <button class="chip" data-lead-filter="terminated">终止跟进 ${state.leadFollowTerminated ? "4" : "3"}</button>
@@ -4058,25 +4063,21 @@
               <table class="small-table lead-table">
                 <thead><tr><th>线索 ID</th><th>姓名</th><th>手机号</th><th>来源</th><th>提供分院</th><th>线索管理员</th><th>顾问</th><th>状态与时限</th><th>意向分级</th><th>操作</th></tr></thead>
                 <tbody>
-                  <tr data-lead-row data-id="L-20260806-034" data-phone="13900004821" data-name="王女士" data-region="华南" data-advisor="" data-intent="" data-status="重复线索待处理" data-manager="陈芳、刘洁" data-branch="广州天河分院" data-source="HIS">
+                  <tr data-lead-row data-id="L-20260806-034" data-phone="13900004821" data-name="王女士" data-region="华南" data-advisor="" data-intent="未定级" data-status="待分配" data-manager="陈芳、刘洁" data-branch="广州天河分院" data-source="HIS">
                     <td>L-20260806-034</td>
                     <td><strong>王女士</strong></td>
-                    <td class="lead-phone-cell ${state.duplicateLeadResults.guangzhou === "independent" ? "" : "has-duplicate"}">${state.duplicateLeadResults.guangzhou === "independent" ? "" : '<span class="lead-duplicate-corner">重复</span>'}13900004821</td>
+                    <td class="lead-phone-cell has-duplicate"><span class="lead-duplicate-corner">重复</span>13900004821</td>
                     <td><span class="badge badge-purple">HIS</span></td>
                     <td>广州天河分院</td>
                     <td>陈芳、刘洁</td><td>—</td>
-                    ${state.duplicateLeadResults.guangzhou === "independent"
-                      ? '<td><span class="badge badge-blue">待分配</span><br><span class="muted">重复线索保留后｜已等待 2 天 4 小时</span></td><td></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="assign">分配顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260806-034" data-lead-name="王女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260806-034" data-lead-name="王女士">查看时间轴</button></div></td>'
-                      : '<td><span class="badge badge-red">重复线索待处理</span><br><span class="muted">发现同手机号线索 L-20260805-118</span></td><td></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="duplicate-confirm" data-duplicate-key="guangzhou">处理</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260806-034" data-lead-name="王女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260806-034" data-lead-name="王女士">查看时间轴</button></div></td>'}
+                    <td><span class="badge badge-blue">待分配</span><br><span class="muted">已等待 2 天 4 小时</span></td><td><span class="badge badge-gray">未定级</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="assign">分配顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260806-034" data-lead-name="王女士" data-lead-phone="13900004821" data-lead-source="HIS" data-lead-branch="广州天河分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260806-034" data-lead-name="王女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260806-034" data-lead-name="王女士">查看时间轴</button></div></td>
                   </tr>
-                  <tr data-lead-row data-id="L-20260806-019" data-phone="13800005266" data-name="刘女士" data-region="华南" data-advisor="黄琳" data-intent="B" data-status="重复线索待处理" data-manager="张敏" data-branch="深圳福田分院" data-source="企业微信">
-                    <td>L-20260806-019</td><td><strong>刘女士</strong></td><td class="lead-phone-cell ${state.duplicateLeadResults.shenzhen === "independent" ? "" : "has-duplicate"}">${state.duplicateLeadResults.shenzhen === "independent" ? "" : '<span class="lead-duplicate-corner">重复</span>'}13800005266</td>
+                  <tr data-lead-row data-id="L-20260806-019" data-phone="13800005266" data-name="刘女士" data-region="华南" data-advisor="黄琳" data-intent="B" data-status="跟进中" data-manager="张敏" data-branch="深圳福田分院" data-source="企业微信">
+                    <td>L-20260806-019</td><td><strong>刘女士</strong></td><td class="lead-phone-cell has-duplicate"><span class="lead-duplicate-corner">重复</span>13800005266</td>
                     <td><span class="badge badge-blue">企业微信</span></td>
                     <td>深圳福田分院</td>
                     <td>张敏</td><td>黄琳</td>
-                    ${state.duplicateLeadResults.shenzhen === "independent"
-                      ? '<td><span class="badge badge-green">跟进中</span><br><span class="muted">重复线索保留后自动分配｜首次回访剩余 2 天</span></td><td>—</td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-advisor="黄琳">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-source="企业微信">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260806-019" data-lead-name="刘女士">查看时间轴</button></div></td>'
-                      : '<td><span class="badge badge-red">重复线索待处理</span><br><span class="muted">发现同手机号线索 L-20260805-207</span></td><td></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="duplicate-confirm" data-duplicate-key="shenzhen">处理</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-source="企业微信">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260806-019" data-lead-name="刘女士">查看时间轴</button></div></td>'}
+                    <td><span class="badge badge-green">跟进中</span><br><span class="muted">首次回访剩余 2 天</span></td><td><span class="badge badge-blue">B</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-advisor="黄琳">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-phone="13800005266" data-lead-source="企业微信" data-lead-branch="深圳福田分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-source="企业微信">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260806-019" data-lead-name="刘女士">查看时间轴</button></div></td>
                   </tr>
                   <tr data-lead-row data-id="L-20260714-031" data-phone="18600000718" data-name="陈女士" data-region="华北" data-advisor="${state.leadAssignmentCompleted ? "李雯" : ""}" data-intent="" data-status="待分配" data-manager="王丽" data-branch="北京朝阳分院" data-source="飞书">
                     <td>L-20260714-031</td><td><strong>陈女士</strong></td><td>18600000718</td>
@@ -4084,8 +4085,8 @@
                     <td>北京朝阳分院</td>
                     <td>王丽</td><td>${state.leadAssignmentCompleted ? "李雯" : "—"}</td>
                     ${state.leadAssignmentCompleted
-                      ? '<td><span class="badge badge-green">跟进中</span><br><span class="muted">已分配李雯｜首次回访剩余 3 天</span></td><td></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-advisor="李雯">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-source="飞书">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-031" data-lead-name="陈女士">查看时间轴</button></div></td>'
-                      : '<td><span class="badge badge-blue">待分配</span><br><span class="muted">已等待 2 天 4 小时</span></td><td></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="assign">分配顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-source="飞书">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-031" data-lead-name="陈女士">查看时间轴</button></div></td>'}
+                      ? '<td><span class="badge badge-green">跟进中</span><br><span class="muted">已分配李雯｜首次回访剩余 3 天</span></td><td></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-advisor="李雯">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-phone="18600000718" data-lead-source="飞书" data-lead-branch="北京朝阳分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-source="飞书">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-031" data-lead-name="陈女士">查看时间轴</button></div></td>'
+                      : '<td><span class="badge badge-blue">待分配</span><br><span class="muted">已等待 2 天 4 小时</span></td><td></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="assign">分配顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-phone="18600000718" data-lead-source="飞书" data-lead-branch="北京朝阳分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-source="飞书">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-031" data-lead-name="陈女士">查看时间轴</button></div></td>'}
                   </tr>
                   <tr data-lead-row data-id="L-20260714-029" data-phone="15800006712" data-name="赵女士" data-region="华中" data-advisor="王敏" data-intent="未定级" data-status="跟进中" data-manager="李华" data-branch="武汉分院" data-source="CRM本地">
                     <td>L-20260714-029</td><td><strong>赵女士</strong></td><td>15800006712</td>
@@ -4094,7 +4095,7 @@
                     <td>李华</td><td>王敏</td>
                     ${state.leadSignedContracts["L-20260714-029"]
                       ? '<td><span class="badge badge-gray">已签约</span><br><span class="muted">法大大合同已关联</span></td><td><span class="badge badge-gray">未定级</span></td><td><div class="compact-actions"><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-source="CRM本地">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260714-029">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-029" data-lead-name="赵女士">查看时间轴</button></div></td>'
-                      : '<td><span class="badge badge-green">跟进中</span><br><span class="muted">系统自动分配｜首次回访剩余 2 天</span></td><td><span class="badge badge-gray">未定级</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-advisor="王敏">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-source="CRM本地">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260714-029">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-029" data-lead-name="赵女士">查看时间轴</button></div></td>'}
+                      : '<td><span class="badge badge-green">跟进中</span><br><span class="muted">系统自动分配｜首次回访剩余 2 天</span></td><td><span class="badge badge-gray">未定级</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-advisor="王敏">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-phone="15800006712" data-lead-source="CRM本地" data-lead-branch="武汉分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-source="CRM本地">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260714-029">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-029" data-lead-name="赵女士">查看时间轴</button></div></td>'}
                   </tr>
                   <tr data-lead-row data-id="L-20260713-022" data-phone="13600009836" data-name="林女士" data-region="华南" data-advisor="黄琳" data-intent="A" data-status="跟进中" data-manager="刘洁" data-branch="广州分院" data-source="HIS">
                     <td>L-20260713-022</td><td><strong>林女士</strong></td><td>13600009836</td>
@@ -4105,7 +4106,7 @@
                       ? '<td><span class="badge badge-gray">已签约</span><br><span class="muted">法大大合同已关联</span></td><td><span class="badge badge-amber">A</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-customer-archive-id="ARC-202607-0001">查看客户档案</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260713-022">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260713-022" data-lead-name="林女士">查看时间轴</button></div></td>'
                       : state.leadFollowTerminated
                       ? '<td><span class="badge badge-gray">终止跟进</span><br><span class="muted">原因：患者暂缓治疗</span></td><td><span class="badge badge-amber">A</span></td><td><div class="compact-actions"><button class="btn" data-lead-action="registration" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260713-022">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260713-022" data-lead-name="林女士">查看时间轴</button></div></td>'
-                      : '<td><span class="badge badge-green">跟进中</span><br><span class="muted">A 类｜明日完成第 2 次回访</span></td><td><span class="badge badge-amber">A</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-advisor="黄琳">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260713-022">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260713-022" data-lead-name="林女士">查看时间轴</button></div></td>'}
+                      : '<td><span class="badge badge-green">跟进中</span><br><span class="muted">A 类｜明日完成第 2 次回访</span></td><td><span class="badge badge-amber">A</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-advisor="黄琳">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-phone="13600009836" data-lead-source="HIS" data-lead-branch="广州分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260713-022">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260713-022" data-lead-name="林女士">查看时间轴</button></div></td>'}
                   </tr>
                   <tr data-lead-row data-id="L-20260711-015" data-phone="13500004187" data-name="孙女士" data-region="华南" data-advisor="黄琳" data-intent="B" data-status="终止跟进" data-manager="刘洁" data-branch="广州分院" data-source="飞书">
                     <td>L-20260711-015</td><td><strong>孙女士</strong></td><td>13500004187</td>
@@ -4130,6 +4131,7 @@
           <section class="panel customer-rules-doc lead-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>线索管理规则说明</h2><span class="muted">规则来源：<a href="线索管理.md" target="_blank" rel="noopener">线索管理.md</a>；下方内容与规则文档同步展示。</span></div><span class="badge badge-blue">只读展示</span></div><iframe src="线索管理规则说明.html" title="线索管理规则说明"></iframe></div></section>
         </section>
       `;
+      state.deletedLeadIds.forEach((id) => mainEl.querySelector(`[data-lead-row][data-id="${id}"]`)?.remove());
       setRule("R-01");
     }
 
@@ -5890,7 +5892,7 @@
           <div class="registration-grid lead-new-form">
             <div class="registration-item"><strong>线索提供日期 *</strong><input value="2026/08/06" aria-label="线索提供日期"></div>
             <div class="registration-item"><strong>患者姓名 *</strong><input value="周女士" aria-label="患者姓名"></div>
-            <div class="registration-item"><strong>患者电话（可选）</strong><div class="phone-check-row"><input value="13900001234" aria-label="患者电话"><button class="btn" type="button" data-lead-phone-check>查重</button></div><span class="attachment-file-name phone-check-result" id="leadPhoneCheckResult">请输入手机号后点击查重</span></div>
+            <div class="registration-item phone-check-item"><strong>患者电话（可选）</strong><div class="phone-check-row"><input value="13900001234" aria-label="患者电话"><button class="btn" type="button" data-lead-phone-check>查重</button></div><span class="attachment-file-name phone-check-result" id="leadPhoneCheckResult">请输入手机号后点击查重</span></div>
             <div class="registration-item"><strong>线索提供分院 *</strong><select aria-label="线索提供分院" data-lead-branch-select><option>深圳福田分院</option><option>广州天河分院</option><option>北京朝阳分院</option><option>武汉分院</option></select></div>
             <div class="registration-item"><strong>线索来源 *</strong><input value="患者自来" aria-label="线索来源" placeholder="请输入线索来源，如患者自来、亲友推荐"></div>
             <div class="registration-item wide"><strong>线索提供人－内部人员 *</strong><input value="门诊同事｜王敏" aria-label="内部线索提供人"></div>
@@ -5924,21 +5926,32 @@
         rule: "R-01",
         cancel: "否，暂不创建",
         submit: "是，继续创建",
-        body: () => `<div class="status-source"><strong>${state.newLeadDuplicate.name || "新建线索"}｜${state.newLeadDuplicate.phone}</strong><span>系统发现该手机号已存在线索 ${state.newLeadDuplicate.existingId || "—"}。</span></div><div class="rule-callout"><span class="badge badge-red">重复线索</span><span>是否仍要创建本条线索？选择“是，继续创建”后，当前线索将标记为“重复线索待处理”，由线索管理员后续处理。</span></div>`
+        body: () => `<div class="status-source"><strong>${state.newLeadDuplicate.name || "新建线索"}｜${state.newLeadDuplicate.phone}</strong><span>系统发现该手机号已存在线索 ${state.newLeadDuplicate.existingId || "—"}。</span></div><div class="rule-callout"><span class="badge badge-red">手机号重复</span><span>手机号重复仅作标识，不影响本条线索创建和后续分配、跟进。</span></div>`
+      },
+      "delete-lead": {
+        title: "删除线索",
+        rule: "R-01",
+        submit: "确认删除",
+        body: () => { const lead = state.leadDeleteTarget; return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>删除后将移入线索回收箱，可由线索管理员复原。</span></div><div class="rule-callout"><span class="badge badge-red">删除确认</span><span>该操作不会以手机号判断是否重复；请确认该线索不再需要继续分配或跟进。</span></div>`; }
       },
       "recycle-bin": {
         title: "线索回收箱",
         rule: "R-01",
         submit: "关闭",
-        body: () => (state.recycleBinSeedVisible || Object.values(state.duplicateLeadResults).includes("delete"))
-          ? `<div class="status-source"><strong>已删除线索</strong><span>删除线索保留来源登记表和操作时间轴，可由线索管理员复原。</span></div><table class="small-table"><thead><tr><th>线索 ID</th><th>姓名</th><th>手机号</th><th>来源</th><th>提供分院</th><th>删除时间</th><th>删除原因</th><th>操作</th></tr></thead><tbody><tr><td>L-20260712-008</td><td>李女士</td><td>13600005678</td><td>CRM本地</td><td>广州天河分院</td><td>今日 09:20</td><td>测试数据清理</td><td><button class="btn btn-primary" data-recycle-restore>复原</button></td></tr></tbody></table><p class="muted" style="margin-top:12px;">复原后，线索恢复为“重复线索待处理”，仍由提供分院线索管理员处理。</p>`
-          : `<div class="status-source"><strong>已删除线索</strong><span>删除线索保留来源登记表和操作时间轴，可由线索管理员复原。</span></div><table class="small-table"><thead><tr><th>线索 ID</th><th>姓名</th><th>手机号</th><th>来源</th><th>提供分院</th><th>删除时间</th><th>删除原因</th><th>操作</th></tr></thead><tbody><tr><td colspan="8" class="muted" style="text-align:center; padding:24px;">暂无已删除线索</td></tr></tbody></table><p class="muted" style="margin-top:12px;">删除的线索会保留在此，可随时复原。</p>`
+        body: () => {
+          const seed = state.recycleBinSeedVisible ? [{ id: "L-20260712-008", name: "李女士", phone: "13600005678", source: "CRM本地", branch: "广州天河分院", deletedAt: "今日 09:20", reason: "测试数据清理" }] : [];
+          const records = [...seed, ...state.deletedLeads];
+          const rows = records.length
+            ? records.map((lead) => `<tr><td>${lead.id}</td><td>${lead.name}</td><td>${lead.phone || "—"}</td><td>${lead.source || "—"}</td><td>${lead.branch || "—"}</td><td>${lead.deletedAt}</td><td>${lead.reason}</td><td><button class="btn btn-primary" data-recycle-restore data-recycle-id="${lead.id}">复原</button></td></tr>`).join("")
+            : '<tr><td colspan="8" class="muted" style="text-align:center; padding:24px;">暂无已删除线索</td></tr>';
+          return `<div class="status-source"><strong>已删除线索</strong><span>删除线索保留来源登记表和操作时间轴，可由线索管理员复原。</span></div><table class="small-table"><thead><tr><th>线索 ID</th><th>姓名</th><th>手机号</th><th>来源</th><th>提供分院</th><th>删除时间</th><th>删除原因</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table><p class="muted" style="margin-top:12px;">删除的线索会保留在此，可随时复原。</p>`;
+        }
       },
       "duplicate-confirm": {
         title: "处理重复线索",
         rule: "R-01",
         submit: "提交处理结果",
-        body: () => { const lead = state.duplicateLeadTarget === "guangzhou" ? ["王女士", "L-20260806-034", "13900004821", "HIS", "广州天河分院", "L-20260805-118"] : ["刘女士", "L-20260806-019", "13800005266", "企业微信", "深圳福田分院", "L-20260805-207"]; return `<div class="status-source"><strong>${lead[0]}｜${lead[1]}｜${lead[3]}</strong><span>手机号 ${lead[2]} 与现有线索 ${lead[5]} 相同；两条线索均独立保留来源和登记表，不自动合并。</span></div><div class="form-row"><label>处理结果 *</label><select id="duplicateResolution"><option value="">请选择处理结果</option><option value="delete">删除本条重复线索</option><option value="independent">保留为独立线索</option></select></div><div class="form-row"><label>处理备注 *</label><textarea>已核对同手机号线索，记录处理结论。</textarea></div><div class="rule-callout"><span class="badge badge-red">仅线索管理员</span><span>保留后，广州天河分院进入待分配；深圳福田分院自动分配唯一可接收顾问。</span></div>`; }
+        body: () => { const lead = state.duplicateLeadTarget === "guangzhou" ? ["王女士", "L-20260806-034", "13900004821", "HIS", "广州天河分院", "L-20260805-118"] : ["刘女士", "L-20260806-019", "13800005266", "企业微信", "深圳福田分院", "L-20260805-207"]; return `<div class="status-source"><strong>${lead[0]}｜${lead[1]}｜${lead[3]}</strong><span>手机号 ${lead[2]} 与现有线索 ${lead[5]} 相同。</span></div><div class="form-row"><label>处理结果 *</label><select id="duplicateResolution"><option value="">请选择处理结果</option><option value="delete">删除本条重复线索</option><option value="independent">保留为独立线索</option></select></div><div class="form-row"><label>处理备注 *</label><textarea>已核对同手机号线索，记录处理结论。</textarea></div>`; }
       },
       "change-advisor": {
         title: "更换顾问",
@@ -6020,7 +6033,7 @@
               : state.duplicateLeadResolution === "independent"
                 ? '<div class="lead-audit-item"><strong>线索管理员·张敏｜今日 10:20</strong><span>操作内容：确认保留为独立线索</span><span>备注：关联线索 L-20260713-118；当前线索转入深圳分院待分配队列。</span></div>'
                 : '';
-            return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>当前线索为独立 HIS 来源，按时间顺序展示操作及备注</span></div><div class="lead-audit-timeline"><div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：HIS 日批同步入库</span><span>备注：已创建独立 HIS 来源线索，并写入来源分院。</span></div><div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：手机号重复识别</span><span>备注：发现线索 L-20260713-118 手机号相同，当前线索标记为“重复线索待处理”，未分配顾问。</span></div>${resolution}</div>`;
+            return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>当前线索为独立 HIS 来源，按时间顺序展示操作及备注</span></div><div class="lead-audit-timeline"><div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：HIS 日批同步入库</span><span>备注：已创建独立 HIS 来源线索，并写入来源分院。</span></div><div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：手机号重复识别</span><span>备注：发现线索 L-20260713-118 手机号相同，已标注重复提示，不影响后续分配。</span></div>${resolution}</div>`;
           }
           const termination = state.leadFollowTerminated && lead.id === "L-20260713-022" ? '<div class="lead-audit-item"><strong>顾问·黄琳｜今日 15:30</strong><span>操作内容：终止跟进</span><span>备注：患者暂缓治疗，已停止自动回访并记录终止原因。</span></div>' : "";
           const statusEvent = lead.id === "L-20260711-015"
@@ -6042,6 +6055,7 @@
       state.leadModalAction = action;
       if (action === "duplicate-confirm") state.duplicateLeadTarget = context.duplicateKey || "";
       if (action === "new-duplicate-confirm") state.newLeadDuplicate = { name: context.name || "", phone: context.phone || "", existingId: context.existingId || "" };
+      if (action === "delete-lead") state.leadDeleteTarget = { id: context.id || "", name: context.name || "", phone: context.phone || "", source: context.source || "", branch: context.branch || "" };
       if (action === "timeline") state.leadTimeline = { id: context.id || "L-20260714-034", name: context.name || "王女士" };
       if (action === "registration") state.leadRegistration = { id: context.id || "L-20260714-031", name: context.name || "陈女士", source: context.source || "飞书" };
       if (action === "contract-sign") state.leadContractTarget = { id: context.id || "", name: context.name || "", advisor: context.advisor || "" };
@@ -6129,7 +6143,18 @@
       }
       if (action === "new-duplicate-confirm") {
         closeLeadModal();
-        showToast("线索已继续创建，数据来源已自动记录为 CRM本地，并标记为重复线索待处理。");
+        showToast("线索已继续创建，数据来源已自动记录为 CRM本地，手机号重复已标识。");
+        return;
+      }
+      if (action === "delete-lead") {
+        const lead = state.leadDeleteTarget;
+        if (!state.deletedLeadIds.includes(lead.id)) {
+          state.deletedLeadIds.push(lead.id);
+          state.deletedLeads.push({ ...lead, deletedAt: "刚刚", reason: "手工删除" });
+        }
+        closeLeadModal();
+        render();
+        showToast("线索已删除并移入回收箱。");
         return;
       }
       if (action === "registration" && state.leadRegistration.source === "CRM本地") {
@@ -6499,8 +6524,8 @@
     function openLeadManagerDetailModal(name) {
       const leadRows = {
         "张敏": [
-          ["L-20260806-034", "王女士", "广州天河分院", "重复线索待处理", "待核对", "2026-08-06 10:24"],
-          ["L-20260806-019", "刘女士", "深圳福田分院", "重复线索待处理", "待核对", "2026-08-06 09:40"],
+          ["L-20260806-034", "王女士", "广州天河分院", "待分配", "手机号重复提示", "2026-08-06 10:24"],
+          ["L-20260806-019", "刘女士", "深圳福田分院", "跟进中", "手机号重复提示", "2026-08-06 09:40"],
           ["L-20260708-019", "刘女士", "上海徐汇分院", "公共池重新分配", "待分配", "2026-07-08 15:35"],
           ["L-20260714-031", "陈女士", "北京朝阳分院", "顾问分配", "待分配", "2026-07-14 11:20"]
         ],
@@ -7301,14 +7326,14 @@
       }
 
       if (event.target.closest("[data-recycle-restore]")) {
-        state.recycleBinSeedVisible = false;
-        Object.keys(state.duplicateLeadResults).forEach((key) => {
-          if (state.duplicateLeadResults[key] === "delete") state.duplicateLeadResults[key] = "";
-        });
+        const restoreId = event.target.closest("[data-recycle-restore]").dataset.recycleId;
+        if (restoreId === "L-20260712-008") state.recycleBinSeedVisible = false;
+        state.deletedLeadIds = state.deletedLeadIds.filter((id) => id !== restoreId);
+        state.deletedLeads = state.deletedLeads.filter((lead) => lead.id !== restoreId);
         closeLeadModal();
         render();
         setRule("R-01");
-        showToast("线索已复原，恢复为重复线索待处理。");
+        showToast("线索已复原，可继续分配或跟进。");
         return;
       }
 
@@ -7345,7 +7370,7 @@
           showToast(`已跳转至回访管理：已按线索 ID ${leadId} 筛选。`);
           return;
         }
-        openLeadModal(leadAction.dataset.leadAction, { id: leadAction.dataset.leadId, name: leadAction.dataset.leadName, source: leadAction.dataset.leadSource, duplicateKey: leadAction.dataset.duplicateKey });
+        openLeadModal(leadAction.dataset.leadAction, { id: leadAction.dataset.leadId, name: leadAction.dataset.leadName, phone: leadAction.dataset.leadPhone, source: leadAction.dataset.leadSource, branch: leadAction.dataset.leadBranch, duplicateKey: leadAction.dataset.duplicateKey });
         return;
       }
 
