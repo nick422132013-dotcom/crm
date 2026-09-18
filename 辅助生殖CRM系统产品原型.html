@@ -2094,9 +2094,131 @@
       display: block;
     }
 
+    .follow-result-dialog {
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .follow-result-dialog .dialog-body {
+      min-height: 0;
+      overflow: auto;
+    }
+
+    .follow-result-dialog .dialog-head,
+    .follow-result-dialog .dialog-foot {
+      flex: 0 0 auto;
+    }
+
+    .required-mark { color: #d14343; }
+    .field-error { border-color: #d14343 !important; box-shadow: 0 0 0 2px rgba(209, 67, 67, .12); }
+    .field-error-message { margin: 0; color: #c73737; font-size: 12px; }
+
     .follow-patient-summary { margin-bottom: 12px; }
     .follow-patient-panel { padding: 14px; }
     .follow-patient-panel .small-table { min-width: 720px; }
+
+    .medical-record-layout {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      min-height: 560px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+
+    .medical-record-dates {
+      padding: 14px 10px;
+      border-right: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .medical-record-dates h3 {
+      margin: 0 4px 10px;
+      font-size: 14px;
+    }
+
+    .medical-record-dates p {
+      margin: 0 4px 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .medical-record-date {
+      width: 100%;
+      display: grid;
+      gap: 4px;
+      padding: 11px 10px;
+      margin: 6px 0;
+      text-align: left;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .medical-record-date strong { font-size: 14px; }
+    .medical-record-date span { color: var(--muted); font-size: 12px; }
+    .medical-record-date.is-active { border-color: #7eb2ff; background: #eef6ff; }
+    .medical-record-date.is-active strong { color: var(--primary-strong); }
+
+    .medical-record-content { padding: 18px; overflow: auto; }
+    .medical-record-document {
+      max-width: 780px;
+      min-height: 520px;
+      margin: 0 auto;
+      padding: 26px 34px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, .08);
+      color: #27364a;
+      line-height: 1.75;
+    }
+
+    .medical-record-document h2 { margin: 0; text-align: center; font-size: 21px; line-height: 1.35; }
+    .medical-record-document .record-hospital { margin: 0 0 12px; text-align: center; color: #64748b; font-size: 13px; }
+    .medical-record-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 20px; padding: 10px 0; border-bottom: 2px solid #64748b; font-size: 13px; }
+    .medical-record-document section { padding: 12px 0 0; }
+    .medical-record-document h4 { margin: 0 0 4px; font-size: 14px; color: #172033; }
+    .medical-record-document p { margin: 2px 0; font-size: 13px; }
+    .medical-record-document .record-signature { margin-top: 38px; text-align: right; }
+
+    .lab-subtabs { display: flex; gap: 20px; padding: 0 14px; border-bottom: 1px solid var(--line); }
+    .lab-subtab { padding: 10px 2px 9px; color: var(--muted); background: transparent; border: 0; border-bottom: 2px solid transparent; font-weight: 700; cursor: pointer; }
+    .lab-subtab.is-active { color: var(--primary-strong); border-bottom-color: var(--primary); }
+    .lab-report-layout { display: grid; grid-template-columns: 235px minmax(0, 1fr); min-height: 540px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+    .lab-report-list { padding: 10px; border-right: 1px solid var(--line); background: #fafcff; }
+    .lab-report-list h3 { margin: 4px 6px 10px; font-size: 14px; }
+    .lab-report-item { width: 100%; display: grid; gap: 5px; padding: 11px 10px; margin-bottom: 6px; text-align: left; background: #fff; border: 1px solid transparent; border-radius: 7px; color: var(--ink); cursor: pointer; }
+    .lab-report-item strong { font-size: 13px; }
+    .lab-report-item span { color: var(--muted); font-size: 12px; }
+    .lab-report-item.is-active { background: #eef6ff; border-color: #7eb2ff; }
+    .lab-report-item.is-active strong { color: var(--primary-strong); }
+    .lab-report-detail { padding: 16px; overflow: auto; }
+    .lab-report-title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .lab-report-title h3 { margin: 0; font-size: 16px; }
+    .lab-report-title span { color: var(--muted); font-size: 12px; }
+    .lab-result-table { min-width: 700px; border-collapse: collapse; }
+    .lab-result-table th, .lab-result-table td { padding: 8px 9px; border: 1px solid #e5e7eb; text-align: left; font-size: 12px; }
+    .lab-result-table th { background: #f6f8fb; color: #475569; white-space: nowrap; }
+    .lab-result-table .is-low { color: #2563eb; font-weight: 800; }
+    .lab-result-table .is-high { color: #dc2626; font-weight: 800; }
+
+    @media (max-width: 720px) {
+      .medical-record-layout { grid-template-columns: 1fr; }
+      .medical-record-dates { border-right: 0; border-bottom: 1px solid var(--line); display: flex; overflow-x: auto; gap: 6px; }
+      .medical-record-dates h3, .medical-record-dates p { display: none; }
+      .medical-record-date { min-width: 150px; margin: 0; }
+      .medical-record-content { padding: 10px; }
+      .medical-record-document { padding: 20px; }
+      .medical-record-meta { grid-template-columns: repeat(2, 1fr); }
+      .lab-report-layout { grid-template-columns: 1fr; }
+      .lab-report-list { border-right: 0; border-bottom: 1px solid var(--line); display: flex; gap: 6px; overflow-x: auto; }
+      .lab-report-list h3 { display: none; }
+      .lab-report-item { min-width: 180px; margin: 0; }
+    }
 
     .lead-registration-dialog {
       width: min(860px, 96vw);
@@ -3682,6 +3804,9 @@
       followModalAction: null,
       followTaskId: "",
       followPatientDetailTab: "medical",
+      followMedicalRecordDate: "2026-07-12",
+      followLabSubtab: "report",
+      followLabReportId: "cbc",
       followRuleConfig: {
         firstVisitHours: 24,
         intervals: { A: [2, 3, 5, 7, 15], B: [5, 7, 15, 21, 21], C: [7, 15, 21, 30, 30], D: [15, 21, 30, 60, 60] }
@@ -4162,11 +4287,22 @@
       const fields = event.type === "已联系" ? [
         ["回访时间", event.time],
         ["回访人", event.operator],
-        ["任务结果", event.result],
-        ["沟通内容", event.content],
-        ["结果摘要", event.summary],
+        ...(event.followMethod ? [
+          ["回访方式", event.followMethod],
+          ["患者当前阶段", event.patientStage],
+          ["主要沟通事项", event.communicationTopic],
+          ["患者主要顾虑", event.patientConcern],
+          ["是否需要推荐医生介入", event.doctorIntervention],
+          ["跟进计划", event.followPlan],
+          ["回访计划", event.returnPlan],
+          ...(event.remark ? [["备注", event.remark]] : [])
+        ] : [
+          ["任务结果", event.result],
+          ["沟通内容", event.content],
+          ["结果摘要", event.summary]
+        ]),
         ["意向等级", event.intent],
-        ...(event.tags ? [["医学标签", event.tags]] : [])
+        ...(!event.followMethod && event.tags ? [["医学标签", event.tags]] : [])
       ] : event.type === "未联系" ? [
         ["回访时间", event.time],
         ["回访人", event.operator],
@@ -4207,12 +4343,51 @@
       return `<div class="status-source"><strong>${task.name}｜${task.id}</strong><span>按时间倒序展示历史回访、改期与顾问变更记录。</span></div><div class="follow-audit-timeline">${rows}</div>`;
     }
 
+    function renderMedicalRecordTab(task) {
+      const records = [
+        { date: "2026-07-12", doctor: "张医生", type: "初诊病历", department: "妇科 / 生殖医学科", chief: "备孕咨询，既往自然流产 1 次，计划评估辅助生殖方案。", history: "2022 年结婚，夫妻双方初婚，婚后性生活正常，婚后未避孕。2024 年曾自然妊娠后胎停，已行清宫；此后规律备孕未孕。", assessment: "生育力初步评估，建议完善基础检查后复诊。", advice: "完善性激素六项、AMH、妇科超声及男方精液检查；携带既往检查资料复诊。" },
+        { date: "2026-07-08", doctor: "李医生", type: "复诊病历", department: "妇科 / 生殖医学科", chief: "携带基础检查结果复诊，咨询后续治疗路径。", history: "基础检查资料已初步收集，患者关注成功率、治疗周期及就诊安排；既往妊娠相关病史同前。", assessment: "结合当前检查结果，建议由主诊医生评估后确定辅助生殖方案。", advice: "安排医生面谈，结合卵巢储备及双方检查结果制定个体化方案。" },
+        { date: "2026-07-02", doctor: "王医生", type: "病历补录", department: "妇科", chief: "初次咨询备孕及试管相关流程。", history: "患者自述备孕时间较长，既往未进行系统生殖评估，暂无明确药物过敏史。", assessment: "建议完成初诊建档及基础生育评估。", advice: "先完成女方基础检查与男方精液检查，检查齐全后预约复诊。" }
+      ];
+      const selected = records.find((record) => record.date === state.followMedicalRecordDate) || records[0];
+      return `<div class="medical-record-layout">
+        <aside class="medical-record-dates">${records.map((record) => `<button class="medical-record-date ${record.date === selected.date ? "is-active" : ""}" data-medical-record-date="${record.date}"><strong>${record.date}</strong><span>${record.doctor}</span></button>`).join("")}</aside>
+        <div class="medical-record-content"><article class="medical-record-document">
+          <p class="record-hospital">木棉花珠城医疗门诊部</p><h2>门诊病历</h2>
+          <div class="medical-record-meta"><span>姓名：${task.name}</span><span>性别：女</span><span>年龄：35</span><span>就诊时间：${selected.date}</span><span>科别：${selected.department}</span><span>门诊号：OP-${selected.date.replaceAll("-", "")}</span><span>常住地：广东省深圳市</span><span>手机号：${task.phone}</span><span>记录人：${selected.doctor}</span></div>
+          <section><h4>主诉：</h4><p>${selected.chief}</p></section>
+          <section><h4>现病史：</h4><p>${selected.history}</p></section>
+          <section><h4>月经史：</h4><p>月经规律，周期 28—30 天，经量中等，色暗红；末次月经时间请以 HIS 记录为准。</p></section>
+          <section><h4>婚育史：</h4><p>已婚，孕 1 产 0；既往有胎停史，双方初婚。</p></section>
+          <section><h4>既往史 / 家族史：</h4><p>否认肝炎、结核、STD 等传染性疾病史；否认家族遗传性疾病史；否认药物及食物过敏史。</p></section>
+          <section><h4>体格检查：</h4><p>女方身高 160cm，体重 54kg；生命体征平稳。男方 36 岁，建议完善精液检查。</p></section>
+          <section><h4>辅助检查：</h4><p>检验及超声结果详见“检验”“检查”页签及 HIS 报告。</p></section>
+          <section><h4>初步诊断：</h4><p>${selected.assessment}</p></section>
+          <section><h4>处理意见：</h4><p>${selected.advice}</p></section><p class="record-signature">医生签名：${selected.doctor}　　日期：${selected.date}</p>
+        </article></div></div>`;
+    }
+
+    function renderLabReportTab() {
+      const reports = [
+        { id: "cbc", name: "血常规五分类", specimen: "EDTA 抗凝血", time: "2026-07-10 08:53", rows: [["WBC", "白细胞计数", "4.53", "", "[4.00-10.00]", "10^9/L"], ["LYM#", "淋巴细胞计数", "1.27", "", "[0.80-4.00]", "10^9/L"], ["NEU#", "中性粒细胞计数", "2.92", "", "[2.00-7.00]", "10^9/L"], ["HGB", "血红蛋白", "110.0", "", "[110-160]", "g/L"], ["HCT", "红细胞压积", "33.30", "↓", "[37.00-54.00]", "%"], ["MCV", "平均红细胞体积", "75.4", "↓", "[80.00-100.00]", "fl"], ["PLT", "血小板计数", "236.0", "", "[100-300]", "10^9/L"]] },
+        { id: "hormone", name: "性激素六项", specimen: "血清", time: "2026-07-09 09:16", rows: [["FSH", "促卵泡激素", "6.32", "", "[3.03-8.08]", "IU/L"], ["LH", "促黄体生成素", "5.18", "", "[2.39-6.60]", "IU/L"], ["E2", "雌二醇", "48.20", "", "[21-251]", "pg/mL"], ["PRL", "泌乳素", "18.60", "", "[4.79-23.30]", "ng/mL"], ["T", "睾酮", "0.42", "", "[0.10-0.75]", "ng/mL"], ["P", "孕酮", "0.36", "", "[0.31-1.52]", "ng/mL"]] },
+        { id: "amh", name: "AMH", specimen: "血清", time: "2026-07-09 09:16", rows: [["AMH", "抗缪勒管激素", "1.28", "", "[0.18-5.68]", "ng/mL"]] }
+      ];
+      const selected = reports.find((report) => report.id === state.followLabReportId) || reports[0];
+      return `<div class="lab-report-layout"><aside class="lab-report-list"><h3>检验报告</h3>${reports.map((report) => `<button class="lab-report-item ${report.id === selected.id ? "is-active" : ""}" data-lab-report-id="${report.id}"><strong>${report.name}</strong><span>${report.specimen} · ${report.time}</span></button>`).join("")}</aside><div class="lab-report-detail"><div class="lab-report-title"><h3>项目 - ${selected.name}</h3><span>检验时间：${selected.time}　标本：${selected.specimen}</span></div><div style="overflow-x:auto"><table class="lab-result-table"><thead><tr><th>序号</th><th>英文名称</th><th>中文名称</th><th>检验结果</th><th>结果状态</th><th>参考值</th><th>单位</th><th>备注</th></tr></thead><tbody>${selected.rows.map((row, index) => `<tr><td>${index + 1}</td><td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td class="${row[3] === "↓" ? "is-low" : row[3] === "↑" ? "is-high" : ""}">${row[3]}</td><td>${row[4]}</td><td>${row[5]}</td><td>${row[3] === "↓" ? "偏低" : row[3] === "↑" ? "偏高" : ""}</td></tr>`).join("")}</tbody></table></div></div></div>`;
+    }
+
+    function renderLaboratoryTab() {
+      const subtab = state.followLabSubtab;
+      return `<div class="lab-subtabs" role="tablist" aria-label="检验子页"><button class="lab-subtab ${subtab === "report" ? "is-active" : ""}" data-follow-lab-tab="report">检验报告</button><button class="lab-subtab ${subtab === "indicators" ? "is-active" : ""}" data-follow-lab-tab="indicators">重要指标</button></div>${subtab === "report" ? renderLabReportTab() : '<div class="follow-patient-panel"><div class="status-source"><strong>重要指标</strong><span>重要指标页将在下一步补充。</span></div></div>'}`;
+    }
+
     function renderFollowPatientDetail(task) {
       const tab = state.followPatientDetailTab;
       const tabs = [["medical", "患者病历"], ["laboratory", "检验"], ["examination", "检查"], ["registration", "线索登记表"]];
       const content = {
-        medical: `<div class="follow-patient-panel"><div class="status-source follow-patient-summary"><strong>病历摘要</strong><span>病历与治疗信息来源于 HIS / 互创同步，仅供查看。</span></div><div style="overflow-x:auto;"><table class="small-table"><thead><tr><th>日期</th><th>病历类型</th><th>诊疗摘要</th><th>来源</th><th>最近同步</th></tr></thead><tbody><tr><td>2026-07-12</td><td>初诊病历</td><td>已完成生育力评估，建议完善基础检查后复诊。</td><td><span class="badge badge-blue">HIS</span></td><td>2026-07-12</td></tr><tr><td>2026-07-08</td><td>治疗方案摘要</td><td>结合当前检查结果，建议由主诊医生评估后确定辅助生殖方案。</td><td><span class="badge badge-purple">互创</span></td><td>2026-07-08</td></tr></tbody></table></div></div>`,
-        laboratory: `<div class="follow-patient-panel"><div class="status-source follow-patient-summary"><strong>检验结果</strong><span>展示已同步的结构化检验结果；完整报告以 HIS 为准。</span></div><div style="overflow-x:auto;"><table class="small-table"><thead><tr><th>检验日期</th><th>项目</th><th>结果摘要</th><th>状态</th><th>来源</th></tr></thead><tbody><tr><td>2026-07-10</td><td>性激素六项</td><td>结果已回传，建议结合月经周期由医生解读。</td><td><span class="badge badge-green">已同步</span></td><td>HIS</td></tr><tr><td>2026-07-09</td><td>AMH</td><td>已完成检测，数值详见 HIS 检验报告。</td><td><span class="badge badge-green">已同步</span></td><td>HIS</td></tr></tbody></table></div></div>`,
+        medical: renderMedicalRecordTab(task),
+        laboratory: renderLaboratoryTab(),
         examination: `<div class="follow-patient-panel"><div class="status-source follow-patient-summary"><strong>检查结果</strong><span>展示已同步的检查结论；完整报告以 HIS 为准。</span></div><div style="overflow-x:auto;"><table class="small-table"><thead><tr><th>检查日期</th><th>项目</th><th>检查结论</th><th>状态</th><th>来源</th></tr></thead><tbody><tr><td>2026-07-08</td><td>妇科超声检查</td><td>检查结论已同步至病历摘要，建议由主诊医生结合诊疗情况解读。</td><td><span class="badge badge-green">已同步</span></td><td>HIS</td></tr><tr><td>2026-07-06</td><td>输卵管通畅度检查</td><td>报告已归档，详见 HIS 检查报告。</td><td><span class="badge badge-green">已同步</span></td><td>HIS</td></tr></tbody></table></div></div>`,
         registration: `<div class="follow-patient-panel"><div class="status-source follow-patient-summary"><strong>试管线索登记表｜统一字段结构</strong><span>展示该患者唯一线索 ID 对应的只读登记信息。</span></div><div class="registration-grid"><div class="registration-item"><strong>线索提供日期 *</strong><span>2026/07/05</span></div><div class="registration-item"><strong>患者姓名 *</strong><span>${task.name}</span></div><div class="registration-item"><strong>患者电话（可选）</strong><span>${task.phone}</span></div><div class="registration-item"><strong>该手机号是否重复录入</strong><span>待人工核对</span></div><div class="registration-item"><strong>线索提供分院 *</strong><span>${task.sourceBranch}</span></div><div class="registration-item"><strong>线索来源 *</strong><span>企业微信</span></div><div class="registration-item wide"><strong>线索提供人－内部人员 *</strong><span>门诊同事｜王敏</span></div><div class="registration-item wide"><strong>线索提供人－外部人员 *</strong><span>无</span></div><div class="registration-item wide"><strong>患者情况概述 *</strong><span>患者咨询辅助生殖方案及检查安排，已完成初步信息登记，等待持续回访跟进。</span></div><div class="registration-item"><strong>患者年龄</strong><span>未填写</span></div><div class="registration-item"><strong>患者 AMH</strong><span>未填写</span></div><div class="registration-item"><strong>患者常住地</strong><span>未填写</span></div><div class="registration-item"><strong>既往/现试管医院</strong><span>未填写</span></div><div class="registration-item"><strong>过往取卵次数</strong><span>未填写</span></div><div class="registration-item"><strong>过往移植次数</strong><span>未填写</span></div><div class="registration-item"><strong>剩余胚胎数量</strong><span>未填写</span></div><div class="registration-item"><strong>线索管理员</strong><span>${task.leadManagers}</span></div><div class="registration-item wide"><strong>附件</strong><span>暂无附件</span></div></div></div>`
       };
@@ -6236,10 +6411,20 @@
           body: renderFollowPatientDetail(task)
         },
         contact: {
-          title: `录入回访结果｜${task.name}`,
-          submit: "确认完成",
+          title: "录入回访结果",
+          submit: "确定",
           rule: "R-23",
-          body: `<div class="status-source"><strong>${task.name}｜${task.intent} 类｜截止 ${task.due}</strong><span>填写沟通内容、结果摘要及意向等级后完成本次回访。</span></div><div class="form-row"><label>回访时间 *</label><input id="followVisitDate" type="date" value="${followToday}" max="${followToday}" ${lastFollowIso ? `min="${lastFollowIso}"` : ""} required><span class="muted">${followTimeHint}</span></div><div class="form-row"><label>沟通内容 *</label><textarea>已与患者沟通检查进度及套餐顾虑，患者预计周末与家属确认。</textarea></div><div class="form-row"><label>结果摘要 *</label><textarea>保持高意向，建议 3 天后再次回访。</textarea></div><div class="form-row"><label>意向等级 *</label><select><option ${task.intent === "A" ? "selected" : ""}>A</option><option ${task.intent === "B" ? "selected" : ""}>B</option><option ${task.intent === "C" ? "selected" : ""}>C</option><option>D</option></select></div>`
+          body: `<div class="status-source"><strong>${task.name}｜${task.intent} 类｜截止 ${task.due}</strong></div>
+            <div class="form-row"><label for="followVisitDate">回访时间 <span class="required-mark">*</span></label><input id="followVisitDate" data-follow-required type="date" value="${followToday}" max="${followToday}" ${lastFollowIso ? `min="${lastFollowIso}"` : ""}><span class="muted">${followTimeHint}</span></div>
+            <div class="form-row"><label for="followMethod">回访方式 <span class="required-mark">*</span></label><select id="followMethod" data-follow-required><option value="">请选择</option><option>电话</option><option>短信</option><option>微信</option><option>到院</option></select></div>
+            <div class="form-row"><label for="patientStage">患者当前阶段 <span class="required-mark">*</span></label><select id="patientStage" data-follow-required><option value="">请选择</option><option>外院有余胚</option><option>外院进周中</option><option>未进周</option><option>考虑中</option><option>已预约看诊</option><option>已面谈</option><option>已签约</option></select></div>
+            <div class="form-row"><label for="communicationTopic">主要沟通事项 <span class="required-mark">*</span></label><select id="communicationTopic" data-follow-required data-other-input="communicationTopicOther"><option value="">请选择</option><option>套餐介绍（费用解答）</option><option>医生推荐</option><option>失败史分析</option><option>到院邀约</option><option>签约跟进</option><option value="其它">其它</option></select><input id="communicationTopicOther" data-follow-other hidden placeholder="请填写其它沟通事项"></div>
+            <div class="form-row"><label for="patientConcern">患者主要顾虑 <span class="required-mark">*</span></label><select id="patientConcern" data-follow-required data-other-input="patientConcernOther"><option value="">请选择</option><option>费用</option><option>成功率</option><option>行程距离</option><option>时间</option><option>家人态度</option><option>医生选择</option><option>既往失败阴影</option><option value="其它">其它</option></select><input id="patientConcernOther" data-follow-other hidden placeholder="请填写其它顾虑"></div>
+            <div class="form-row"><label for="followIntent">意向等级 <span class="required-mark">*</span></label><select id="followIntent" data-follow-required><option value="">请选择</option><option ${task.intent === "A" ? "selected" : ""}>A</option><option ${task.intent === "B" ? "selected" : ""}>B</option><option ${task.intent === "C" ? "selected" : ""}>C</option><option ${task.intent === "D" ? "selected" : ""}>D</option></select></div>
+            <div class="form-row"><label for="doctorIntervention">是否需要推荐医生介入 <span class="required-mark">*</span></label><select id="doctorIntervention" data-follow-required><option value="">请选择</option><option>是</option><option>否</option></select></div>
+            <div class="form-row"><label for="followPlan">跟进计划 <span class="required-mark">*</span></label><select id="followPlan" data-follow-required data-other-input="followPlanOther"><option value="">请选择</option><option>预约看诊</option><option>到院接待</option><option>转医生沟通</option><option>签约跟进</option><option>暂不跟进</option><option value="其它">其它</option></select><input id="followPlanOther" data-follow-other hidden placeholder="请填写其它跟进计划"></div>
+            <div class="form-row"><label for="returnPlan">回访计划（C、D级别）</label><select id="returnPlan"><option value="">请选择（选填）</option><option>群发案例激活</option><option>朋友圈触达</option><option>定向案例分享</option><option>定向邀约</option></select></div>
+            <div class="form-row"><label for="followRemark">备注</label><textarea id="followRemark" placeholder="请填写备注（选填）"></textarea></div><p class="field-error-message" id="followValidationMessage" hidden>请完成所有必填项。</p>`
         },
         reschedule: {
           title: `改期回访任务｜${task.name}`,
@@ -6274,11 +6459,13 @@
       if (!config) return;
       const followDialog = $("#followModal").querySelector(".dialog");
       followDialog.classList.toggle("follow-patient-dialog", action === "patientDetail");
+      followDialog.classList.toggle("follow-result-dialog", action === "contact");
       $("#followModalTitle").textContent = config.title;
       $("#followModalBody").innerHTML = typeof config.body === "function" ? config.body() : config.body;
       $("#followModalSubmit").textContent = config.submit;
       $("#followModal").classList.add("is-open");
       $("#followModal").setAttribute("aria-hidden", "false");
+      if (action === "contact") syncFollowOtherFields();
       setRule(config.rule);
     }
 
@@ -6286,7 +6473,47 @@
       $("#followModal").classList.remove("is-open");
       $("#followModal").setAttribute("aria-hidden", "true");
       $("#followModal").querySelector(".dialog").classList.remove("follow-patient-dialog");
+      $("#followModal").querySelector(".dialog").classList.remove("follow-result-dialog");
       state.followModalAction = null;
+    }
+
+    function syncFollowOtherFields() {
+      $("#followModalBody").querySelectorAll("[data-other-input]").forEach((select) => {
+        const input = document.getElementById(select.dataset.otherInput);
+        if (!input) return;
+        const isOther = select.value === "其它";
+        input.hidden = !isOther;
+        input.required = isOther;
+        if (!isOther) {
+          input.value = "";
+          input.classList.remove("field-error");
+        }
+      });
+    }
+
+    function followFieldValue(selectId, otherId) {
+      const select = document.getElementById(selectId);
+      return select?.value === "其它" ? `其它：${document.getElementById(otherId)?.value.trim() || ""}` : (select?.value || "");
+    }
+
+    function validateFollowResult() {
+      const body = $("#followModalBody");
+      const invalid = Array.from(body.querySelectorAll("[data-follow-required]")).filter((field) => !field.value.trim());
+      body.querySelectorAll("[data-other-input]").forEach((select) => {
+        if (select.value === "其它") {
+          const otherInput = document.getElementById(select.dataset.otherInput);
+          if (otherInput && !otherInput.value.trim()) invalid.push(otherInput);
+        }
+      });
+      body.querySelectorAll(".field-error").forEach((field) => field.classList.remove("field-error"));
+      invalid.forEach((field) => field.classList.add("field-error"));
+      const message = $("#followValidationMessage");
+      if (message) message.hidden = invalid.length === 0;
+      if (invalid.length) {
+        invalid[0].focus();
+        return false;
+      }
+      return true;
     }
 
     function submitFollowModal() {
@@ -6294,6 +6521,7 @@
       const task = followUpTasks.find((item) => item.id === state.followTaskId);
       const newOwner = $("#followNewOwner")?.value || "";
       const ownerReason = ($("#followOwnerReason")?.value || "").trim();
+      if (action === "contact" && !validateFollowResult()) return;
       if (action === "rules") {
         const firstVisitHours = Number($("#followFirstVisitHours")?.value);
         const intervals = { A: [], B: [], C: [], D: [] };
@@ -6312,8 +6540,25 @@
         }
         return;
       }
+      const followResult = action === "contact" ? {
+        type: "已联系", time: $("#followVisitDate").value, operator: task?.owner || "当前顾问",
+        followMethod: $("#followMethod").value, patientStage: $("#patientStage").value,
+        communicationTopic: followFieldValue("communicationTopic", "communicationTopicOther"),
+        patientConcern: followFieldValue("patientConcern", "patientConcernOther"), intent: $("#followIntent").value,
+        doctorIntervention: $("#doctorIntervention").value,
+        followPlan: followFieldValue("followPlan", "followPlanOther"),
+        returnPlan: $("#returnPlan").value || "未制定", remark: $("#followRemark").value.trim()
+      } : null;
       closeFollowModal();
-      if (action === "contact") showToast("回访结果已保存：如意向等级发生变化，系统将从新等级的首档间隔重新生成下一次回访任务。");
+      if (action === "contact") {
+        if (task) {
+          task.intent = followResult.intent;
+          task.lastFollowDate = followResult.time;
+          followHistory[task.id] = followHistory[task.id] || [];
+          followHistory[task.id].unshift(followResult);
+        }
+        showToast("回访结果已保存：如意向等级发生变化，系统将从新等级的首档间隔重新生成下一次回访任务。");
+      }
       else if (action === "reschedule") showToast("任务已改期：原计划日期、改期原因和本次改期记录已留痕。");
       else if (action === "changeOwner" && task && newOwner) {
         const oldOwner = task.owner;
@@ -7240,9 +7485,41 @@
         return;
       }
 
+      const medicalRecordDate = event.target.closest("[data-medical-record-date]");
+      if (medicalRecordDate && state.followModalAction === "patientDetail") {
+        state.followMedicalRecordDate = medicalRecordDate.dataset.medicalRecordDate;
+        const task = followUpTasks.find((item) => item.id === state.followTaskId);
+        if (task) $("#followModalBody").innerHTML = renderFollowPatientDetail(task);
+        setRule("R-04");
+        return;
+      }
+
+      const followLabTab = event.target.closest("[data-follow-lab-tab]");
+      if (followLabTab && state.followModalAction === "patientDetail") {
+        state.followLabSubtab = followLabTab.dataset.followLabTab;
+        const task = followUpTasks.find((item) => item.id === state.followTaskId);
+        if (task) $("#followModalBody").innerHTML = renderFollowPatientDetail(task);
+        setRule("R-04");
+        return;
+      }
+
+      const labReport = event.target.closest("[data-lab-report-id]");
+      if (labReport && state.followModalAction === "patientDetail") {
+        state.followLabReportId = labReport.dataset.labReportId;
+        const task = followUpTasks.find((item) => item.id === state.followTaskId);
+        if (task) $("#followModalBody").innerHTML = renderFollowPatientDetail(task);
+        setRule("R-04");
+        return;
+      }
+
       const followAction = event.target.closest("[data-follow-action]");
       if (followAction) {
-        if (followAction.dataset.followAction === "patientDetail") state.followPatientDetailTab = "medical";
+        if (followAction.dataset.followAction === "patientDetail") {
+          state.followPatientDetailTab = "medical";
+          state.followMedicalRecordDate = "2026-07-12";
+          state.followLabSubtab = "report";
+          state.followLabReportId = "cbc";
+        }
         openFollowModal(followAction.dataset.followAction, followAction.dataset.taskId);
         return;
       }
@@ -7691,6 +7968,12 @@
     normalizeDialogHeadCloseButtons();
     $("#closeModal").addEventListener("click", closeModal);
     document.addEventListener("change", (event) => {
+      if (event.target.matches("#followModalBody [data-other-input]")) syncFollowOtherFields();
+      if (event.target.matches("#followModalBody [data-follow-required], #followModalBody [data-follow-other]")) {
+        event.target.classList.remove("field-error");
+        const message = $("#followValidationMessage");
+        if (message) message.hidden = true;
+      }
       if (event.target.matches("[data-lead-branch-select]")) {
         const managers = {
           "深圳福田分院": "张敏、王丽",
