@@ -765,6 +765,8 @@
       font-weight: 700;
     }
 
+    .follow-audit-action { grid-column: 1 / -1; display: flex; justify-content: flex-end; margin-top: 2px; }
+
     .main {
       grid-column: 2;
       grid-row: 3;
@@ -1529,6 +1531,40 @@
       background: var(--panel);
     }
 
+    .dictionary-workbench { display: grid; grid-template-columns: 290px minmax(0, 1fr); min-height: 650px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+    .dictionary-aside { padding: 14px; border-right: 1px solid var(--line); background: #fbfcff; }
+    .dictionary-aside-toolbar, .dictionary-detail-toolbar { display: flex; align-items: center; gap: 8px; }
+    .dictionary-aside-toolbar input, .dictionary-detail-toolbar input { min-width: 0; flex: 1; }
+    .dictionary-item-list { display: grid; gap: 4px; margin-top: 14px; max-height: 560px; overflow: auto; padding-right: 2px; }
+    .dictionary-item { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px; border: 0; border-radius: 6px; color: var(--ink); background: transparent; text-align: left; cursor: pointer; }
+    .dictionary-item:hover { background: var(--primary-soft); }
+    .dictionary-item.is-active { color: var(--primary); background: #e7f0ff; font-weight: 800; }
+    .dictionary-item-row { display: flex; align-items: center; border-radius: 6px; }
+    .dictionary-item-row:hover { background: var(--primary-soft); }
+    .dictionary-item-row.is-active { background: #e7f0ff; }
+    .dictionary-item-row.is-active .dictionary-item { color: var(--primary); font-weight: 800; }
+    .dictionary-item-actions { display: flex; padding-right: 8px; gap: 7px; white-space: nowrap; }
+    .dictionary-item-actions .btn-link { height: auto; padding: 2px 0; border: 0; color: var(--primary); background: transparent; font-size: 12px; }
+    .dictionary-item-actions .danger-text { color: var(--danger); }
+    .dictionary-item small { display: block; color: var(--muted); font-size: 11px; font-weight: 500; margin-top: 3px; }
+    .dictionary-item-more { color: var(--muted); font-size: 18px; line-height: 1; }
+    .dictionary-detail { padding: 22px; min-width: 0; }
+    .dictionary-detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+    .dictionary-detail-head h2 { margin: 0; font-size: 21px; }
+    .dictionary-detail-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .dictionary-value-table { margin-top: 18px; }
+    .dictionary-value-table td { vertical-align: middle; }
+    .dictionary-checkbox { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; }
+    .dictionary-empty { padding: 40px 12px; color: var(--muted); text-align: center; }
+    .dictionary-value-table .btn-link { height: auto; padding: 0; border: 0; color: var(--primary); background: transparent; }
+    .dictionary-value-table .danger-text { color: var(--danger); }
+
+    @media (max-width: 860px) {
+      .dictionary-workbench { grid-template-columns: 1fr; }
+      .dictionary-aside { border-right: 0; border-bottom: 1px solid var(--line); }
+      .dictionary-item-list { max-height: 220px; }
+    }
+
     .list-pagination {
       display: flex;
       align-items: center;
@@ -1569,8 +1605,8 @@
     .user-filter-field input, .user-filter-field select { height: 34px; padding: 0 9px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); }
     .user-filter-actions { display: flex; gap: 7px; }
 
-    .lead-intent-dropdown { position: relative; }
-    .lead-intent-toggle {
+    .lead-intent-dropdown, .lead-source-dropdown { position: relative; }
+    .lead-intent-toggle, .lead-source-toggle {
       width: 100%;
       display: flex;
       align-items: center;
@@ -1583,8 +1619,8 @@
       color: var(--ink);
       cursor: pointer;
     }
-    .lead-intent-toggle::after { content: "⌄"; color: var(--muted); }
-    .lead-intent-options {
+    .lead-intent-toggle::after, .lead-source-toggle::after { content: "⌄"; color: var(--muted); }
+    .lead-intent-options, .lead-source-options {
       position: absolute;
       z-index: 20;
       top: calc(100% + 4px);
@@ -1598,9 +1634,9 @@
       background: #fff;
       box-shadow: var(--shadow);
     }
-    .lead-intent-options[hidden] { display: none !important; }
-    .lead-intent-options button { padding: 7px 8px; border: 0 !important; border-radius: 5px; background: #fff !important; text-align: left; color: var(--ink); box-shadow: none !important; }
-    .lead-intent-options button:hover, .lead-intent-options button.is-selected { background: var(--primary-soft) !important; color: var(--primary-strong); }
+    .lead-intent-options[hidden], .lead-source-options[hidden] { display: none !important; }
+    .lead-intent-options button, .lead-source-options button { padding: 7px 8px; border: 0 !important; border-radius: 5px; background: #fff !important; text-align: left; color: var(--ink); box-shadow: none !important; }
+    .lead-intent-options button:hover, .lead-intent-options button.is-selected, .lead-source-options button:hover, .lead-source-options button.is-selected { background: var(--primary-soft) !important; color: var(--primary-strong); }
 
     .login-preview-page {
       min-height: calc(100vh - 150px);
@@ -2110,6 +2146,15 @@
       flex: 0 0 auto;
     }
 
+    .follow-result-readonly input[readonly],
+    .follow-result-readonly textarea[readonly],
+    .follow-result-readonly select:disabled {
+      opacity: 1;
+      color: var(--ink);
+      background: #f8fbfd;
+      cursor: default;
+    }
+
     .required-mark { color: #d14343; }
     .field-error { border-color: #d14343 !important; box-shadow: 0 0 0 2px rgba(209, 67, 67, .12); }
     .field-error-message { margin: 0; color: #c73737; font-size: 12px; }
@@ -2284,6 +2329,7 @@
 
     .phone-check-row input { flex: 1; }
     .phone-check-row .btn { flex: 0 0 auto; white-space: nowrap; }
+    .wecom-phone-check .phone-check-result { color: var(--muted); font-size: 12px; text-align: center; }
 
     .attachment-upload-row {
       display: flex;
@@ -2787,6 +2833,7 @@
         <button class="nav-item nav-sub-item" data-view="settings-advisor"><span><span>♧</span>顾问列表</span></button>
         <button class="nav-item nav-sub-item" data-view="settings-user"><span><span>♧</span>用户管理</span></button>
         <button class="nav-item nav-sub-item" data-view="settings-role"><span><span>◈</span>角色管理</span></button>
+        <button class="nav-item nav-sub-item" data-view="settings-dictionary"><span><span>▤</span>字典管理</span></button>
       </div>
       <div class="nav-separator" aria-hidden="true"></div>
       <button class="nav-item" data-view="wecom"><span><span>◉</span>企业微信</span></button>
@@ -3154,7 +3201,7 @@
       </div>
       <div class="dialog-body" id="followModalBody"></div>
       <div class="dialog-foot">
-        <button class="btn" data-follow-modal-close>取消</button>
+        <button class="btn" id="followModalCancel" data-follow-modal-close>取消</button>
         <button class="btn btn-primary" id="followModalSubmit">确认</button>
       </div>
     </div>
@@ -3236,7 +3283,7 @@
             <div class="role-permission-row"><label class="role-menu-check"><input type="checkbox"> <strong>客户管理</strong></label><div class="role-operation-checks"><label><input type="checkbox">查看</label><label><input type="checkbox">患者详情</label><label><input type="checkbox">录入沟通记录</label><label><input type="checkbox">分配医护</label></div></div>
             <div class="role-permission-row"><label class="role-menu-check"><input type="checkbox"> <strong>合同管理</strong></label><div class="role-operation-checks"><label><input type="checkbox">查看</label><label><input type="checkbox">合同签约</label><label><input type="checkbox">查看合同</label></div></div>
             <div class="role-permission-row"><label class="role-menu-check"><input type="checkbox"> <strong>合同财务</strong></label><div class="role-operation-checks"><label><input type="checkbox">查看</label><label><input type="checkbox">收款登记</label><label><input type="checkbox">催缴</label></div></div>
-            <div class="role-permission-row"><label class="role-menu-check"><input type="checkbox"> <strong>基础设置</strong></label><div class="role-operation-checks"><label><input type="checkbox">分院管理</label><label><input type="checkbox">用户管理</label><label><input type="checkbox">角色管理</label></div></div>
+            <div class="role-permission-row"><label class="role-menu-check"><input type="checkbox"> <strong>基础设置</strong></label><div class="role-operation-checks"><label><input type="checkbox">分院管理</label><label><input type="checkbox">用户管理</label><label><input type="checkbox">角色管理</label><label><input type="checkbox">字典管理</label></div></div>
           </div>
         </div>
       </div>
@@ -3502,7 +3549,7 @@
       ["R-10", "合同财务留痕", "合同、付款、催缴、自费项目、住宿规则等争议口径需版本化记录。"],
       ["R-11", "推荐医生可见", "医生推荐的试管线索，需要可查看患者跟进状态与最终成交状态。"],
       ["R-12", "服务口径一致", "住宿、验孕次数、行程损失、保险套餐等服务口径需关联合同版本和话术。"],
-      ["R-13", "线索同步", "企业微信、HIS、飞书线索每日批量入 CRM；线索列表支持手工同步；同步异常由系统自动重试和处理，无需人工补导或确认。"],
+      ["R-13", "线索同步", "企业微信、HIS、飞书线索每日批量入 CRM；同步异常由系统自动重试和处理，无需人工补导或确认。"],
       ["R-14", "分院归属与公共池", "来源分院为必填项，按该分院顾问配置分配；超过 7 天未分配的线索进入公共线索池。"],
       ["R-15", "分院待分配与公共池", "分院有多名可接收顾问时，由任一线索管理员分配；7 天未分配自动进入公共池。"],
       ["R-16", "单来源线索留存", "每条线索仅保留一个来源；线索 ID 是唯一标识，手机号可为空或重复。非空手机号重复时，当前线索仍入库，线索管理员仅可确认删除或保留为独立线索。"],
@@ -3606,6 +3653,20 @@
       ],
       "FU-20260715-020": []
     };
+
+    const followRescheduleReasonOptions = ["电话未接", "微信未回", "患者忙", "号码错误", "其他"];
+
+    const dictionaryCatalog = [
+      { id: "follow_method", name: "回访方式", code: "follow_method", usage: "回访管理 / 录入回访结果", values: ["电话", "短信", "微信", "到院"] },
+      { id: "patient_stage", name: "患者当前阶段", code: "patient_stage", usage: "回访管理 / 录入回访结果", values: ["外院有余胚", "外院进周中", "未进周", "考虑中", "已预约看诊", "已面谈", "已签约"] },
+      { id: "communication_topic", name: "主要沟通事项", code: "communication_topic", usage: "回访管理 / 录入回访结果", values: ["套餐介绍（费用解答）", "医生推荐", "失败史分析", "到院邀约", "签约跟进", "其它"] },
+      { id: "patient_concern", name: "患者主要顾虑", code: "patient_concern", usage: "回访管理 / 录入回访结果", values: ["费用", "成功率", "行程距离", "时间", "家人态度", "医生选择", "既往失败阴影", "其它"] },
+      { id: "intent_level", name: "意向等级", code: "intent_level", usage: "回访管理 / 录入回访结果", values: ["A", "B", "C", "D"] },
+      { id: "doctor_intervention", name: "是否需要推荐医生介入", code: "doctor_intervention", usage: "回访管理 / 录入回访结果", values: ["是", "否"] },
+      { id: "follow_plan", name: "跟进计划", code: "follow_plan", usage: "回访管理 / 录入回访结果", values: ["预约看诊", "到院接待", "转医生沟通", "签约跟进", "暂不跟进", "其它"] },
+      { id: "return_plan", name: "回访计划（C、D级别）", code: "return_plan", usage: "回访管理 / 录入回访结果", values: ["群发案例激活", "朋友圈触达", "定向案例分享", "定向邀约"] },
+      { id: "reschedule_reason", name: "改期原因", code: "reschedule_reason", usage: "回访管理 / 改期回访任务", values: followRescheduleReasonOptions }
+    ];
 
     const followNotifications = [
       { type: "follow-list", key: "overdue", title: "逾期线索名单", sentAt: "2026-07-15 08:00", content: "共 2 条逾期回访任务，已推送给对应顾问及线索管理员。", rows: [
@@ -3794,15 +3855,17 @@
       leadSignedContracts: {},
       wecomTab: "crm",
       wecomLeadMarked: false,
+      wecomLeadSubmitted: false,
       hisLeadMarked: false,
       hisLeadSubmitted: false,
       hisTab: "lead",
       leadFollowTerminated: false,
       followFilter: "all",
-      followSearch: { leadId: "", patient: "", owner: "", region: "", sourceBranch: "", manager: "", status: "", dueFrom: "", dueTo: "" },
+      followSearch: { leadId: "", patient: "", owner: "", sourceBranch: "", manager: "", status: "", dueFrom: "", dueTo: "" },
       followSort: { key: "operationTime", direction: "desc" },
       followModalAction: null,
       followTaskId: "",
+      followHistoryDetailIndex: -1,
       followPatientDetailTab: "medical",
       followMedicalRecordDate: "2026-07-12",
       followLabSubtab: "report",
@@ -3836,6 +3899,10 @@
       customerTab: "overview",
       customerSearch: { keyword: "", idCard: "", state: "", package: "", doctor: "", nurse: "", recommender: "", consultant: "", sourceBranch: "", regionOwner: "", signedFrom: "", signedTo: "", visitFrom: "", visitTo: "", syncFrom: "", syncTo: "" },
       userSearch: { name: "", phone: "", role: "", status: "" },
+      dictionaryActiveId: "follow_method",
+      dictionaryItemQuery: "",
+      dictionaryValueQuery: "",
+      dictionarySelectedValueIds: [],
       openViews: ["lead"],
       listPages: {},
       loginPhone: "",
@@ -3848,7 +3915,7 @@
     const workbenchMarkup = mainEl.innerHTML;
 
     const viewLabels = {
-      lead: "线索管理", followup: "回访管理", "customer-new": "客户管理", contract: "合同管理", cycle: "周期管理", "embryo-storage": "胚胎冻存管理", finance: "合同财务", report: "经营报表", settings: "基础设置", "settings-branch": "分院管理", "settings-lead-manager": "线索管理员列表", "settings-advisor": "顾问列表", "settings-user": "用户管理", "settings-role": "角色管理", wecom: "企业微信", his: "HIS", login: "登录页", customer: "客户管理（旧）", workbench: "工作台"
+      lead: "线索管理", followup: "回访管理", "customer-new": "客户管理", contract: "合同管理", cycle: "周期管理", "embryo-storage": "胚胎冻存管理", finance: "合同财务", report: "经营报表", settings: "基础设置", "settings-branch": "分院管理", "settings-lead-manager": "线索管理员列表", "settings-advisor": "顾问列表", "settings-user": "用户管理", "settings-role": "角色管理", "settings-dictionary": "字典管理", wecom: "企业微信", his: "HIS", login: "登录页", customer: "客户管理（旧）", workbench: "工作台"
     };
 
     function renderPageTabs() {
@@ -3878,7 +3945,8 @@
         "settings-lead-manager": 16,
         "settings-advisor": 28,
         "settings-user": 46,
-        "settings-role": 8
+        "settings-role": 8,
+        "settings-dictionary": 9
       }[state.activeView] || 0;
     }
 
@@ -3894,7 +3962,7 @@
 
     function renderListPagination() {
       mainEl.querySelectorAll("table.small-table").forEach((table, index) => {
-        if (table.closest(".rule-doc, .user-rules-zone, .modal") || table.nextElementSibling?.classList.contains("list-pagination")) return;
+        if (table.closest(".rule-doc, .user-rules-zone, .modal") || table.classList.contains("no-list-pagination") || table.nextElementSibling?.classList.contains("list-pagination")) return;
         const count = table.tBodies[0] ? Array.from(table.tBodies[0].rows).filter((row) => !row.hidden && !row.querySelector("[colspan]")).length : 0;
         const total = index === 0 && primaryListTotal() ? primaryListTotal() : count;
         const pageCount = Math.max(1, Math.ceil(total / 10));
@@ -4168,8 +4236,7 @@
               </div>
               <div class="compact-actions">
                 <button class="btn" data-lead-action="recycle-bin">回收箱${recycleCount ? `（${recycleCount}）` : ""}</button>
-                <button class="btn" data-lead-action="manual-sync">手工同步</button>
-                <button class="btn" data-lead-action="sync-log">日批同步记录</button>
+                <button class="btn" data-lead-action="sync-log">同步记录</button>
                 <button class="btn btn-primary" data-lead-action="new">新建线索</button>
               </div>
             </div>
@@ -4181,12 +4248,12 @@
               <div class="lead-filter-field"><label for="leadFilterIntent">意向分级</label><input id="leadFilterIntent" type="hidden" value=""><div class="lead-intent-dropdown"><button type="button" class="lead-intent-toggle" id="leadIntentToggle" aria-expanded="false"><span id="leadFilterIntentLabel">全部分级</span></button><div class="lead-intent-options" id="leadIntentOptions" hidden><button type="button" class="is-selected" data-lead-intent-option="" onclick="document.getElementById('leadFilterIntent').value='';document.getElementById('leadFilterIntentLabel').textContent='全部分级';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">全部分级</button><button type="button" data-lead-intent-option="未定级" onclick="document.getElementById('leadFilterIntent').value='未定级';document.getElementById('leadFilterIntentLabel').textContent='未定级';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">未定级</button><button type="button" data-lead-intent-option="A" onclick="document.getElementById('leadFilterIntent').value='A';document.getElementById('leadFilterIntentLabel').textContent='A';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">A</button><button type="button" data-lead-intent-option="B" onclick="document.getElementById('leadFilterIntent').value='B';document.getElementById('leadFilterIntentLabel').textContent='B';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">B</button><button type="button" data-lead-intent-option="C" onclick="document.getElementById('leadFilterIntent').value='C';document.getElementById('leadFilterIntentLabel').textContent='C';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">C</button><button type="button" data-lead-intent-option="D" onclick="document.getElementById('leadFilterIntent').value='D';document.getElementById('leadFilterIntentLabel').textContent='D';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">D</button></div></div></div>
               <div class="lead-filter-field"><label for="leadFilterManager">线索管理员</label><select id="leadFilterManager"><option value="">全部线索管理员</option><option>陈芳</option><option>刘洁</option><option>张敏</option><option>王丽</option><option>李华</option></select></div>
               <div class="lead-filter-field"><label for="leadFilterBranch">分院</label><select id="leadFilterBranch"><option value="">全部分院</option><option>广州天河分院</option><option>广州分院</option><option>深圳福田分院</option><option>北京朝阳分院</option><option>武汉分院</option></select></div>
-              <div class="lead-filter-field"><label for="leadFilterSource">来源</label><select id="leadFilterSource"><option value="">全部来源</option><option>HIS</option><option>企业微信</option><option>飞书</option><option>CRM本地</option></select></div>
+              <div class="lead-filter-field"><label for="leadFilterSource">数据来源</label><input id="leadFilterSource" type="hidden" value=""><div class="lead-source-dropdown"><button type="button" class="lead-source-toggle" id="leadSourceToggle" aria-expanded="false"><span id="leadFilterSourceLabel">全部数据来源</span></button><div class="lead-source-options" id="leadSourceOptions" hidden><button type="button" class="is-selected" data-lead-source-option="">全部数据来源</button><button type="button" data-lead-source-option="HIS">HIS</button><button type="button" data-lead-source-option="企业微信">企业微信</button><button type="button" data-lead-source-option="飞书">飞书</button><button type="button" data-lead-source-option="CRM本地">CRM本地</button></div></div></div>
               <div class="lead-filter-actions"><button class="btn btn-primary" data-lead-filter-query>筛选</button><button class="btn" data-lead-filter-reset>重置</button></div>
             </div>
             <div style="overflow-x:auto; margin-top:12px;">
               <table class="small-table lead-table">
-                <thead><tr><th>线索 ID</th><th>姓名</th><th>手机号</th><th>来源</th><th>提供分院</th><th>线索管理员</th><th>顾问</th><th>状态与时限</th><th>意向分级</th><th>操作</th></tr></thead>
+                <thead><tr><th>线索 ID</th><th>姓名</th><th>手机号</th><th>数据来源</th><th>提供分院</th><th>线索管理员</th><th>顾问</th><th>状态与时限</th><th>意向分级</th><th>操作</th></tr></thead>
                 <tbody>
                   <tr data-lead-row data-id="L-20260806-034" data-phone="13900004821" data-name="王女士" data-region="华南" data-advisor="" data-intent="未定级" data-status="待分配" data-manager="陈芳、刘洁" data-branch="广州天河分院" data-source="HIS">
                     <td>L-20260806-034</td>
@@ -4286,23 +4353,16 @@
     function renderFollowHistoryEvent(event) {
       const fields = event.type === "已联系" ? [
         ["回访时间", event.time],
-        ["回访人", event.operator],
-        ...(event.followMethod ? [
-          ["回访方式", event.followMethod],
-          ["患者当前阶段", event.patientStage],
-          ["主要沟通事项", event.communicationTopic],
-          ["患者主要顾虑", event.patientConcern],
-          ["是否需要推荐医生介入", event.doctorIntervention],
-          ["跟进计划", event.followPlan],
-          ["回访计划", event.returnPlan],
-          ...(event.remark ? [["备注", event.remark]] : [])
-        ] : [
-          ["任务结果", event.result],
-          ["沟通内容", event.content],
-          ["结果摘要", event.summary]
-        ]),
-        ["意向等级", event.intent],
-        ...(!event.followMethod && event.tags ? [["医学标签", event.tags]] : [])
+        ["回访方式", event.followMethod || "未填写"],
+        ["患者当前阶段", event.patientStage || "未填写"],
+        ["主要沟通事项", event.communicationTopic || event.content || "未填写"],
+        ["患者主要顾虑", event.patientConcern || "未填写"],
+        ["意向等级", event.intent || "未填写"],
+        ["是否需要推荐医生介入", event.doctorIntervention || "未填写"],
+        ["跟进计划", event.followPlan || "未填写"],
+        ["回访计划（C、D级别）", event.returnPlan || "未填写"],
+        ["备注", event.remark || "未填写"],
+        ["回访人", event.operator]
       ] : event.type === "未联系" ? [
         ["回访时间", event.time],
         ["回访人", event.operator],
@@ -4313,7 +4373,9 @@
         ["操作人", event.operator],
         ["原计划日期", event.originalDate],
         ["改期日期", event.newDate],
-        ["改期原因", event.reason]
+        ["改期原因", event.reason],
+        ...(event.otherReason ? [["具体改期原因", event.otherReason]] : []),
+        ...(event.remark ? [["备注", event.remark]] : [])
       ] : [
         ["操作日期", event.time],
         ["操作人", event.operator],
@@ -4327,10 +4389,11 @@
       </div>`;
     }
 
-    function renderFollowTimeline(task) {
+    function getFollowVisitRecords(task) {
       let activeIntent = "";
       let intentCount = 0;
-      const events = [...(followHistory[task.id] || [])]
+      return (followHistory[task.id] || [])
+        .map((event, historyIndex) => ({ ...event, historyIndex }))
         .sort((a, b) => a.time.localeCompare(b.time))
         .map((event) => {
           if (event.type !== "已联系") return event;
@@ -4338,9 +4401,22 @@
           activeIntent = event.intent;
           return { ...event, followStage: `${event.intent}（${intentCount}）` };
         })
+        .filter((event) => event.type === "已联系")
         .sort((a, b) => b.time.localeCompare(a.time));
-      const rows = events.map(renderFollowHistoryEvent).join("") || '<div class="record"><strong>暂无历史记录</strong><span class="muted">首次任务尚未产生回访、改期或转交记录。</span></div>';
-      return `<div class="status-source"><strong>${task.name}｜${task.id}</strong><span>按时间倒序展示历史回访、改期与顾问变更记录。</span></div><div class="follow-audit-timeline">${rows}</div>`;
+    }
+
+    function renderFollowTimeline(task) {
+      const records = getFollowVisitRecords(task);
+      const cards = records.map((event) => `<div class="follow-audit-item"><div class="follow-audit-head"><strong>${event.time}${event.followStage ? `　${event.followStage}` : ""}</strong><span class="badge ${followHistoryBadge(event.type)}">${event.type}</span></div><div class="follow-audit-fields"><span><b>回访时间：</b>${event.time}</span><span><b>回访人：</b>${event.operator}</span><span><b>主要沟通事项：</b>${event.communicationTopic || event.content || "—"}</span><span><b>意向等级：</b>${event.intent || "—"}</span><div class="follow-audit-action"><button class="btn" data-follow-history-detail data-history-index="${event.historyIndex}" data-task-id="${task.id}">详情</button></div></div></div>`).join("") || '<div class="record"><strong>暂无回访记录</strong><span class="muted">当前尚未产生已完成的回访结果。</span></div>';
+      return `<div class="status-source"><strong>${task.name}｜${task.id}</strong><span>按回访时间倒序展示回访记录；点击详情查看完整回访结果。</span></div><div class="follow-audit-timeline">${cards}</div>`;
+    }
+
+    function renderFollowResultDetail(task, historyIndex) {
+      const event = (followHistory[task.id] || [])[historyIndex];
+      if (!event) return '<div class="record"><strong>回访记录不存在</strong><span class="muted">该记录可能已被更新，请返回回访记录列表后重试。</span></div>';
+      const value = (item) => item || "未填写";
+      const readOnlySelect = (label, item, required = false) => `<div class="form-row"><label>${label}${required ? ' <span class="required-mark">*</span>' : ""}</label><select disabled><option>${value(item)}</option></select></div>`;
+      return `<div class="follow-result-readonly"><div class="status-source"><strong>${task.name}｜${event.intent || "未定级"} 类｜回访时间 ${event.time}</strong></div><div class="form-row"><label>回访时间 <span class="required-mark">*</span></label><input type="date" value="${event.time}" readonly tabindex="-1"></div>${readOnlySelect("回访方式", event.followMethod, true)}${readOnlySelect("患者当前阶段", event.patientStage, true)}${readOnlySelect("主要沟通事项", event.communicationTopic || event.content, true)}${readOnlySelect("患者主要顾虑", event.patientConcern, true)}${readOnlySelect("意向等级", event.intent, true)}${readOnlySelect("是否需要推荐医生介入", event.doctorIntervention, true)}${readOnlySelect("跟进计划", event.followPlan, true)}${readOnlySelect("回访计划（C、D级别）", event.returnPlan)}<div class="form-row"><label>备注</label><textarea readonly>${value(event.remark)}</textarea></div></div>`;
     }
 
     function renderMedicalRecordTab(task) {
@@ -4389,7 +4465,7 @@
         medical: renderMedicalRecordTab(task),
         laboratory: renderLaboratoryTab(),
         examination: `<div class="follow-patient-panel"><div class="status-source follow-patient-summary"><strong>检查结果</strong><span>展示已同步的检查结论；完整报告以 HIS 为准。</span></div><div style="overflow-x:auto;"><table class="small-table"><thead><tr><th>检查日期</th><th>项目</th><th>检查结论</th><th>状态</th><th>来源</th></tr></thead><tbody><tr><td>2026-07-08</td><td>妇科超声检查</td><td>检查结论已同步至病历摘要，建议由主诊医生结合诊疗情况解读。</td><td><span class="badge badge-green">已同步</span></td><td>HIS</td></tr><tr><td>2026-07-06</td><td>输卵管通畅度检查</td><td>报告已归档，详见 HIS 检查报告。</td><td><span class="badge badge-green">已同步</span></td><td>HIS</td></tr></tbody></table></div></div>`,
-        registration: `<div class="follow-patient-panel"><div class="status-source follow-patient-summary"><strong>试管线索登记表｜统一字段结构</strong><span>展示该患者唯一线索 ID 对应的只读登记信息。</span></div><div class="registration-grid"><div class="registration-item"><strong>线索提供日期 *</strong><span>2026/07/05</span></div><div class="registration-item"><strong>患者姓名 *</strong><span>${task.name}</span></div><div class="registration-item"><strong>患者电话（可选）</strong><span>${task.phone}</span></div><div class="registration-item"><strong>该手机号是否重复录入</strong><span>待人工核对</span></div><div class="registration-item"><strong>线索提供分院 *</strong><span>${task.sourceBranch}</span></div><div class="registration-item"><strong>线索来源 *</strong><span>企业微信</span></div><div class="registration-item wide"><strong>线索提供人－内部人员 *</strong><span>门诊同事｜王敏</span></div><div class="registration-item wide"><strong>线索提供人－外部人员 *</strong><span>无</span></div><div class="registration-item wide"><strong>患者情况概述 *</strong><span>患者咨询辅助生殖方案及检查安排，已完成初步信息登记，等待持续回访跟进。</span></div><div class="registration-item"><strong>患者年龄</strong><span>未填写</span></div><div class="registration-item"><strong>患者 AMH</strong><span>未填写</span></div><div class="registration-item"><strong>患者常住地</strong><span>未填写</span></div><div class="registration-item"><strong>既往/现试管医院</strong><span>未填写</span></div><div class="registration-item"><strong>过往取卵次数</strong><span>未填写</span></div><div class="registration-item"><strong>过往移植次数</strong><span>未填写</span></div><div class="registration-item"><strong>剩余胚胎数量</strong><span>未填写</span></div><div class="registration-item"><strong>线索管理员</strong><span>${task.leadManagers}</span></div><div class="registration-item wide"><strong>附件</strong><span>暂无附件</span></div></div></div>`
+        registration: `<div class="follow-patient-panel"><div class="status-source follow-patient-summary"><strong>试管线索登记表｜统一字段结构</strong><span>展示该患者唯一线索 ID 对应的只读登记信息。</span></div><div class="registration-grid"><div class="registration-item"><strong>线索提供日期 *</strong><span>2026/07/05</span></div><div class="registration-item"><strong>患者姓名 *</strong><span>${task.name}</span></div><div class="registration-item"><strong>患者电话（可选）</strong><span>${task.phone}</span></div><div class="registration-item"><strong>线索提供分院 *</strong><span>${task.sourceBranch}</span></div><div class="registration-item"><strong>线索来源 *</strong><span>企业微信</span></div><div class="registration-item wide"><strong>线索提供人－内部人员 *</strong><span>门诊同事｜王敏</span></div><div class="registration-item wide"><strong>线索提供人－外部人员 *</strong><span>无</span></div><div class="registration-item wide"><strong>患者情况概述 *</strong><span>患者咨询辅助生殖方案及检查安排，已完成初步信息登记，等待持续回访跟进。</span></div><div class="registration-item"><strong>患者年龄</strong><span>未填写</span></div><div class="registration-item"><strong>患者 AMH</strong><span>未填写</span></div><div class="registration-item"><strong>患者常住地</strong><span>未填写</span></div><div class="registration-item"><strong>既往/现试管医院</strong><span>未填写</span></div><div class="registration-item"><strong>过往取卵次数</strong><span>未填写</span></div><div class="registration-item"><strong>过往移植次数</strong><span>未填写</span></div><div class="registration-item"><strong>剩余胚胎数量</strong><span>未填写</span></div><div class="registration-item wide"><strong>附件</strong><span>暂无附件</span></div></div></div>`
       };
       return `<div class="status-source"><strong>${task.name}｜${task.leadId}</strong><span>电话：${task.phone}｜提供分院：${task.sourceBranch}｜回访状态：${task.status}</span></div><div class="tabs" role="tablist" aria-label="患者详情">${tabs.map(([key, label]) => `<button class="tab ${tab === key ? "is-active" : ""}" data-follow-patient-tab="${key}">${label}</button>`).join("")}</div>${content[tab] || content.medical}`;
     }
@@ -4461,7 +4537,6 @@
       return (!search.leadId || task.leadId === search.leadId) &&
         (!search.patient || task.name.includes(search.patient)) &&
         (!search.owner || task.owner === search.owner) &&
-        (!search.region || task.region === search.region) &&
         (!search.sourceBranch || task.sourceBranch === search.sourceBranch) &&
         (!search.manager || task.leadManagers.includes(search.manager)) &&
         (!search.status || task.status === search.status) &&
@@ -4470,8 +4545,8 @@
     }
 
     function renderWecomLeadPanel() {
-      const marked = state.wecomLeadMarked;
-      return `<div class="his-lead-tab-actions"><strong>试管线索</strong><button class="his-action ${marked ? "is-marked" : ""}" data-wecom-action="mark-lead">${marked ? "✓ 已标记试管线索" : "试管线索标记"}</button></div><section class="his-lead-panel"><div class="his-lead-panel-head"><div><strong>试管线索提交表</strong><span class="muted">　字段与 HIS“试管线索”一致，提交后按手机号核对并进入分院分配流程。</span></div><span class="badge badge-amber">未提交</span></div><div class="wecom-form-grid"><div class="form-row"><label>线索提供日期 *</label><input value="2026/08/05" readonly></div><div class="form-row"><label>患者姓名 *</label><input value="周女士"></div><div class="form-row"><label>患者电话（可选）</label><input value="139****7621"></div><div class="form-row"><label>手机号是否重复录入</label><input value="待提交后核对" readonly></div><div class="form-row"><label>线索提供分院 *</label><select><option>北京朝阳分院</option><option>北京海淀分院</option><option>广州天河分院</option><option>武汉分院</option></select></div><div class="form-row"><label>线索来源 *</label><input value="企业微信" readonly></div><div class="form-row wide"><label>线索提供人－内部人员 *</label><select><option>门诊同事｜王敏</option><option>内部医生｜张医生</option><option>A+B 共同推荐</option></select></div><div class="form-row wide"><label>线索提供人－外部人员 *</label><input value="无"></div><div class="form-row wide"><label>患者情况概述 *</label><textarea>客户咨询试管方案，计划近期到北京就诊；已沟通初步检查及预约安排。</textarea></div><div class="form-row"><label>患者年龄</label><input value="33"></div><div class="form-row"><label>患者 AMH</label><input placeholder="如 1.28 ng/mL"></div><div class="form-row"><label>患者常住地</label><input value="北京市朝阳区"></div><div class="form-row"><label>既往/现试管医院</label><input value="无"></div><div class="form-row"><label>过往取卵次数</label><input value="0"></div><div class="form-row"><label>过往移植次数</label><input value="0"></div><div class="form-row"><label>剩余胚胎数量</label><input value="0"></div><div class="form-row wide"><label>附件</label><input value="可上传就诊病历、检查报告等" readonly></div></div><div class="detail-actions" style="margin-top:16px"><button class="btn" data-wecom-action="save-draft">保存草稿</button><button class="btn btn-primary" data-wecom-action="submit-lead">提交并核对手机号</button></div></section>`;
+      const submitted = state.wecomLeadSubmitted;
+      return `<section class="his-lead-panel"><div class="his-lead-panel-head"><div><strong>试管线索提交表</strong><span class="muted">　字段与 HIS“试管线索”一致，提交后按手机号核对并进入分院分配流程。</span></div><span class="badge ${submitted ? "badge-green" : "badge-amber"}">${submitted ? "已提交" : "未提交"}</span></div><div class="wecom-form-grid"><div class="form-row"><label>线索提供日期 *</label><input value="2026/08/05" readonly></div><div class="form-row"><label>患者姓名 *</label><input value="周女士"></div><div class="form-row wecom-phone-check"><label>患者电话（可选）</label><div class="phone-check-row"><input value="13900001234" aria-label="企业微信患者电话"><button class="btn" type="button" data-wecom-phone-check>查重</button></div><span class="phone-check-result" data-wecom-phone-check-result>请输入手机号后点击查重</span></div><div class="form-row"><label>线索提供分院 *</label><select><option>北京朝阳分院</option><option>北京海淀分院</option><option>广州天河分院</option><option>武汉分院</option></select></div><div class="form-row"><label>线索来源 *</label><input value="企业微信" readonly></div><div class="form-row wide"><label>线索提供人－内部人员 *</label><select><option>门诊同事｜王敏</option><option>内部医生｜张医生</option><option>A+B 共同推荐</option></select></div><div class="form-row wide"><label>线索提供人－外部人员 *</label><input value="无"></div><div class="form-row wide"><label>患者情况概述 *</label><textarea>客户咨询试管方案，计划近期到北京就诊；已沟通初步检查及预约安排。</textarea></div><div class="form-row"><label>患者年龄</label><input value="33"></div><div class="form-row"><label>患者 AMH</label><input placeholder="如 1.28 ng/mL"></div><div class="form-row"><label>患者常住地</label><input value="北京市朝阳区"></div><div class="form-row"><label>既往/现试管医院</label><input value="无"></div><div class="form-row"><label>过往取卵次数</label><input value="0"></div><div class="form-row"><label>过往移植次数</label><input value="0"></div><div class="form-row"><label>剩余胚胎数量</label><input value="0"></div><div class="form-row wide"><label>附件</label><input value="可上传就诊病历、检查报告等" readonly></div></div><div class="detail-actions" style="margin-top:16px"><button class="btn" data-wecom-action="save-draft">保存草稿</button><button class="btn btn-primary" data-wecom-action="submit-lead" ${submitted ? "disabled" : ""}>${submitted ? "已提交" : "确认提交"}</button></div></section>`;
     }
 
     function renderWecomView() {
@@ -4521,6 +4596,7 @@
         </section>`;
       if (state.wecomTab === "crm") mainEl.querySelector(".wecom-side-body").innerHTML = renderWecomLeadPanel();
       Array.from(mainEl.querySelectorAll(".wecom-form-grid .form-row")).find((row) => row.querySelector("label")?.textContent.trim() === "线索管理员")?.remove();
+      mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("企业微信规则说明", "企业微信.md"));
       setRule("R-29");
     }
 
@@ -4652,7 +4728,6 @@
               <div class="lead-filter-field"><label for="followSearchLeadId">线索 ID</label><input id="followSearchLeadId" data-follow-search="leadId" value="${search.leadId}" placeholder="请输入线索 ID"></div>
               <div class="lead-filter-field"><label for="followSearchPatient">患者姓名</label><input id="followSearchPatient" data-follow-search="patient" value="${search.patient}" placeholder="请输入患者姓名"></div>
               <div class="lead-filter-field"><label for="followSearchOwner">负责顾问</label><select id="followSearchOwner" data-follow-search="owner"><option value="">全部顾问</option><option ${search.owner === "顾问-李娜" ? "selected" : ""}>顾问-李娜</option><option ${search.owner === "顾问-赵莹" ? "selected" : ""}>顾问-赵莹</option><option ${search.owner === "顾问-黄琳" ? "selected" : ""}>顾问-黄琳</option></select></div>
-              <div class="lead-filter-field"><label for="followSearchRegion">所属区域</label><select id="followSearchRegion" data-follow-search="region"><option value="">全部区域</option><option ${search.region === "华南" ? "selected" : ""}>华南</option><option ${search.region === "华东" ? "selected" : ""}>华东</option></select></div>
               <div class="lead-filter-field"><label for="followSearchBranch">提供分院</label><select id="followSearchBranch" data-follow-search="sourceBranch"><option value="">全部分院</option><option ${search.sourceBranch === "深圳分院" ? "selected" : ""}>深圳分院</option><option ${search.sourceBranch === "广州分院" ? "selected" : ""}>广州分院</option><option ${search.sourceBranch === "上海分院" ? "selected" : ""}>上海分院</option></select></div>
               <div class="lead-filter-field"><label for="followSearchManager">线索管理员</label><select id="followSearchManager"><option value="">全部线索管理员</option>${["张敏", "李雯", "陈芳"].map((value) => `<option ${search.manager === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
               <div class="lead-filter-field"><label for="followSearchStatus">状态</label><select id="followSearchStatus"><option value="">全部状态</option>${["未触达", "进行中", "已完结", "已暂停"].map((value) => `<option ${search.status === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
@@ -4692,7 +4767,6 @@
         leadId: ($("#followSearchLeadId")?.value || "").trim(),
         patient: ($("#followSearchPatient")?.value || "").trim(),
         owner: $("#followSearchOwner")?.value || "",
-        region: $("#followSearchRegion")?.value || "",
         sourceBranch: $("#followSearchBranch")?.value || "",
         manager: $("#followSearchManager")?.value || "",
         status: $("#followSearchStatus")?.value || "",
@@ -4703,7 +4777,7 @@
     }
 
     function resetFollowSearchFilters() {
-      state.followSearch = { leadId: "", patient: "", owner: "", region: "", sourceBranch: "", manager: "", status: "", dueFrom: "", dueTo: "" };
+      state.followSearch = { leadId: "", patient: "", owner: "", sourceBranch: "", manager: "", status: "", dueFrom: "", dueTo: "" };
       renderFollowupView();
     }
 
@@ -5039,6 +5113,7 @@
           <div class="panel"><div class="panel-body"><div class="section-head"><h2>顾问列表</h2><span class="badge badge-blue">28 人</span></div><p class="muted">维护服务分院与可接收新线索状态，决定自动或人工分配。</p><button class="btn btn-primary" data-view="settings-advisor">进入顾问列表</button></div></div>
           <div class="panel"><div class="panel-body"><div class="section-head"><h2>用户管理</h2><span class="badge badge-blue">46 个账号</span></div><p class="muted">维护手机号（登录账号）、所属组织、账号状态及对应系统角色。</p><button class="btn btn-primary" data-view="settings-user">进入用户管理</button></div></div>
           <div class="panel"><div class="panel-body"><div class="section-head"><h2>角色管理</h2><span class="badge badge-blue">8 个角色</span></div><p class="muted">维护各角色的数据范围、菜单权限与业务操作权限。</p><button class="btn btn-primary" data-view="settings-role">进入角色管理</button></div></div>
+          <div class="panel"><div class="panel-body"><div class="section-head"><h2>字典管理</h2><span class="badge badge-blue">9 个字典项</span></div><p class="muted">维护回访结果及改期下拉字段的可选值，默认值与业务弹窗保持一致。</p><button class="btn btn-primary" data-view="settings-dictionary">进入字典管理</button></div></div>
         </section>`;
       setRule("R-28");
     }
@@ -5161,6 +5236,115 @@
           </tbody></table></div>
         </div></div></section>`;
       setRule("R-28");
+    }
+
+    function activeDictionaryItem() {
+      return dictionaryCatalog.find((item) => item.id === state.dictionaryActiveId) || dictionaryCatalog[0];
+    }
+
+    function dictionaryValueRecords(item) {
+      item.values = item.values.map((entry, index) => typeof entry === "string" ? { value: entry, code: String(index + 1).padStart(3, "0"), remark: "" } : entry);
+      return item.values;
+    }
+
+    function renderDictionarySettingsView() {
+      const active = activeDictionaryItem();
+      const itemQuery = state.dictionaryItemQuery.trim().toLowerCase();
+      const valueQuery = state.dictionaryValueQuery.trim().toLowerCase();
+      const items = dictionaryCatalog.filter((item) => !itemQuery || `${item.name} ${item.code}`.toLowerCase().includes(itemQuery));
+      const records = dictionaryValueRecords(active);
+      const values = records.map((entry, index) => ({ ...entry, index, id: `${active.id}-${index}` })).filter((item) => !valueQuery || `${item.code} ${item.value} ${item.remark || ""}`.toLowerCase().includes(valueQuery));
+      const selected = state.dictionarySelectedValueIds;
+      mainEl.classList.add("module-page");
+      mainEl.dataset.view = "settings-dictionary";
+      mainEl.innerHTML = `<section class="module-grid full"><div class="panel"><div class="panel-body"><div class="dictionary-workbench"><aside class="dictionary-aside"><div class="dictionary-aside-toolbar"><input id="dictionaryItemQuery" value="${state.dictionaryItemQuery}" placeholder="搜索字典项"><button class="btn btn-primary" data-dictionary-item-new>+ 新增</button></div><div class="dictionary-item-list">${items.length ? items.map((item) => `<div class="dictionary-item-row ${item.id === active.id ? "is-active" : ""}"><button class="dictionary-item" data-dictionary-item-select="${item.id}"><span><strong>${item.name}</strong><small>${item.code}</small></span></button><span class="dictionary-item-actions"><button class="btn btn-link" data-dictionary-item-edit="${item.id}">编辑</button><button class="btn btn-link danger-text" data-dictionary-item-delete="${item.id}">删除</button></span></div>`).join("") : '<div class="dictionary-empty">未找到匹配的字典项</div>'}</div></aside><section class="dictionary-detail"><div class="dictionary-detail-head"><div><h2>${active.name}</h2><p class="muted">编码：${active.code}　·　使用位置：${active.usage}</p></div></div><div class="dictionary-detail-toolbar"><button class="btn btn-primary" data-dictionary-value-new>+ 新增字典值</button><button class="btn" data-dictionary-value-batch-delete ${selected.length ? "" : "disabled"}>批量删除${selected.length ? `（${selected.length}）` : ""}</button><span style="flex:1"></span><input id="dictionaryValueQuery" value="${state.dictionaryValueQuery}" placeholder="输入关键字进行过滤"></div><div style="overflow-x:auto;"><table class="small-table dictionary-value-table no-list-pagination"><thead><tr><th><input class="dictionary-checkbox" type="checkbox" data-dictionary-select-all ${values.length && values.every((item) => selected.includes(item.id)) ? "checked" : ""} aria-label="全选"></th><th>编码</th><th>值</th><th>操作</th></tr></thead><tbody>${values.length ? values.map((item) => `<tr><td><input class="dictionary-checkbox" type="checkbox" data-dictionary-value-check="${item.id}" ${selected.includes(item.id) ? "checked" : ""} aria-label="选择 ${item.value}"></td><td>${item.code}</td><td>${item.value}</td><td><div class="compact-actions"><button class="btn btn-link" data-dictionary-value-edit="${item.index}">编辑</button><button class="btn btn-link danger-text" data-dictionary-value-delete="${item.index}">删除</button></div></td></tr>`).join("") : '<tr><td colspan="4"><div class="dictionary-empty">暂无匹配的字典值</div></td></tr>'}</tbody></table></div><div class="muted" style="margin-top:16px;">共 ${records.length} 条字典值</div></section></div></div></div></section>`;
+      const dictionaryToolbar = $(".dictionary-detail-toolbar");
+      const dictionarySearch = $("#dictionaryValueQuery");
+      if (dictionaryToolbar && dictionarySearch) dictionaryToolbar.prepend(dictionarySearch);
+      setRule("R-23");
+    }
+
+    function syncDictionaryOptionSource(dictionary) {
+      if (dictionary.id !== "reschedule_reason") return;
+      followRescheduleReasonOptions.splice(0, followRescheduleReasonOptions.length, ...dictionaryValueRecords(dictionary).map((entry) => entry.value));
+    }
+
+    function openDictionaryModal(mode, index = -1) {
+      const item = activeDictionaryItem();
+      const isItem = mode.startsWith("item");
+      const record = !isItem && index >= 0 ? dictionaryValueRecords(item)[index] : null;
+      const itemRecord = isItem && mode === "item-edit" ? item : null;
+      const title = mode === "item-new" ? "新增字典项" : mode === "item-edit" ? "编辑字典项" : mode === "value-new" ? "新增字典值" : "编辑字典值";
+      let modal = $("#dictionaryModal");
+      if (!modal) {
+        document.body.insertAdjacentHTML("beforeend", '<div class="modal" id="dictionaryModal" aria-hidden="true"><div class="dialog" role="dialog" aria-modal="true"><div class="dialog-head"><h2 id="dictionaryModalTitle"></h2><button class="btn" data-dictionary-modal-close aria-label="关闭弹窗" title="关闭">✖️</button></div><div class="dialog-body" id="dictionaryModalBody"></div><div class="dialog-foot"><button class="btn" data-dictionary-modal-close>取消</button><button class="btn btn-primary" data-dictionary-modal-submit>保存</button></div></div></div>');
+        modal = $("#dictionaryModal");
+      }
+      modal.dataset.mode = mode;
+      modal.dataset.index = String(index);
+      $("#dictionaryModalTitle").textContent = title;
+      const nameLabel = isItem ? "字典项" : "字典值";
+      const nameValue = isItem ? itemRecord?.name || "" : record?.value || "";
+      const codeValue = isItem ? itemRecord?.code || "" : record?.code || String(dictionaryValueRecords(item).length + 1).padStart(3, "0");
+      const remarkValue = isItem ? itemRecord?.remark || "" : record?.remark || "";
+      $("#dictionaryModalBody").innerHTML = `<div class="form-row"><label for="dictionaryModalName">${nameLabel} <span class="required-mark">*</span></label><input id="dictionaryModalName" value="${nameValue}" placeholder="请输入${nameLabel}"></div><div class="form-row"><label for="dictionaryModalCode">编码 <span class="required-mark">*</span></label><input id="dictionaryModalCode" value="${codeValue}" placeholder="请输入编码"></div><div class="form-row"><label for="dictionaryModalRemark">备注</label><textarea id="dictionaryModalRemark" placeholder="请输入备注">${remarkValue}</textarea></div>`;
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      $("#dictionaryModalName").focus();
+    }
+
+    function closeDictionaryModal() {
+      const modal = $("#dictionaryModal");
+      if (!modal) return;
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    function submitDictionaryModal() {
+      const modal = $("#dictionaryModal");
+      const mode = modal?.dataset.mode;
+      const index = Number(modal?.dataset.index || -1);
+      const name = $("#dictionaryModalName")?.value.trim();
+      const code = $("#dictionaryModalCode")?.value.trim();
+      const remark = $("#dictionaryModalRemark")?.value.trim() || "";
+      if (!name || !code) {
+        showToast("请填写必填的名称和值编码。");
+        return;
+      }
+      const item = activeDictionaryItem();
+      if (mode === "item-new" || mode === "item-edit") {
+        const editing = mode === "item-edit" ? item : null;
+        if (dictionaryCatalog.some((entry) => entry !== editing && entry.code === code)) {
+          showToast("字典编码已存在，请使用其他编码。");
+          return;
+        }
+        if (mode === "item-new") {
+          const id = `${code}_${Date.now()}`;
+          dictionaryCatalog.push({ id, name, code, remark, usage: "基础设置 / 自定义字段", values: [] });
+          state.dictionaryActiveId = id;
+          state.dictionaryItemQuery = "";
+        } else Object.assign(item, { name, code, remark });
+        closeDictionaryModal();
+        renderDictionarySettingsView();
+        showToast(mode === "item-new" ? "字典项已新增。" : "字典项已保存。");
+        return;
+      }
+      const records = dictionaryValueRecords(item);
+      const editing = mode === "value-edit" ? records[index] : null;
+      if (records.some((entry) => entry !== editing && entry.code === code)) {
+        showToast("该字典项下的值编码已存在，请使用其他编码。");
+        return;
+      }
+      if (records.some((entry) => entry !== editing && entry.value === name)) {
+        showToast("该字典值已存在。");
+        return;
+      }
+      if (mode === "value-new") records.push({ value: name, code, remark });
+      else Object.assign(records[index], { value: name, code, remark });
+      syncDictionaryOptionSource(item);
+      closeDictionaryModal();
+      renderDictionarySettingsView();
+      showToast(mode === "value-new" ? "字典值已新增。" : "字典值已保存。");
     }
 
     function activeCustomer() {
@@ -5997,6 +6181,7 @@
       if (state.activeView === "settings-advisor") renderAdvisorSettingsView();
       if (state.activeView === "settings-user") renderUserSettingsView();
       if (state.activeView === "settings-role") renderRoleSettingsView();
+      if (state.activeView === "settings-dictionary") renderDictionarySettingsView();
     }
 
     function updateNavState() {
@@ -6080,12 +6265,11 @@
             <div class="registration-item"><strong>过往取卵次数</strong><input placeholder="如 1 次" aria-label="过往取卵次数"></div>
             <div class="registration-item"><strong>过往移植次数</strong><input placeholder="如 0 次" aria-label="过往移植次数"></div>
             <div class="registration-item"><strong>剩余胚胎数量</strong><input placeholder="如 2 枚" aria-label="剩余胚胎数量"></div>
-            <div class="registration-item"><strong>线索管理员</strong><input value="张敏、王丽" aria-label="线索管理员" data-lead-manager readonly></div>
             <div class="registration-item wide attachment-item"><strong>附件</strong><div class="attachment-upload-row" data-lead-attachment-row><input type="file" data-lead-attachment multiple accept=".doc,.docx,.pdf,.xls,.xlsx,.png,.jpg,.jpeg"><span class="attachment-file-name">支持 Word、PDF、Excel、PNG、JPG；可多选或继续添加</span><div class="attachment-file-list" data-lead-file-list><span class="attachment-file-name">暂未选择附件</span></div></div></div>
           </div>`
       },
       "sync-log": {
-        title: "日批同步记录",
+        title: "同步记录",
         rule: "R-13",
         submit: "关闭",
         body: `<table class="small-table"><thead><tr><th>来源</th><th>完成时间</th><th>入库结果</th></tr></thead><tbody><tr><td>HIS</td><td>今日 06:10</td><td><span class="badge badge-green">17 条成功</span></td></tr><tr><td>企业微信</td><td>今日 06:18</td><td><span class="badge badge-green">12 条成功</span></td></tr><tr><td>飞书</td><td>今日 06:20</td><td><span class="badge badge-blue">自动重试中</span></td></tr><tr><td>手动新增</td><td>今日 09:30–15:00</td><td><span class="badge badge-blue">3 条</span></td></tr></tbody></table><div class="rule-callout"><span class="badge badge-blue">系统自动处理</span><span>同步异常由系统自动重试和处理，无需人工补导或确认。</span></div>`
@@ -6107,7 +6291,7 @@
         title: "删除线索",
         rule: "R-01",
         submit: "确认删除",
-        body: () => { const lead = state.leadDeleteTarget; return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>删除后将移入线索回收箱，可由线索管理员复原。</span></div><div class="rule-callout"><span class="badge badge-red">删除确认</span><span>该操作不会以手机号判断是否重复；请确认该线索不再需要继续分配或跟进。</span></div>`; }
+        body: () => { const lead = state.leadDeleteTarget; return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>删除后将移入线索回收箱，可由线索管理员复原。</span></div><div class="form-row"><label for="leadDeleteReason">删除原因</label><textarea id="leadDeleteReason" placeholder="请输入删除原因"></textarea></div>`; }
       },
       "recycle-bin": {
         title: "线索回收箱",
@@ -6117,9 +6301,9 @@
           const seed = state.recycleBinSeedVisible ? [{ id: "L-20260712-008", name: "李女士", phone: "13600005678", source: "CRM本地", branch: "广州天河分院", deletedAt: "今日 09:20", reason: "测试数据清理" }] : [];
           const records = [...seed, ...state.deletedLeads];
           const rows = records.length
-            ? records.map((lead) => `<tr><td>${lead.id}</td><td>${lead.name}</td><td>${lead.phone || "—"}</td><td>${lead.source || "—"}</td><td>${lead.branch || "—"}</td><td>${lead.deletedAt}</td><td>${lead.reason}</td><td><button class="btn btn-primary" data-recycle-restore data-recycle-id="${lead.id}">复原</button></td></tr>`).join("")
+            ? records.map((lead) => `<tr><td>${lead.id}</td><td>${lead.name}</td><td>${lead.phone || "—"}</td><td>${lead.source || "—"}</td><td>${lead.branch || "—"}</td><td>${lead.deletedAt}</td><td>${lead.reason}</td><td><div class="compact-actions"><button class="btn btn-primary" data-recycle-restore data-recycle-id="${lead.id}">复原</button><button class="btn btn-danger" data-recycle-delete data-recycle-id="${lead.id}">删除</button></div></td></tr>`).join("")
             : '<tr><td colspan="8" class="muted" style="text-align:center; padding:24px;">暂无已删除线索</td></tr>';
-          return `<div class="status-source"><strong>已删除线索</strong><span>删除线索保留来源登记表和操作时间轴，可由线索管理员复原。</span></div><table class="small-table"><thead><tr><th>线索 ID</th><th>姓名</th><th>手机号</th><th>来源</th><th>提供分院</th><th>删除时间</th><th>删除原因</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table><p class="muted" style="margin-top:12px;">删除的线索会保留在此，可随时复原。</p>`;
+          return `<div class="status-source"><strong>已删除线索</strong><span>删除线索保留来源登记表和操作时间轴，可由线索管理员复原。</span></div><table class="small-table"><thead><tr><th>线索 ID</th><th>姓名</th><th>手机号</th><th>来源</th><th>提供分院</th><th>删除时间</th><th>删除原因</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table><p class="muted" style="margin-top:12px;">回收箱仅保留 2 个月内的已删除线索；到期自动清理。可在保留期内复原，也可手动删除。</p>`;
         }
       },
       "duplicate-confirm": {
@@ -6146,8 +6330,8 @@
       assign: {
         title: "分配顾问",
         rule: "R-18",
-        submit: "分配并通知顾问",
-        body: `<div class="status-source"><strong>陈女士｜北京朝阳分院｜华北</strong><span>该分院有 3 名可接收顾问，任一线索管理员均可完成本次分配；分配后顾问直接进入跟进。</span></div><div class="form-row"><label>分配顾问 *</label><select><option>李雯</option><option>赵莹</option><option>陈洁</option></select></div><div class="form-row"><label>分配说明</label><textarea>分配完成后立即生成首次回访任务，并从分配完成时间开始计算时限。</textarea></div>`
+        submit: "确定",
+        body: `<div style="margin-bottom:12px; font-weight:700;">陈女士 - 北京朝阳分院</div><div class="form-row"><label>分配顾问 *</label><select><option>李雯</option><option>赵莹</option><option>陈洁</option></select></div>`
       },
       registration: {
         title: "线索登记表",
@@ -6208,7 +6392,7 @@
               : state.duplicateLeadResolution === "independent"
                 ? '<div class="lead-audit-item"><strong>线索管理员·张敏｜今日 10:20</strong><span>操作内容：确认保留为独立线索</span><span>备注：关联线索 L-20260713-118；当前线索转入深圳分院待分配队列。</span></div>'
                 : '';
-            return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>当前线索为独立 HIS 来源，按时间顺序展示操作及备注</span></div><div class="lead-audit-timeline"><div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：HIS 日批同步入库</span><span>备注：已创建独立 HIS 来源线索，并写入来源分院。</span></div><div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：手机号重复识别</span><span>备注：发现线索 L-20260713-118 手机号相同，已标注重复提示，不影响后续分配。</span></div>${resolution}</div>`;
+            return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>当前线索为独立 HIS 来源，按操作时间逆序展示操作及备注</span></div><div class="lead-audit-timeline">${resolution}<div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：HIS 日批同步入库</span><span>备注：已创建独立 HIS 来源线索，并写入来源分院。</span></div></div>`;
           }
           const termination = state.leadFollowTerminated && lead.id === "L-20260713-022" ? '<div class="lead-audit-item"><strong>顾问·黄琳｜今日 15:30</strong><span>操作内容：终止跟进</span><span>备注：患者暂缓治疗，已停止自动回访并记录终止原因。</span></div>' : "";
           const statusEvent = lead.id === "L-20260711-015"
@@ -6219,7 +6403,7 @@
           const contractEvent = state.leadSignedContracts[lead.id]
             ? `<div class="lead-audit-item"><strong>线索管理员｜刚刚</strong><span>操作内容：关联合同签约</span><span>备注：已关联法大大合同 ${state.leadSignedContracts[lead.id]}，线索状态更新为“已签约”，停止自动回访。</span></div>`
             : "";
-          return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>按时间顺序展示本页面线索操作及备注；回访记录请在回访管理中查看。</span></div><div class="lead-audit-timeline"><div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：HIS 日批同步入库</span><span>备注：已创建线索档案并写入来源分院。</span></div><div class="lead-audit-item"><strong>线索管理员·张敏｜今日 06:18</strong><span>操作内容：手机号重复核对</span><span>备注：发现历史线索，已发起人工比对，未自动合并。</span></div><div class="lead-audit-item"><strong>线索管理员·王丽｜今日 09:35</strong><span>操作内容：分院顾问分配</span><span>备注：按来源分院统计可接收顾问；多名顾问时由线索管理员选择，分配后直接进入跟进中。</span></div>${termination}${statusEvent}${contractEvent}</div>`;
+          return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>按操作时间逆序展示本页面线索操作及备注；回访记录请在回访管理中查看。</span></div><div class="lead-audit-timeline">${contractEvent}${termination}<div class="lead-audit-item"><strong>线索管理员·王丽｜今日 09:35</strong><span>操作内容：分院顾问分配</span><span>备注：按来源分院统计可接收顾问；多名顾问时由线索管理员选择，分配后直接进入跟进中。</span></div><div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：HIS 日批同步入库</span><span>备注：已创建线索档案并写入来源分院。</span></div>${statusEvent}</div>`;
         }
       }
     };
@@ -6323,9 +6507,10 @@
       }
       if (action === "delete-lead") {
         const lead = state.leadDeleteTarget;
+        const reason = $("#leadDeleteReason")?.value.trim() || "未填写";
         if (!state.deletedLeadIds.includes(lead.id)) {
           state.deletedLeadIds.push(lead.id);
-          state.deletedLeads.push({ ...lead, deletedAt: "刚刚", reason: "手工删除" });
+          state.deletedLeads.push({ ...lead, deletedAt: "刚刚", reason });
         }
         closeLeadModal();
         render();
@@ -6381,7 +6566,7 @@
       }
       const messages = {
         "manual-sync": "已发起手工同步：系统正在拉取最新线索。",
-        "sync-log": "已查看今日同步记录。",
+        "sync-log": "已查看同步记录。",
         registration: "已查看统一线索登记表。",
         trace: "已查看公共池留痕。",
         claim: "公共池线索已重新分配：顾问归属已锁定，线索直接进入跟进中。",
@@ -6430,7 +6615,7 @@
           title: `改期回访任务｜${task.name}`,
           submit: "确认改期",
           rule: "R-25",
-          body: `<div class="rule-callout"><span class="badge badge-blue">改期提示</span><span>顾问每条任务仅有一次改期机会，必须保留原计划日期并填写原因。最多可顺延至当前意向等级对应的间隔天数。</span></div><div class="form-row"><label>原计划日期</label><input value="${task.due}" readonly></div><div class="form-row"><label>改期至 *</label><input value="2026-07-18" aria-label="改期日期"></div><div class="form-row"><label>改期原因 *</label><textarea>患者预约在周末与家属共同沟通，约定下周一再次联系。</textarea></div>`
+          body: `<div class="form-row"><label>原计划日期</label><input value="${task.due}" readonly></div><div class="form-row"><label>改期至 *</label><input id="followRescheduleDate" value="2026-07-18" aria-label="改期日期"></div><div class="form-row"><label for="followRescheduleReason">改期原因 *</label><select id="followRescheduleReason"><option value="">请选择</option>${followRescheduleReasonOptions.map((reason) => `<option>${reason}</option>`).join("")}</select><input id="followRescheduleOtherReason" hidden placeholder="请填写其他改期原因" style="margin-top:8px"></div><div class="form-row"><label for="followRescheduleRemark">备注</label><textarea id="followRescheduleRemark" placeholder="请输入备注（选填）"></textarea></div>`
         },
         changeOwner: {
           title: `更换负责顾问｜${task.name}`,
@@ -6443,6 +6628,13 @@
           submit: "关闭",
           rule: "R-25",
           body: renderFollowTimeline(task)
+        },
+        historyDetail: {
+          title: `回访结果详情｜${task.name}`,
+          cancel: "关闭全部",
+          submit: "返回回访记录",
+          rule: "R-23",
+          body: renderFollowResultDetail(task, state.followHistoryDetailIndex)
         },
         rules: {
           title: "总部规则配置",
@@ -6459,9 +6651,10 @@
       if (!config) return;
       const followDialog = $("#followModal").querySelector(".dialog");
       followDialog.classList.toggle("follow-patient-dialog", action === "patientDetail");
-      followDialog.classList.toggle("follow-result-dialog", action === "contact");
+      followDialog.classList.toggle("follow-result-dialog", ["contact", "historyDetail"].includes(action));
       $("#followModalTitle").textContent = config.title;
       $("#followModalBody").innerHTML = typeof config.body === "function" ? config.body() : config.body;
+      $("#followModalCancel").textContent = config.cancel || "取消";
       $("#followModalSubmit").textContent = config.submit;
       $("#followModal").classList.add("is-open");
       $("#followModal").setAttribute("aria-hidden", "false");
@@ -6521,7 +6714,21 @@
       const task = followUpTasks.find((item) => item.id === state.followTaskId);
       const newOwner = $("#followNewOwner")?.value || "";
       const ownerReason = ($("#followOwnerReason")?.value || "").trim();
+      const rescheduleDate = ($("#followRescheduleDate")?.value || "").trim();
+      const rescheduleReason = ($("#followRescheduleReason")?.value || "").trim();
+      const rescheduleOtherReason = ($("#followRescheduleOtherReason")?.value || "").trim();
+      const rescheduleRemark = ($("#followRescheduleRemark")?.value || "").trim();
       if (action === "contact" && !validateFollowResult()) return;
+      if (action === "reschedule" && !rescheduleReason) {
+        showToast("请选择改期原因。");
+        $("#followRescheduleReason")?.focus();
+        return;
+      }
+      if (action === "reschedule" && rescheduleReason === "其他" && !rescheduleOtherReason) {
+        showToast("请选择“其他”时，请填写具体改期原因。");
+        $("#followRescheduleOtherReason")?.focus();
+        return;
+      }
       if (action === "rules") {
         const firstVisitHours = Number($("#followFirstVisitHours")?.value);
         const intervals = { A: [], B: [], C: [], D: [] };
@@ -6549,6 +6756,10 @@
         followPlan: followFieldValue("followPlan", "followPlanOther"),
         returnPlan: $("#returnPlan").value || "未制定", remark: $("#followRemark").value.trim()
       } : null;
+      if (action === "historyDetail") {
+        openFollowModal("timeline", task?.id);
+        return;
+      }
       closeFollowModal();
       if (action === "contact") {
         if (task) {
@@ -6559,7 +6770,21 @@
         }
         showToast("回访结果已保存：如意向等级发生变化，系统将从新等级的首档间隔重新生成下一次回访任务。");
       }
-      else if (action === "reschedule") showToast("任务已改期：原计划日期、改期原因和本次改期记录已留痕。");
+      else if (action === "reschedule") {
+        if (task) {
+          const originalDate = task.due;
+          const displayDate = rescheduleDate ? `${Number(rescheduleDate.slice(5, 7))} 月 ${Number(rescheduleDate.slice(8, 10))} 日` : originalDate;
+          task.due = displayDate;
+          task.lastOperationTime = "2026-07-15 16:40";
+          followHistory[task.id] = followHistory[task.id] || [];
+          followHistory[task.id].unshift({
+            type: "改期", time: "2026-07-15", operator: task.owner || "当前顾问",
+            originalDate, newDate: rescheduleDate || originalDate, reason: rescheduleReason, otherReason: rescheduleOtherReason, remark: rescheduleRemark
+          });
+          renderFollowupView();
+        }
+        showToast("任务已改期：原计划日期、改期原因、备注和本次改期记录已留痕。");
+      }
       else if (action === "changeOwner" && task && newOwner) {
         const oldOwner = task.owner;
         task.owner = newOwner;
@@ -6865,6 +7090,9 @@
       const intentLabel = $("#leadFilterIntentLabel");
       if (intentLabel) intentLabel.textContent = "全部分级";
       $$("[data-lead-intent-option]").forEach((button) => button.classList.toggle("is-selected", !button.dataset.leadIntentOption));
+      const sourceLabel = $("#leadFilterSourceLabel");
+      if (sourceLabel) sourceLabel.textContent = "全部数据来源";
+      $$("[data-lead-source-option]").forEach((button) => button.classList.toggle("is-selected", !button.dataset.leadSourceOption));
       $$('[data-lead-row]').forEach((row) => { row.hidden = false; });
       showToast("已重置筛选条件。 ");
     }
@@ -6906,6 +7134,131 @@
         $$("[data-lead-intent-option]").forEach((button) => button.classList.toggle("is-selected", button === intentOption));
         $("#leadIntentOptions").hidden = true;
         $("#leadIntentToggle").setAttribute("aria-expanded", "false");
+        return;
+      }
+
+      if (event.target.closest("#leadSourceToggle")) {
+        const options = $("#leadSourceOptions");
+        const willOpen = options.hidden;
+        options.hidden = !willOpen;
+        $("#leadSourceToggle").setAttribute("aria-expanded", String(willOpen));
+        return;
+      }
+
+      const sourceOption = event.target.closest("[data-lead-source-option]");
+      if (sourceOption) {
+        const value = sourceOption.dataset.leadSourceOption;
+        $("#leadFilterSource").value = value;
+        $("#leadFilterSourceLabel").textContent = value || "全部数据来源";
+        $$("[data-lead-source-option]").forEach((button) => button.classList.toggle("is-selected", button === sourceOption));
+        $("#leadSourceOptions").hidden = true;
+        $("#leadSourceToggle").setAttribute("aria-expanded", "false");
+        return;
+      }
+
+      const dictionaryItemSelect = event.target.closest("[data-dictionary-item-select]");
+      if (dictionaryItemSelect) {
+        state.dictionaryActiveId = dictionaryItemSelect.dataset.dictionaryItemSelect;
+        state.dictionaryValueQuery = "";
+        state.dictionarySelectedValueIds = [];
+        renderDictionarySettingsView();
+        return;
+      }
+
+      if (event.target.closest("[data-dictionary-item-new]")) {
+        openDictionaryModal("item-new");
+        return;
+      }
+
+      const dictionaryItemEdit = event.target.closest("[data-dictionary-item-edit]");
+      if (dictionaryItemEdit) {
+        state.dictionaryActiveId = dictionaryItemEdit.dataset.dictionaryItemEdit;
+        openDictionaryModal("item-edit");
+        return;
+      }
+
+      const dictionaryItemDelete = event.target.closest("[data-dictionary-item-delete]");
+      if (dictionaryItemDelete) {
+        const index = dictionaryCatalog.findIndex((entry) => entry.id === dictionaryItemDelete.dataset.dictionaryItemDelete);
+        if (index < 0) return;
+        if (dictionaryCatalog.length === 1) {
+          showToast("至少需保留一个字典项。");
+          return;
+        }
+        const item = dictionaryCatalog[index];
+        if (!window.confirm(`确定删除字典项“${item.name}”及其全部字典值吗？`)) return;
+        dictionaryCatalog.splice(index, 1);
+        state.dictionaryActiveId = dictionaryCatalog[0]?.id || "";
+        state.dictionarySelectedValueIds = [];
+        renderDictionarySettingsView();
+        showToast("字典项已删除。");
+        return;
+      }
+
+      if (event.target.closest("[data-dictionary-value-new]")) {
+        openDictionaryModal("value-new");
+        return;
+      }
+
+      const dictionaryValueEdit = event.target.closest("[data-dictionary-value-edit]");
+      if (dictionaryValueEdit) {
+        openDictionaryModal("value-edit", Number(dictionaryValueEdit.dataset.dictionaryValueEdit));
+        return;
+      }
+
+      const dictionaryValueDelete = event.target.closest("[data-dictionary-value-delete]");
+      if (dictionaryValueDelete) {
+        const item = activeDictionaryItem();
+        const index = Number(dictionaryValueDelete.dataset.dictionaryValueDelete);
+        const record = dictionaryValueRecords(item)[index];
+        if (!window.confirm(`确定删除字典值“${record?.value || ""}”吗？`)) return;
+        item.values.splice(index, 1);
+        syncDictionaryOptionSource(item);
+        state.dictionarySelectedValueIds = [];
+        renderDictionarySettingsView();
+        showToast("字典值已删除。");
+        return;
+      }
+
+      if (event.target.closest("[data-dictionary-modal-close]")) {
+        closeDictionaryModal();
+        return;
+      }
+
+      if (event.target.id === "dictionaryModal") {
+        closeDictionaryModal();
+        return;
+      }
+
+      if (event.target.closest("[data-dictionary-modal-submit]")) {
+        submitDictionaryModal();
+        return;
+      }
+
+      if (event.target.matches("[data-dictionary-value-check]")) {
+        const id = event.target.dataset.dictionaryValueCheck;
+        state.dictionarySelectedValueIds = event.target.checked ? [...new Set([...state.dictionarySelectedValueIds, id])] : state.dictionarySelectedValueIds.filter((entry) => entry !== id);
+        renderDictionarySettingsView();
+        return;
+      }
+
+      if (event.target.matches("[data-dictionary-select-all]")) {
+        const active = activeDictionaryItem();
+        const shown = active.values.map((_, index) => `${active.id}-${index}`);
+        state.dictionarySelectedValueIds = event.target.checked ? shown : [];
+        renderDictionarySettingsView();
+        return;
+      }
+
+      if (event.target.closest("[data-dictionary-value-batch-delete]")) {
+        const item = activeDictionaryItem();
+        const indexes = state.dictionarySelectedValueIds.map((id) => Number(id.slice(`${item.id}-`.length))).filter(Number.isInteger).sort((a, b) => b - a);
+        if (!indexes.length || !window.confirm(`确定删除已选的 ${indexes.length} 个字典值吗？`)) return;
+        indexes.forEach((index) => item.values.splice(index, 1));
+        syncDictionaryOptionSource(item);
+        state.dictionarySelectedValueIds = [];
+        renderDictionarySettingsView();
+        showToast("已删除所选字典值。");
         return;
       }
 
@@ -7513,6 +7866,12 @@
       }
 
       const followAction = event.target.closest("[data-follow-action]");
+      const followHistoryDetail = event.target.closest("[data-follow-history-detail]");
+      if (followHistoryDetail) {
+        state.followHistoryDetailIndex = Number(followHistoryDetail.dataset.historyIndex);
+        openFollowModal("historyDetail", followHistoryDetail.dataset.taskId);
+        return;
+      }
       if (followAction) {
         if (followAction.dataset.followAction === "patientDetail") {
           state.followPatientDetailTab = "medical";
@@ -7560,6 +7919,20 @@
       if (event.target.closest("[data-customer-archive-clear]")) {
         state.customerArchiveId = "";
         renderNewCustomerView();
+        return;
+      }
+
+      if (event.target.closest("[data-wecom-phone-check]")) {
+        const row = event.target.closest(".wecom-phone-check");
+        const phone = row?.querySelector("input")?.value.trim();
+        const result = row?.querySelector("[data-wecom-phone-check-result]");
+        if (!phone) {
+          if (result) result.textContent = "请先输入患者电话。";
+          showToast("请先输入患者电话再查重。 ");
+          return;
+        }
+        if (result) result.textContent = "未发现重复电话";
+        showToast("未发现重复电话");
         return;
       }
 
@@ -7614,6 +7987,18 @@
         return;
       }
 
+      if (event.target.closest("[data-recycle-delete]")) {
+        const deleteId = event.target.closest("[data-recycle-delete]").dataset.recycleId;
+        if (deleteId === "L-20260712-008") state.recycleBinSeedVisible = false;
+        state.deletedLeadIds = state.deletedLeadIds.filter((id) => id !== deleteId);
+        state.deletedLeads = state.deletedLeads.filter((lead) => lead.id !== deleteId);
+        closeLeadModal();
+        render();
+        setRule("R-01");
+        showToast("线索已从回收箱删除。");
+        return;
+      }
+
       if (event.target.closest("#leadModalSubmit")) {
         submitLeadModal();
         return;
@@ -7640,7 +8025,7 @@
           }
           state.activeView = "followup";
           state.followFilter = "all";
-          state.followSearch = { leadId, patient: "", owner: "", region: "", sourceBranch: "" };
+          state.followSearch = { leadId, patient: "", owner: "", sourceBranch: "" };
           updateNavState();
           render();
           setRule("R-02");
@@ -7879,12 +8264,22 @@
           showToast(state.wecomLeadMarked ? "已标记为试管线索，请补充登记表后提交。" : "已取消试管线索标记。");
           return;
         }
+        if (wecomAction.dataset.wecomAction === "submit-lead") {
+          if (state.wecomLeadSubmitted) {
+            showToast("该线索已提交，不可再次提交。 ");
+            return;
+          }
+          state.wecomLeadSubmitted = true;
+          renderWecomView();
+          setRule("R-29");
+          showToast("线索已确认提交：将执行手机号核对并进入分院分配流程。");
+          return;
+        }
         const messages = {
           send: "消息已发送（原型示例）。",
           "quick-reply": "快捷话术已发送到当前会话（原型示例）。",
           "add-tag": "已打开新增会话标签（原型示例）。",
-          "save-draft": "线索登记草稿已保存。",
-          "submit-lead": "线索已提交：将执行手机号重复核对，并按来源分院顾问配置自动或人工分配。"
+          "save-draft": "线索登记草稿已保存。"
         };
         setRule("R-29");
         showToast(messages[wecomAction.dataset.wecomAction] || "操作已完成。");
@@ -7967,7 +8362,40 @@
 
     normalizeDialogHeadCloseButtons();
     $("#closeModal").addEventListener("click", closeModal);
+    document.addEventListener("input", (event) => {
+      if (event.target.id !== "dictionaryItemQuery" && event.target.id !== "dictionaryValueQuery") return;
+      const id = event.target.id;
+      const value = event.target.value;
+      if (id === "dictionaryItemQuery") state.dictionaryItemQuery = value;
+      else {
+        state.dictionaryValueQuery = value;
+        state.dictionarySelectedValueIds = [];
+      }
+      renderDictionarySettingsView();
+      requestAnimationFrame(() => {
+        const input = $(`#${id}`);
+        input?.focus();
+        input?.setSelectionRange(input.value.length, input.value.length);
+      });
+    });
     document.addEventListener("change", (event) => {
+      if (event.target.id === "dictionaryItemQuery") {
+        state.dictionaryItemQuery = event.target.value;
+        renderDictionarySettingsView();
+        return;
+      }
+      if (event.target.id === "dictionaryValueQuery") {
+        state.dictionaryValueQuery = event.target.value;
+        state.dictionarySelectedValueIds = [];
+        renderDictionarySettingsView();
+        return;
+      }
+      if (event.target.id === "followRescheduleReason") {
+        const otherReasonInput = $("#followRescheduleOtherReason");
+        if (otherReasonInput) otherReasonInput.hidden = event.target.value !== "其他";
+        if (event.target.value !== "其他" && otherReasonInput) otherReasonInput.value = "";
+        return;
+      }
       if (event.target.matches("#followModalBody [data-other-input]")) syncFollowOtherFields();
       if (event.target.matches("#followModalBody [data-follow-required], #followModalBody [data-follow-other]")) {
         event.target.classList.remove("field-error");
