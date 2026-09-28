@@ -544,7 +544,28 @@
     .his-lead-modal .dialog { width: min(1120px, 94vw); max-height: 90vh; }
     .his-lead-modal .dialog-body { max-height: calc(90vh - 132px); overflow: auto; }
     .his-lead-modal .his-lead-panel { margin-top: 14px; }
-    .his-content > .his-lead-panel { display: none; }
+    .his-content > .his-lead-panel { display: block; }
+    .his-lead-workbench { margin-top: 12px; padding: 14px; border: 1px solid #d3dde9; background: #fff; }
+    .his-lead-workbench > .his-section-title { margin: 0 0 12px; padding-left: 0; }
+    .his-exam-shell { display: grid; grid-template-columns: minmax(720px, 1fr) 235px; min-height: 760px; background: #fff; border-top: 1px solid #bfc8d4; }
+    .his-exam-main { padding: 14px 16px; overflow: auto; }
+    .his-exam-summary { border: 1px solid #c9c9b7; }
+    .his-exam-summary-head { display: flex; justify-content: space-between; padding: 6px 10px; background: #f5f6d9; color: #11118c; font-weight: 700; }
+    .his-exam-line { display: grid; grid-template-columns: 100px 1fr; min-height: 27px; border-top: 1px solid #d9d9d9; align-items: center; font-size: 13px; }
+    .his-exam-line strong { padding-left: 12px; }
+    .his-exam-line span { border-left: 1px solid #dedede; padding: 4px 8px; color: #9aa0a8; }
+    .his-exam-table { width: 100%; border-collapse: collapse; margin-top: 0; font-size: 13px; }
+    .his-exam-table th, .his-exam-table td { padding: 5px 8px; border: 1px solid #d9d9d9; text-align: left; }
+    .his-exam-table th { background: #fafafa; color: #111; }
+    .his-exam-bottom { margin-top: 468px; border: 1px solid #bbb; }
+    .his-plan-side { border-left: 1px solid #c7cfd9; background: #fff; overflow: hidden; }
+    .his-plan-tabs { display: flex; border-bottom: 1px solid #d4dbe5; }
+    .his-plan-tabs span { flex: 1; padding: 8px; text-align: center; font-size: 13px; }
+    .his-plan-tabs span:first-child { color: #2676bd; border-bottom: 2px solid #2676bd; }
+    .his-plan-search { margin: 8px; padding: 6px 8px; border: 1px solid #d1d7df; color: #9aa0a8; font-size: 12px; }
+    .his-plan-tree { margin: 0; padding: 0 12px; list-style: none; line-height: 1.6; font-size: 13px; color: #222; }
+    .his-lead-check { display: inline-flex; align-items: center; gap: 5px; margin-left: 8px; color: #245d3f; font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .his-lead-check input { width: 15px; height: 15px; accent-color: #279a5b; }
     @media (max-width: 900px) { .his-workspace { grid-template-columns: 1fr; } .his-left { display: none; } .his-record-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 560px) { .his-record-grid { grid-template-columns: 1fr; } .his-topbar .his-top-actions { gap: 8px; font-size: 12px; } }
 
@@ -674,6 +695,25 @@
       color: var(--primary-strong);
       font-size: 12px;
       font-weight: 700;
+    }
+
+    #notificationModal .dialog {
+      width: min(620px, calc(100vw - 40px));
+      max-height: min(76vh, calc(100vh - 40px));
+      display: flex;
+      flex-direction: column;
+    }
+
+    #notificationModal .dialog-head,
+    #notificationModal .dialog-foot {
+      flex: 0 0 auto;
+    }
+
+    #notificationModal .dialog-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 12px 16px;
     }
 
     .notification-list-dialog {
@@ -864,7 +904,13 @@
       margin: 0;
     }
 
-    .lead-table th:nth-child(1) { min-width: 132px; }
+    .lead-table th:nth-child(1),
+    .lead-table td:nth-child(1) {
+      width: 48px;
+      min-width: 48px;
+      max-width: 48px;
+      white-space: nowrap;
+    }
     .lead-table th:nth-child(2) { min-width: 82px; }
     .lead-table th:nth-child(3) { min-width: 112px; }
     .lead-table th:nth-child(4) { min-width: 92px; }
@@ -873,10 +919,90 @@
     .lead-table th:nth-child(7) { min-width: 92px; }
     .lead-table th:nth-child(8) { min-width: 140px; }
     .lead-table th:nth-child(9) { min-width: 76px; }
-    .lead-table th:nth-child(10) { min-width: 220px; }
+    .lead-table {
+      min-width: 1640px;
+    }
+    .lead-table th:nth-child(10) { min-width: 112px; }
+    .lead-table th:nth-child(11) { min-width: 150px; }
+    .lead-table th:nth-child(12),
+    .lead-table td:nth-child(12) {
+      position: sticky;
+      right: 0;
+      width: 292px;
+      min-width: 292px;
+      max-width: 292px;
+      background: var(--surface);
+      box-shadow: -8px 0 12px rgba(31, 54, 88, 0.08);
+      z-index: 2;
+    }
+    .lead-table th:nth-child(12) {
+      z-index: 3;
+      background: #f5f8ff;
+    }
+
+    .lead-table td:nth-child(12).is-menu-open { z-index: 30; }
+
+    .lead-table td:nth-child(12) .compact-actions {
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+    }
 
     .lead-table td {
       white-space: normal;
+    }
+
+    .lead-table .lead-date-cell { white-space: nowrap; }
+
+    .lead-table-scroll {
+      position: relative;
+      overflow-x: auto;
+      overflow-y: visible;
+      margin-top: 12px;
+      padding-bottom: 6px;
+    }
+
+    .lead-primary-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: nowrap;
+    }
+
+    .lead-more-actions {
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .lead-more-menu {
+      position: absolute;
+      top: 34px;
+      right: 0;
+      width: 118px;
+      padding: 6px;
+      display: grid;
+      gap: 4px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: 0 10px 24px rgba(31, 54, 88, 0.18);
+      z-index: 20;
+    }
+
+    .lead-more-menu[hidden] { display: none; }
+
+    .lead-more-menu .btn {
+      width: 100%;
+      justify-content: flex-start;
+      background: var(--surface);
+      color: var(--text);
+      border-color: transparent;
+    }
+
+    .lead-more-menu .btn:hover { background: var(--primary-soft); }
+
+    .lead-table tbody tr:nth-last-child(-n + 2) .lead-more-menu {
+      top: auto;
+      bottom: 34px;
     }
 
     .lead-id {
@@ -2100,6 +2226,91 @@
 
     .role-permission-row input { accent-color: var(--primary); }
 
+    .role-permission-workbench {
+      min-height: 430px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .permission-tree-panel {
+      padding: 12px;
+      background: #f8fbff;
+      overflow: auto;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .permission-tree-panel details { width: max-content; min-width: 100%; margin: 2px 0; }
+    .permission-tree-panel summary {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 7px;
+      width: max-content;
+      min-width: 100%;
+      min-height: 30px;
+      cursor: pointer;
+      list-style: none;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+    .permission-tree-panel summary::-webkit-details-marker { display: none; }
+    .permission-tree-panel summary::before { content: "›"; color: var(--muted); transform: rotate(0deg); }
+    .permission-tree-panel details[open] > summary::before { transform: rotate(90deg); }
+    .permission-tree-panel input[type="checkbox"] {
+      width: 14px;
+      min-width: 14px;
+      height: 14px;
+      margin: 0;
+      padding: 0;
+      flex: 0 0 14px;
+      accent-color: var(--primary);
+    }
+    .permission-tree-children {
+      margin: 2px 0 6px 13px;
+      padding-left: 14px;
+      border-left: 1px dashed #bfdbfe;
+    }
+    .permission-tree-leaf {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 7px;
+      width: max-content;
+      min-width: 100%;
+      min-height: 29px;
+      padding: 0 4px;
+      cursor: pointer;
+      color: #475569;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .permission-tree-root { margin-bottom: 6px; }
+    .permission-tree-root > label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 7px;
+      width: max-content;
+      min-width: 100%;
+      min-height: 32px;
+      padding: 5px 7px;
+      border-radius: 6px;
+      background: #edf5ff;
+      color: #1d4ed8;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .permission-selection-panel { overflow: auto; }
+    .permission-selection-panel table { width: 100%; border-collapse: collapse; }
+    .permission-selection-panel th,
+    .permission-selection-panel td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; font-size: 13px; }
+    .permission-selection-panel th { background: #f3f7fd; color: #64748b; font-weight: 700; }
+    .permission-selection-empty { padding: 26px 12px; color: var(--muted); text-align: center; }
+
     .customer-detail-dialog {
       width: min(1220px, 96vw);
       max-height: 92vh;
@@ -2179,6 +2390,30 @@
       background: #fff;
     }
 
+    .patient-detail-empty {
+      min-height: 540px;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      gap: 10px;
+      color: var(--muted);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+    }
+    .patient-detail-empty .empty-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--primary);
+      background: #eef5ff;
+      font-size: 24px;
+    }
+    .patient-detail-empty strong { color: var(--text); font-size: 16px; }
+    .patient-detail-empty span { font-size: 13px; }
+
     .medical-record-dates h3 {
       margin: 0 4px 10px;
       font-size: 14px;
@@ -2250,6 +2485,19 @@
     .lab-result-table th { background: #f6f8fb; color: #475569; white-space: nowrap; }
     .lab-result-table .is-low { color: #2563eb; font-weight: 800; }
     .lab-result-table .is-high { color: #dc2626; font-weight: 800; }
+    .examination-report-document { max-width: 900px; margin: 0 auto; padding: 22px 28px; border: 1px solid #d8dee8; background: #fff; color: #1f2937; line-height: 1.75; }
+    .examination-report-brand { text-align: center; border-bottom: 2px solid #334155; padding-bottom: 10px; }
+    .examination-report-brand h2 { margin: 0; font-family: serif; font-size: 28px; font-weight: 600; letter-spacing: 3px; color: #111827; }
+    .examination-report-brand h3 { margin: 0; font-family: serif; font-size: 19px; font-weight: 600; color: #111827; }
+    .examination-report-meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px 18px; padding: 12px 0; border-bottom: 1px solid #334155; font-size: 13px; }
+    .examination-report-meta .wide { grid-column: span 2; }
+    .examination-image-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 14px 0 10px; }
+    .examination-image { aspect-ratio: 1.28; display: grid; place-items: center; color: #dbeafe; background: radial-gradient(circle at 50% 50%, #475569 0 12%, #111827 13% 45%, #020617 46%); border: 1px solid #111827; font-size: 12px; }
+    .examination-report-section { margin-top: 12px; }
+    .examination-report-section h4 { margin: 0 0 4px; font-size: 15px; color: #111827; }
+    .examination-report-section p { margin: 2px 0; font-family: serif; font-size: 14px; }
+    .examination-report-signature { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 88px; padding-bottom: 6px; border-bottom: 2px solid #334155; font-size: 13px; }
+    .examination-report-footer { display: flex; justify-content: space-between; gap: 16px; padding-top: 8px; color: #475569; font-size: 12px; }
 
     @media (max-width: 720px) {
       .medical-record-layout { grid-template-columns: 1fr; }
@@ -2263,10 +2511,12 @@
       .lab-report-list { border-right: 0; border-bottom: 1px solid var(--line); display: flex; gap: 6px; overflow-x: auto; }
       .lab-report-list h3 { display: none; }
       .lab-report-item { min-width: 180px; margin: 0; }
+      .examination-report-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .examination-report-meta .wide { grid-column: span 2; }
     }
 
     .lead-registration-dialog {
-      width: min(860px, 96vw);
+      width: min(1380px, 96vw);
       max-height: 90vh;
       display: flex;
       flex-direction: column;
@@ -2275,6 +2525,19 @@
     .lead-registration-dialog .dialog-body {
       min-height: 0;
       overflow: auto;
+    }
+
+    .lead-registration-dialog .registration-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .lead-registration-dialog .registration-item.wide {
+      grid-column: 1 / -1;
+    }
+
+    .lead-registration-dialog .registration-item.phone-check-item > .phone-check-result {
+      margin-left: 0;
     }
 
     .lead-new-dialog {
@@ -2453,6 +2716,7 @@
     @media (max-width: 680px) {
       .registration-grid { grid-template-columns: 1fr; }
       .registration-item.wide { grid-column: auto; }
+      .lead-registration-dialog .registration-grid { grid-template-columns: 1fr; }
       .lead-new-dialog { max-height: 90vh; }
       .lead-new-dialog .dialog-body { overflow: auto; }
       .lead-new-dialog .registration-grid { grid-template-columns: 1fr; }
@@ -2473,6 +2737,12 @@
       border-top: 1px solid var(--line);
       border-bottom: 0;
       justify-content: flex-end;
+    }
+
+    .lead-modal-footnote {
+      margin-right: auto;
+      color: var(--muted);
+      font-size: 12px;
     }
 
     .dialog-head h2 {
@@ -2798,7 +3068,7 @@
         <span>辅助生殖 CRM</span>
       </div>
       <div class="top-actions">
-        <button class="btn" id="notificationBtn">消息提醒 <span class="notice-badge" id="notificationCount">6</span></button>
+        <button class="btn" id="notificationBtn">消息提醒 <span class="notice-badge" id="notificationCount">10</span></button>
         <div class="account-menu-wrap">
           <button class="account-info" id="accountMenuBtn" type="button" aria-label="当前登录账号" aria-expanded="false" aria-controls="accountMenu">
             <span class="account-avatar">李</span>
@@ -3016,8 +3286,8 @@
   <div class="modal" id="customerCommunicationModal" aria-hidden="true">
     <div class="dialog customer-communication-dialog" role="dialog" aria-modal="true" aria-labelledby="customerCommunicationTitle">
       <div class="dialog-head">
-        <h2 id="customerCommunicationTitle">沟通记录</h2>
-        <div class="compact-actions"><button class="btn btn-primary" id="addCustomerCommunication">新增沟通记录</button><button class="btn" data-customer-communication-close>关闭</button></div>
+        <h2 id="customerCommunicationTitle">跟进记录</h2>
+        <div class="compact-actions"><button class="btn btn-primary" id="addCustomerCommunication">新增跟进记录</button><button class="btn" data-customer-communication-close>关闭</button></div>
       </div>
       <div class="dialog-body" id="customerCommunicationBody"></div>
     </div>
@@ -3026,23 +3296,17 @@
   <div class="modal" id="customerCommunicationEntryModal" aria-hidden="true">
     <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="customerCommunicationEntryTitle">
       <div class="dialog-head">
-        <h2 id="customerCommunicationEntryTitle">新增沟通记录</h2>
+        <h2 id="customerCommunicationEntryTitle">新增跟进记录</h2>
         <button class="btn" data-customer-communication-entry-close>关闭</button>
       </div>
       <div class="dialog-body">
-        <div class="form-row"><label for="communicationTarget">联系对象 *</label><select id="communicationTarget"><option>女方</option><option>男方</option><option>夫妻双方</option></select></div>
-        <div class="form-row"><label for="communicationTime">沟通时间 *</label><input id="communicationTime" type="datetime-local" value="2026-07-17T12:00"></div>
-        <div class="form-row"><label for="communicationOperator">沟通人 *</label><input id="communicationOperator" value="陪诊护士-陈敏"></div>
-        <div class="form-row"><label for="communicationMethod">联系方式 *</label><select id="communicationMethod"><option>电话</option><option>微信</option><option>当面沟通</option><option>短信</option><option>其他</option></select></div>
-        <div class="form-row"><label for="communicationContent">沟通内容 *</label><textarea id="communicationContent" placeholder="请录入与患者沟通的具体内容"></textarea></div>
-        <div class="form-row"><label for="communicationResult">沟通结果 *</label><select id="communicationResult"><option>已联系</option><option>未联系</option><option>待患者回复</option></select></div>
-        <div class="form-row"><label for="communicationPlan">后续处理意见</label><textarea id="communicationPlan" placeholder="例如：明日复诊前再次提醒患者"></textarea></div>
-        <div class="form-row"><label for="communicationRelated">关联检查结果或病历条目</label><input id="communicationRelated" placeholder="例如：HIS｜激素六项"></div>
-        <div class="form-row"><label for="communicationAttachments">附件</label><input id="communicationAttachments" type="file" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"><span class="muted">支持添加图片、PDF、Word、Excel 等文件。</span></div>
+        <div class="form-row"><label for="communicationTime">跟进时间 *</label><input id="communicationTime" type="datetime-local" value="2026-07-17T12:00"></div>
+        <div class="form-row"><label for="communicationType">类型 *</label><select id="communicationType"><option>跟进记录</option><option>客诉</option><option>特殊事项</option></select></div>
+        <div class="form-row"><label for="communicationContent">说明 *</label><textarea id="communicationContent" placeholder="请填写跟进说明"></textarea></div>
       </div>
       <div class="dialog-foot">
         <button class="btn" data-customer-communication-entry-close>取消</button>
-        <button class="btn btn-primary" id="submitCustomerCommunication">保存沟通记录</button>
+        <button class="btn btn-primary" id="submitCustomerCommunication">保存跟进记录</button>
       </div>
     </div>
   </div>
@@ -3098,6 +3362,14 @@
       <div class="dialog-head"><h2 id="hisLeadSubmitConfirmTitle">确认提交试管线索</h2><button class="btn" data-his-submit-confirm-close>关闭</button></div>
       <div class="dialog-body"><div class="status-source"><strong id="hisLeadSubmitConfirmContext">陈红英｜HIS</strong><span id="hisLeadSubmitConfirmMessage">确认提交后将执行手机号重复核对，并进入来源分院的线索分配流程。</span></div></div>
       <div class="dialog-foot"><button class="btn" data-his-submit-confirm-close>取消</button><button class="btn btn-primary" id="confirmHisLeadSubmit">确认提交</button></div>
+    </div>
+  </div>
+
+  <div class="modal" id="wecomLeadSubmitConfirmModal" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="wecomLeadSubmitConfirmTitle">
+      <div class="dialog-head"><h2 id="wecomLeadSubmitConfirmTitle">确认提交线索</h2><button class="btn" data-wecom-submit-confirm-close>关闭</button></div>
+      <div class="dialog-body"><div class="status-source"><span>是否确认提交线索，提交后不可修改！</span></div></div>
+      <div class="dialog-foot"><button class="btn" data-wecom-submit-confirm-close>取消</button><button class="btn btn-primary" id="confirmWecomLeadSubmit">确认提交</button></div>
     </div>
   </div>
 
@@ -3187,6 +3459,7 @@
       </div>
       <div class="dialog-body" id="leadModalBody"></div>
       <div class="dialog-foot">
+        <span class="lead-modal-footnote" id="leadModalFootnote" hidden></span>
         <button class="btn" data-lead-modal-close>取消</button>
         <button class="btn btn-primary" id="leadModalSubmit">确认</button>
       </div>
@@ -3277,13 +3550,15 @@
         <div class="form-row"><label for="roleNameInput">角色名称 *</label><input id="roleNameInput" placeholder="请输入角色名称"></div>
         <div class="form-row"><label for="roleScopeInput">数据范围 *</label><select id="roleScopeInput"><option>全量</option><option>负责分院</option><option>负责患者</option></select></div>
         <div class="form-row"><label>菜单 - 操作按钮权限 *</label>
-          <div class="role-permission-list">
-            <div class="role-permission-row"><label class="role-menu-check"><input type="checkbox" checked> <strong>线索管理</strong></label><div class="role-operation-checks"><label><input type="checkbox" checked>查看</label><label><input type="checkbox">新建线索</label><label><input type="checkbox">处理重复线索</label><label><input type="checkbox">分配顾问</label><label><input type="checkbox">终止跟进</label></div></div>
-            <div class="role-permission-row"><label class="role-menu-check"><input type="checkbox" checked> <strong>回访管理</strong></label><div class="role-operation-checks"><label><input type="checkbox" checked>查看</label><label><input type="checkbox">录入结果</label><label><input type="checkbox">改期</label><label><input type="checkbox">查看回访记录</label><label><input type="checkbox">规则配置</label></div></div>
-            <div class="role-permission-row"><label class="role-menu-check"><input type="checkbox"> <strong>客户管理</strong></label><div class="role-operation-checks"><label><input type="checkbox">查看</label><label><input type="checkbox">患者详情</label><label><input type="checkbox">录入沟通记录</label><label><input type="checkbox">分配医护</label></div></div>
-            <div class="role-permission-row"><label class="role-menu-check"><input type="checkbox"> <strong>合同管理</strong></label><div class="role-operation-checks"><label><input type="checkbox">查看</label><label><input type="checkbox">合同签约</label><label><input type="checkbox">查看合同</label></div></div>
-            <div class="role-permission-row"><label class="role-menu-check"><input type="checkbox"> <strong>合同财务</strong></label><div class="role-operation-checks"><label><input type="checkbox">查看</label><label><input type="checkbox">收款登记</label><label><input type="checkbox">催缴</label></div></div>
-            <div class="role-permission-row"><label class="role-menu-check"><input type="checkbox"> <strong>基础设置</strong></label><div class="role-operation-checks"><label><input type="checkbox">分院管理</label><label><input type="checkbox">用户管理</label><label><input type="checkbox">角色管理</label><label><input type="checkbox">字典管理</label></div></div>
+          <div class="role-permission-workbench">
+            <div class="permission-tree-panel" aria-label="菜单权限树">
+              <div class="permission-tree-root"><label><input type="checkbox" data-permission-menu="首页" data-permission-name="首页" data-permission-description="访问系统首页">首页</label></div>
+              <details open><summary><input type="checkbox" checked data-permission-menu="线索管理" data-permission-name="线索管理" data-permission-description="访问线索管理菜单">线索管理</summary><div class="permission-tree-children"><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 回收箱" data-permission-description="查看、复原或永久删除已删除线索">回收箱</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 同步记录" data-permission-description="同步外部来源的线索记录">同步记录</label><label class="permission-tree-leaf"><input type="checkbox" checked data-permission-operation="线索管理" data-permission-name="线索管理 / 新建线索" data-permission-description="新建线索并同步生成原始线索登记表">新建线索</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 分配顾问" data-permission-description="为待分配线索指定顾问">分配顾问</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 合同签约" data-permission-description="关联法大大合同并完成线索签约">合同签约</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 更换顾问" data-permission-description="更换线索当前跟进顾问">更换顾问</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 终止跟进" data-permission-description="终止线索后续跟进">终止跟进</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 激活线索" data-permission-description="重新激活已终止跟进的线索">激活线索</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 编辑" data-permission-description="编辑最新线索信息">编辑</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 删除" data-permission-description="将线索移入回收箱">删除</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 患者详情" data-permission-description="查看病历、检验、检查及原始线索登记表">患者详情</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 客户档案" data-permission-description="查看已签约患者的客户档案">客户档案</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 查看回访" data-permission-description="跳转或提示查看该线索的回访数据">查看回访</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 签约依据" data-permission-description="查看已签约线索的签约依据">签约依据</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="线索管理" data-permission-name="线索管理 / 时间轴" data-permission-description="查看线索操作时间轴">时间轴</label></div></details>
+              <details open><summary><input type="checkbox" checked data-permission-menu="回访管理" data-permission-name="回访管理" data-permission-description="访问回访管理菜单">回访管理</summary><div class="permission-tree-children"><label class="permission-tree-leaf"><input type="checkbox" checked data-permission-operation="回访管理" data-permission-name="回访管理 / 查看" data-permission-description="查看回访任务与记录">查看</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="回访管理" data-permission-name="回访管理 / 录入结果" data-permission-description="录入回访结果">录入结果</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="回访管理" data-permission-name="回访管理 / 改期" data-permission-description="调整回访时间">改期</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="回访管理" data-permission-name="回访管理 / 查看回访记录" data-permission-description="查看历史回访记录">查看回访记录</label></div></details>
+              <details><summary><input type="checkbox" data-permission-menu="客户管理" data-permission-name="客户管理" data-permission-description="访问客户管理菜单">客户管理</summary><div class="permission-tree-children"><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="客户管理" data-permission-name="客户管理 / 查看" data-permission-description="查看客户档案">查看</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="客户管理" data-permission-name="客户管理 / 患者详情" data-permission-description="查看患者详情">患者详情</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="客户管理" data-permission-name="客户管理 / 录入沟通记录" data-permission-description="录入客户沟通记录">录入沟通记录</label></div></details>
+              <details><summary><input type="checkbox" data-permission-menu="合同管理" data-permission-name="合同管理" data-permission-description="访问合同管理菜单">合同管理</summary><div class="permission-tree-children"><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="合同管理" data-permission-name="合同管理 / 查看" data-permission-description="查看合同信息">查看</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="合同管理" data-permission-name="合同管理 / 合同签约" data-permission-description="关联法大大合同并完成签约">合同签约</label></div></details>
+              <details><summary><input type="checkbox" data-permission-menu="基础设置" data-permission-name="基础设置" data-permission-description="访问基础设置菜单">基础设置</summary><div class="permission-tree-children"><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="基础设置" data-permission-name="基础设置 / 用户管理" data-permission-description="管理用户账号">用户管理</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="基础设置" data-permission-name="基础设置 / 角色管理" data-permission-description="管理角色与权限">角色管理</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="基础设置" data-permission-name="基础设置 / 字典管理" data-permission-description="管理系统字典">字典管理</label></div></details>
+            </div>
           </div>
         </div>
       </div>
@@ -3369,7 +3644,7 @@
         id: "P001",
         name: "林女士",
         age: 35,
-        phone: "138****7621",
+        phone: "13800007621",
         source: "医生推荐",
         owner: "顾问-赵莹",
         doctor: "张医生",
@@ -3411,7 +3686,7 @@
         id: "P002",
         name: "周女士",
         age: 32,
-        phone: "136****2190",
+        phone: "13600002190",
         source: "企微线索",
         owner: "顾问-李娜",
         doctor: "王医生",
@@ -3452,7 +3727,7 @@
         id: "P003",
         name: "陈女士",
         age: 39,
-        phone: "139****4508",
+        phone: "13900004508",
         source: "企业微信",
         owner: "海南客服-小许",
         doctor: "刘医生",
@@ -3494,7 +3769,7 @@
         id: "P004",
         name: "黄女士",
         age: 37,
-        phone: "135****9022",
+        phone: "13500009022",
         source: "预约平台",
         owner: "区域陪诊护士-阿敏",
         doctor: "赵医生",
@@ -3560,6 +3835,7 @@
       ["R-27", "统一线索登记表", "HIS、企业微信、飞书线索均按统一登记表字段展示；HIS 数据由同步字段转换，原始来源数据仅可查看。"],
       ["R-28", "分院人员与自动分配", "每个分院至少配置 1 名、可配置多名线索管理员和顾问；仅 1 名可接收顾问时自动分配，多名时由任一线索管理员分配。"],
       ["R-29", "企业微信会话内登记", "企业微信 CRM 管理栏嵌入与飞书一致的线索登记字段；手机号非空时执行核对，并写入会话与填写留痕。"],
+      ["HIS-01", "HIS 客户档案标记与登记", "HIS 门诊医生站保持原有页面和操作布局；工具栏在关闭前提供默认未勾选的试管线索复选框，供医生按实际情况标记。"],
       ["UM-01", "手机号登录账号", "手机号为用户唯一登录账号，须为中国大陆 11 位手机号；一个手机号只能绑定一个用户，用户管理及关联人员列表完整展示手机号。"],
       ["UM-02", "短信验证码登录", "登录页输入手机号后发送 6 位短信验证码；验证码 5 分钟有效、单次使用，校验成功即登录。系统不设置登录密码。"],
       ["UM-03", "账号启停", "仅启用账号可发送并使用登录验证码；停用后立即禁止新登录，既有业务记录和操作人信息保留。"],
@@ -3582,8 +3858,9 @@
       ["CM-08", "人员变更", "重新分配人员后，未完成待办和后续提醒自动转给新负责人，并通知原负责人和新负责人。"],
       ["CM-09", "联系记录", "所有有权查看案例的角色均可维护联系记录；记录须标明联系对象，并可关联异常检查或病历条目。"],
       ["CM-10", "夫妻案例", "列表以女方为主展示并标记配偶；详情新增男方信息页，支持查看男方检查结果、门诊病历和互创病历。"],
+      ["CT-01", "合同到期与终止提醒", "合同到期前半年、3 个月、1 个月及终止时，按合同编号生成聚合名单，同时推送给负责顾问和对应企业微信。"],
       ["ES-01", "冻存主数据来源", "胚胎数量、管数、冷冻日期和当前保存有效期以实验室/HIS 确认数据为准；CRM 仅展示、提醒和留痕，不推算或覆盖实验室主数据。"],
-      ["ES-02", "分层到期提醒", "按实际有效期生成 60 天周期护士、30 天客服、7 天及逾期顾问提醒；到期后进入宽限期升级处理，但不得自动视为患者放弃。"],
+      ["ES-02", "分层到期提醒", "按实际有效期生成 60 天周期护士和顾问、30 天客服和顾问、7 天及逾期顾问提醒；到期后进入宽限期升级处理，但不得自动视为患者放弃。"],
       ["ES-03", "续费闭环", "续费必须依次完成患者意向、缴费、财务确认入账和实验室更新新有效期；仅实验室确认后才标记续存完成。"],
       ["ES-04", "终止保存合规", "患者不续费不等于立即终止保存；必须完成明确意愿、知情文件、内部审批和实验室确认，并完整保留凭证与操作审计。"],
       ["ES-05", "冻存历史留痕", "续费期限、金额、沟通、付款、有效期变更和终止记录按时间追加保存，不得覆盖既有历史。"]
@@ -3595,6 +3872,8 @@
       { id: "FU-20260712-021", leadId: "L-20260712-021", name: "刘女士", phone: "13600009821", owner: "顾问-赵莹", region: "华南", leadManagers: "张敏、王芳", sourceBranch: "深圳分院", intent: "A", due: "7 月 14 日", dueHint: "已逾期 1 天", lastFollowDate: "7 月 9 日", status: "进行中", reminderStatus: "已逾期", taskText: "第 2 次回访", rule: "R-24" },
       { id: "FU-20260715-011", leadId: "L-20260715-011", name: "孙女士", phone: "13500004187", owner: "顾问-李娜", region: "华南", leadManagers: "张敏", sourceBranch: "广州分院", intent: "未定级", due: "7 月 18 日", dueHint: "3 天后", lastFollowDate: "-", status: "未触达", reminderStatus: "首次回访", taskText: "首次回访", rule: "R-21" },
       { id: "FU-20260715-024", leadId: "L-20260715-024", name: "陈女士", phone: "13900004821", owner: "顾问-李娜", region: "华南", leadManagers: "张敏、李雯", sourceBranch: "深圳分院", intent: "A", due: "7 月 17 日", dueHint: "2 天后", lastFollowDate: "7 月 15 日", status: "进行中", reminderStatus: "待执行", taskText: "第 2 次回访", rule: "R-23" },
+      { id: "FU-20260806-019", leadId: "L-20260806-019", name: "刘女士", phone: "13800005266", owner: "顾问-黄琳", region: "华南", leadManagers: "张敏", sourceBranch: "深圳福田分院", intent: "B", due: "7 月 18 日", dueHint: "3 天后", lastFollowDate: "7 月 15 日", status: "进行中", reminderStatus: "待执行", taskText: "首次回访", rule: "R-21" },
+      { id: "FU-20260714-031", leadId: "L-20260714-031", name: "陈女士", phone: "18600000718", owner: "-", region: "华北", leadManagers: "王丽", sourceBranch: "北京朝阳分院", intent: "未定级", due: "7 月 18 日", dueHint: "3 天后", lastFollowDate: "-", status: "未触达", reminderStatus: "首次回访", taskText: "首次回访", rule: "R-21" },
       { id: "FU-20260715-014", leadId: "L-20260714-029", name: "赵女士", phone: "15800006712", owner: "顾问-黄琳", region: "华东", leadManagers: "周敏、王芳", sourceBranch: "上海分院", intent: "C", due: "7 月 28 日", dueHint: "13 天后", lastFollowDate: "6 月 28 日", status: "进行中", reminderStatus: "待执行", taskText: "第 3 次回访", rule: "R-23" },
       { id: "FU-20260715-018", leadId: "L-20260714-026", name: "黄女士", phone: "13700003390", owner: "顾问-黄琳", region: "华南", leadManagers: "张敏", sourceBranch: "深圳分院", intent: "A", due: "-", lastFollowDate: "7 月 13 日", status: "已完结", reminderStatus: "已完结", taskText: "-", completedCountText: "已完成 4 次回访", rule: "R-17" },
       { id: "FU-20260715-020", leadId: "L-20260713-022", name: "林女士", phone: "13600009836", owner: "顾问-李娜", region: "华南", leadManagers: "张敏、李雯", sourceBranch: "广州分院", intent: "D", due: "-", lastFollowDate: "7 月 10 日", status: "已暂停", reminderStatus: "已暂停", taskText: "-", completedCountText: "已完成 2 次回访", rule: "R-20" },
@@ -3661,8 +3940,6 @@
       { id: "patient_stage", name: "患者当前阶段", code: "patient_stage", usage: "回访管理 / 录入回访结果", values: ["外院有余胚", "外院进周中", "未进周", "考虑中", "已预约看诊", "已面谈", "已签约"] },
       { id: "communication_topic", name: "主要沟通事项", code: "communication_topic", usage: "回访管理 / 录入回访结果", values: ["套餐介绍（费用解答）", "医生推荐", "失败史分析", "到院邀约", "签约跟进", "其它"] },
       { id: "patient_concern", name: "患者主要顾虑", code: "patient_concern", usage: "回访管理 / 录入回访结果", values: ["费用", "成功率", "行程距离", "时间", "家人态度", "医生选择", "既往失败阴影", "其它"] },
-      { id: "intent_level", name: "意向等级", code: "intent_level", usage: "回访管理 / 录入回访结果", values: ["A", "B", "C", "D"] },
-      { id: "doctor_intervention", name: "是否需要推荐医生介入", code: "doctor_intervention", usage: "回访管理 / 录入回访结果", values: ["是", "否"] },
       { id: "follow_plan", name: "跟进计划", code: "follow_plan", usage: "回访管理 / 录入回访结果", values: ["预约看诊", "到院接待", "转医生沟通", "签约跟进", "暂不跟进", "其它"] },
       { id: "return_plan", name: "回访计划（C、D级别）", code: "return_plan", usage: "回访管理 / 录入回访结果", values: ["群发案例激活", "朋友圈触达", "定向案例分享", "定向邀约"] },
       { id: "reschedule_reason", name: "改期原因", code: "reschedule_reason", usage: "回访管理 / 改期回访任务", values: followRescheduleReasonOptions }
@@ -3744,15 +4021,15 @@
 
     // 新版客户、合同、周期三层数据：夫妻档案可关联多份合同；每个周期只关联一份实际执行合同；同一夫妻同一时点最多一个进行中周期。
     const contractRecords = [
-      { id: "CT-001", coupleId: "CP-001", archiveId: "ARC-202607-0001", archiveSource: "线索转化", leadId: "L-20260713-022", contractNo: "FD-20260713-0088", parallelContractNo: "FD-20260801-0021", woman: "林女士", spouse: "李先生", medicalRecordNo: "", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥8,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 0 次", status: "执行中", signedAt: "2026-07-13", advisor: "赵莹", branch: "海南分院", hasInsurance: true },
+      { id: "CT-001", coupleId: "CP-001", archiveId: "ARC-202607-0001", archiveSource: "线索转化", leadId: "L-20260713-022", contractNo: "FD-20260713-0088", parallelContractNo: "FD-20260801-0021", woman: "林女士", spouse: "李先生", medicalRecordNo: "", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥8,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 0 次", status: "执行中", signedAt: "2026-07-13", endsAt: "2027-02-20", advisor: "赵莹", branch: "海南分院", hasInsurance: true },
       { id: "CT-002", coupleId: "CP-001", archiveId: "ARC-202607-0001", archiveSource: "线索转化", leadId: "L-20260713-022", contractNo: "FD-20260801-0021", parallelContractNo: "FD-20260713-0088", woman: "林女士", spouse: "李先生", medicalRecordNo: "", type: "试管", package: "一促二移", contractAmount: "¥76,000", discountAmount: "¥6,000", rights: "促 1 次｜移 2 次", used: "促 0 次｜移 0 次", status: "已签署待启用", signedAt: "2026-08-01", advisor: "赵莹", branch: "海南分院" },
       { id: "CT-003", coupleId: "CP-002", archiveId: "ARC-202606-0002", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260620-0032", woman: "陈女士", spouse: "王先生", medicalRecordNo: "MR-202607-0002", type: "人授", package: "促排 + 3 次人工授精", contractAmount: "¥32,800", discountAmount: "¥2,800", rights: "促 3 次｜人授 3 次", used: "促 2 次｜人授 2 次", status: "合同结束", endType: "保险退款", signedAt: "2026-06-20", advisor: "黄琳", branch: "深圳分院" },
-      { id: "CT-004", coupleId: "CP-002", archiveId: "ARC-202606-0002", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260710-0162", woman: "陈女士", spouse: "王先生", medicalRecordNo: "MR-202607-0002", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥10,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 0 次", status: "执行中", signedAt: "2026-07-10", advisor: "黄琳", branch: "深圳分院", hasInsurance: true },
+      { id: "CT-004", coupleId: "CP-002", archiveId: "ARC-202606-0002", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260710-0162", woman: "陈女士", spouse: "王先生", medicalRecordNo: "MR-202607-0002", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥10,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 0 次", status: "执行中", signedAt: "2026-07-10", endsAt: "2026-09-20", advisor: "黄琳", branch: "深圳分院", hasInsurance: true },
       { id: "CT-005", coupleId: "CP-003", archiveId: "ARC-202606-0003", archiveSource: "线索转化", leadId: "L-20260714-026", contractNo: "FD-20260628-0047", woman: "黄女士", spouse: "赵先生", medicalRecordNo: "MR-202606-0003", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥5,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 1 次", status: "合同结束", endType: "木棉花退款", signedAt: "2026-06-28", advisor: "陈芳", branch: "广州分院" },
       { id: "CT-006", coupleId: "CP-004", archiveId: "ARC-202606-0004", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260618-0301", woman: "孙女士", spouse: "孙先生", medicalRecordNo: "MR-20260618-001", type: "人授", package: "3 次人工授精", contractAmount: "¥18,000", discountAmount: "¥1,000", rights: "人授 3 次", used: "人授 3 次", status: "合同结束", endType: "完成权益（移植成功超过8周）", signedAt: "2026-06-18", advisor: "赵莹", branch: "北京分院" },
       { id: "CT-007", coupleId: "CP-005", archiveId: "ARC-202608-0005", archiveSource: "线索转化", leadId: "L-20260803-018", contractNo: "FD-20260803-0055", woman: "周女士", spouse: "吴先生", medicalRecordNo: "MR-202608-0005", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥12,000", rights: "促 1 次｜移 3 次", used: "促 0 次｜移 0 次", status: "执行中", signedAt: "2026-08-03", advisor: "李雯", branch: "上海分院" },
       { id: "CT-008", coupleId: "CP-006", archiveId: "ARC-202607-0006", archiveSource: "线索转化", leadId: "L-20260728-011", contractNo: "FD-20260728-0072", changed: true, woman: "郑女士", spouse: "冯先生", medicalRecordNo: "MR-202607-0006", type: "试管", package: "一促二移", contractAmount: "¥76,000", discountAmount: "¥6,000", rights: "促 1 次｜移 2 次", used: "促 1 次｜移 0 次", status: "合同结束", endType: "合同解除", signedAt: "2026-07-28", advisor: "陈芳", branch: "广州分院" },
-      { id: "CT-009", coupleId: "CP-007", archiveId: "ARC-202607-0007", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260716-0093", woman: "何女士", spouse: "高先生", medicalRecordNo: "MR-202607-0007", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥8,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 1 次", status: "执行中", signedAt: "2026-07-16", advisor: "赵莹", branch: "海南分院" },
+      { id: "CT-009", coupleId: "CP-007", archiveId: "ARC-202607-0007", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260716-0093", woman: "何女士", spouse: "高先生", medicalRecordNo: "MR-202607-0007", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥8,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 1 次", status: "执行中", signedAt: "2026-07-16", endsAt: "2026-11-20", advisor: "赵莹", branch: "海南分院" },
       { id: "CT-010", coupleId: "CP-008", archiveId: "ARC-202606-0008", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260608-0146", woman: "方女士", spouse: "罗先生", medicalRecordNo: "MR-202606-0008", type: "人授", package: "促排 + 3 次人工授精", contractAmount: "¥32,800", discountAmount: "¥2,800", rights: "促 3 次｜人授 3 次", used: "促 3 次｜人授 3 次", status: "合同结束", endType: "到合同截止时间", signedAt: "2026-06-08", advisor: "黄琳", branch: "深圳分院" }
     ];
     const contractEndTypes = ["完成权益（移植成功超过8周）", "到合同截止时间", "保险退款", "木棉花退款", "合同解除"];
@@ -3851,6 +4128,7 @@
       leadModalAction: null,
       leadTimeline: { id: "", name: "" },
       leadRegistration: { id: "", name: "" },
+      leadPatientDetail: { id: "", name: "", phone: "", branch: "", status: "" },
       leadContractTarget: { id: "", name: "", advisor: "" },
       leadSignedContracts: {},
       wecomTab: "crm",
@@ -3870,6 +4148,8 @@
       followMedicalRecordDate: "2026-07-12",
       followLabSubtab: "report",
       followLabReportId: "cbc",
+      followIndicatorId: "amh",
+      followExaminationReportId: "abdominal-ultrasound",
       followRuleConfig: {
         firstVisitHours: 24,
         intervals: { A: [2, 3, 5, 7, 15], B: [5, 7, 15, 21, 21], C: [7, 15, 21, 30, 30], D: [15, 21, 30, 60, 60] }
@@ -3879,7 +4159,7 @@
       activeCustomerId: "C-202607-001",
       customerAssignId: "",
       customerCommunicationId: "",
-      customerCommunicationTitle: "沟通记录",
+      customerCommunicationTitle: "跟进记录",
       customerArchiveId: "",
       customerArchiveSearch: { archiveId: "", name: "", idCard: "", medicalRecordNo: "", status: "" },
       contractArchiveId: "",
@@ -4191,7 +4471,83 @@
     }
 
     function embeddedRulesDocument(title, markdownFile) {
-      return `<section class="panel customer-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>${title}</h2><span class="muted">规则来源：<a href="${markdownFile}" target="_blank" rel="noopener">${markdownFile}</a>；下方直接展示当前规则文档。</span></div><span class="badge badge-blue">只读展示</span></div><iframe src="${markdownFile}" title="${title}"></iframe></div></section>`;
+      return `<section class="panel customer-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>${title}</h2><span class="muted">规则来源：${markdownFile}；下方直接展示当前规则文档。</span></div><span class="badge badge-blue">只读展示</span></div><iframe data-markdown-document="${markdownFile}" title="${title}"></iframe></div></section>`;
+    }
+
+    function renderMarkdownDocument(markdown) {
+      const inline = (value) => escapeHtml(value)
+        .replace(/`([^`]+)`/g, "<code>$1</code>")
+        .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+      const lines = markdown.replaceAll("\r\n", "\n").split("\n");
+      const html = [];
+      let index = 0;
+      while (index < lines.length) {
+        const line = lines[index];
+        if (!line.trim()) { index += 1; continue; }
+        const heading = line.match(/^\s{0,3}(#{1,6})\s+(.+)$/);
+        if (heading) {
+          const level = heading[1].length;
+          html.push(`<h${level}>${inline(heading[2])}</h${level}>`);
+          index += 1;
+          continue;
+        }
+        if (/^\|/.test(line) && /^\|?\s*:?-{3,}/.test(lines[index + 1] || "")) {
+          const rows = [];
+          while (index < lines.length && /^\|/.test(lines[index])) {
+            rows.push(lines[index].split("|").slice(1, -1).map((cell) => cell.trim()));
+            index += 1;
+          }
+          const [headers, , ...body] = rows;
+          html.push(`<table><thead><tr>${headers.map((cell) => `<th>${inline(cell)}</th>`).join("")}</tr></thead><tbody>${body.map((row) => `<tr>${row.map((cell) => `<td>${inline(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table>`);
+          continue;
+        }
+        if (/^\s*-\s+/.test(line)) {
+          const items = [];
+          while (index < lines.length && /^\s*-\s+/.test(lines[index])) {
+            items.push(lines[index].replace(/^\s*-\s+/, ""));
+            index += 1;
+          }
+          html.push(`<ul>${items.map((item) => `<li>${inline(item)}</li>`).join("")}</ul>`);
+          continue;
+        }
+        if (/^\s*\d+\.\s+/.test(line)) {
+          const items = [];
+          while (index < lines.length && /^\s*\d+\.\s+/.test(lines[index])) {
+            items.push(lines[index].replace(/^\s*\d+\.\s+/, ""));
+            index += 1;
+          }
+          html.push(`<ol>${items.map((item) => `<li>${inline(item)}</li>`).join("")}</ol>`);
+          continue;
+        }
+        const paragraph = [line.trim()];
+        index += 1;
+        while (index < lines.length && lines[index].trim() && !/^\s{0,3}(#{1,6})\s+|^\||^\s*-\s+|^\s*\d+\.\s+/.test(lines[index])) {
+          paragraph.push(lines[index].trim());
+          index += 1;
+        }
+        html.push(`<p>${inline(paragraph.join(" "))}</p>`);
+      }
+      return html.join("");
+    }
+
+    function renderEmbeddedRulesDocuments() {
+      mainEl.querySelectorAll("iframe[data-markdown-document]").forEach((frame) => {
+        const markdownFile = frame.dataset.markdownDocument;
+        frame.srcdoc = '<!doctype html><html><body style="margin:20px;font:14px/1.7 system-ui,sans-serif;color:#334155">正在加载规则文档…</body></html>';
+        fetch(markdownFile)
+          .then((response) => {
+            if (!response.ok) throw new Error("规则文档读取失败");
+            return response.text();
+          })
+          .then((markdown) => {
+            if (!frame.isConnected) return;
+            frame.srcdoc = `<!doctype html><html><head><meta charset="utf-8"><style>*{box-sizing:border-box}body{margin:20px;color:#334155;font:14px/1.75 system-ui,-apple-system,"Microsoft YaHei",sans-serif}h1{font-size:26px;margin:0 0 24px}h2{font-size:21px;margin:28px 0 14px}h3{font-size:17px;margin:22px 0 10px}h4{font-size:15px;margin:18px 0 8px}h5,h6{font-size:14px;margin:16px 0 8px}p{margin:0 0 12px}ul,ol{margin:0 0 16px;padding-left:24px}li{margin:4px 0}table{width:100%;border-collapse:collapse;margin:12px 0 20px}th,td{border-bottom:1px solid #e2e8f0;padding:9px 10px;text-align:left;vertical-align:top}th{background:#f8fafc;color:#1e293b}code{background:#f1f5f9;padding:1px 4px;border-radius:4px}</style></head><body>${renderMarkdownDocument(markdown)}</body></html>`;
+          })
+          .catch(() => {
+            if (!frame.isConnected) return;
+            frame.srcdoc = '<!doctype html><html><body style="margin:20px;font:14px/1.7 system-ui,sans-serif;color:#64748b">规则文档暂无法加载，请确认通过 HTTP 服务访问原型。</body></html>';
+          });
+      });
     }
 
     function statCards(items) {
@@ -4241,90 +4597,145 @@
               </div>
             </div>
             <div class="lead-filter-panel">
-              <div class="lead-filter-field"><label for="leadFilterId">线索 ID</label><input id="leadFilterId" placeholder="如 L-20260714-034"></div>
               <div class="lead-filter-field"><label for="leadFilterPhone">手机号</label><input id="leadFilterPhone" placeholder="请输入手机号"></div>
               <div class="lead-filter-field"><label for="leadFilterName">姓名</label><input id="leadFilterName" placeholder="请输入姓名"></div>
               <div class="lead-filter-field"><label for="leadFilterAdvisor">顾问</label><select id="leadFilterAdvisor"><option value="">全部顾问</option><option>黄琳</option><option>李雯</option><option>王敏</option></select></div>
-              <div class="lead-filter-field"><label for="leadFilterIntent">意向分级</label><input id="leadFilterIntent" type="hidden" value=""><div class="lead-intent-dropdown"><button type="button" class="lead-intent-toggle" id="leadIntentToggle" aria-expanded="false"><span id="leadFilterIntentLabel">全部分级</span></button><div class="lead-intent-options" id="leadIntentOptions" hidden><button type="button" class="is-selected" data-lead-intent-option="" onclick="document.getElementById('leadFilterIntent').value='';document.getElementById('leadFilterIntentLabel').textContent='全部分级';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">全部分级</button><button type="button" data-lead-intent-option="未定级" onclick="document.getElementById('leadFilterIntent').value='未定级';document.getElementById('leadFilterIntentLabel').textContent='未定级';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">未定级</button><button type="button" data-lead-intent-option="A" onclick="document.getElementById('leadFilterIntent').value='A';document.getElementById('leadFilterIntentLabel').textContent='A';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">A</button><button type="button" data-lead-intent-option="B" onclick="document.getElementById('leadFilterIntent').value='B';document.getElementById('leadFilterIntentLabel').textContent='B';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">B</button><button type="button" data-lead-intent-option="C" onclick="document.getElementById('leadFilterIntent').value='C';document.getElementById('leadFilterIntentLabel').textContent='C';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">C</button><button type="button" data-lead-intent-option="D" onclick="document.getElementById('leadFilterIntent').value='D';document.getElementById('leadFilterIntentLabel').textContent='D';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">D</button></div></div></div>
               <div class="lead-filter-field"><label for="leadFilterManager">线索管理员</label><select id="leadFilterManager"><option value="">全部线索管理员</option><option>陈芳</option><option>刘洁</option><option>张敏</option><option>王丽</option><option>李华</option></select></div>
               <div class="lead-filter-field"><label for="leadFilterBranch">分院</label><select id="leadFilterBranch"><option value="">全部分院</option><option>广州天河分院</option><option>广州分院</option><option>深圳福田分院</option><option>北京朝阳分院</option><option>武汉分院</option></select></div>
+              <div class="lead-filter-field"><label for="leadFilterIntent">意向分级</label><input id="leadFilterIntent" type="hidden" value=""><div class="lead-intent-dropdown"><button type="button" class="lead-intent-toggle" id="leadIntentToggle" aria-expanded="false"><span id="leadFilterIntentLabel">全部分级</span></button><div class="lead-intent-options" id="leadIntentOptions" hidden><button type="button" class="is-selected" data-lead-intent-option="" onclick="document.getElementById('leadFilterIntent').value='';document.getElementById('leadFilterIntentLabel').textContent='全部分级';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">全部分级</button><button type="button" data-lead-intent-option="未定级" onclick="document.getElementById('leadFilterIntent').value='未定级';document.getElementById('leadFilterIntentLabel').textContent='未定级';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">未定级</button><button type="button" data-lead-intent-option="A" onclick="document.getElementById('leadFilterIntent').value='A';document.getElementById('leadFilterIntentLabel').textContent='A';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">A</button><button type="button" data-lead-intent-option="B" onclick="document.getElementById('leadFilterIntent').value='B';document.getElementById('leadFilterIntentLabel').textContent='B';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">B</button><button type="button" data-lead-intent-option="C" onclick="document.getElementById('leadFilterIntent').value='C';document.getElementById('leadFilterIntentLabel').textContent='C';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">C</button><button type="button" data-lead-intent-option="D" onclick="document.getElementById('leadFilterIntent').value='D';document.getElementById('leadFilterIntentLabel').textContent='D';document.getElementById('leadIntentOptions').hidden=true;document.getElementById('leadIntentToggle').setAttribute('aria-expanded','false')">D</button></div></div></div>
               <div class="lead-filter-field"><label for="leadFilterSource">数据来源</label><input id="leadFilterSource" type="hidden" value=""><div class="lead-source-dropdown"><button type="button" class="lead-source-toggle" id="leadSourceToggle" aria-expanded="false"><span id="leadFilterSourceLabel">全部数据来源</span></button><div class="lead-source-options" id="leadSourceOptions" hidden><button type="button" class="is-selected" data-lead-source-option="">全部数据来源</button><button type="button" data-lead-source-option="HIS">HIS</button><button type="button" data-lead-source-option="企业微信">企业微信</button><button type="button" data-lead-source-option="飞书">飞书</button><button type="button" data-lead-source-option="CRM本地">CRM本地</button></div></div></div>
-              <div class="lead-filter-actions"><button class="btn btn-primary" data-lead-filter-query>筛选</button><button class="btn" data-lead-filter-reset>重置</button></div>
+              <div class="lead-filter-actions"><button class="btn btn-primary" data-lead-filter-query>查询</button><button class="btn" data-lead-filter-reset>重置</button></div>
             </div>
-            <div style="overflow-x:auto; margin-top:12px;">
+            <div class="lead-table-scroll">
               <table class="small-table lead-table">
-                <thead><tr><th>线索 ID</th><th>姓名</th><th>手机号</th><th>数据来源</th><th>提供分院</th><th>线索管理员</th><th>顾问</th><th>状态与时限</th><th>意向分级</th><th>操作</th></tr></thead>
+                <thead><tr><th>序号</th><th>姓名</th><th>手机号</th><th>数据来源</th><th>提供分院</th><th>线索管理员</th><th>顾问</th><th>状态</th><th>意向分级</th><th>线索提供日期</th><th>创建时间</th><th>操作</th></tr></thead>
                 <tbody>
-                  <tr data-lead-row data-id="L-20260806-034" data-phone="13900004821" data-name="王女士" data-region="华南" data-advisor="" data-intent="未定级" data-status="待分配" data-manager="陈芳、刘洁" data-branch="广州天河分院" data-source="HIS">
-                    <td>L-20260806-034</td>
+                  <tr data-lead-row data-id="L-20260806-034" data-phone="13900004821" data-name="王女士" data-region="华南" data-advisor="" data-intent="未定级" data-status="待分配" data-manager="陈芳、刘洁" data-branch="广州天河分院" data-source="HIS" data-provided-at="2026/08/06" data-created-at="2026/08/06 09:12">
+                    <td>1</td>
                     <td><strong>王女士</strong></td>
                     <td class="lead-phone-cell has-duplicate"><span class="lead-duplicate-corner">重复</span>13900004821</td>
                     <td><span class="badge badge-purple">HIS</span></td>
                     <td>广州天河分院</td>
                     <td>陈芳、刘洁</td><td>—</td>
-                    <td><span class="badge badge-blue">待分配</span><br><span class="muted">已等待 2 天 4 小时</span></td><td><span class="badge badge-gray">未定级</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="assign">分配顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260806-034" data-lead-name="王女士" data-lead-phone="13900004821" data-lead-source="HIS" data-lead-branch="广州天河分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260806-034" data-lead-name="王女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260806-034" data-lead-name="王女士">查看时间轴</button></div></td>
+                    <td><span class="badge badge-blue">待分配</span></td><td><span class="badge badge-gray">未定级</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="assign">分配顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260806-034" data-lead-name="王女士" data-lead-phone="13900004821" data-lead-source="HIS" data-lead-branch="广州天河分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260806-034" data-lead-name="王女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260806-034" data-lead-name="王女士">查看时间轴</button></div></td>
                   </tr>
-                  <tr data-lead-row data-id="L-20260806-019" data-phone="13800005266" data-name="刘女士" data-region="华南" data-advisor="黄琳" data-intent="B" data-status="跟进中" data-manager="张敏" data-branch="深圳福田分院" data-source="企业微信">
-                    <td>L-20260806-019</td><td><strong>刘女士</strong></td><td class="lead-phone-cell has-duplicate"><span class="lead-duplicate-corner">重复</span>13800005266</td>
+                  <tr data-lead-row data-id="L-20260806-019" data-phone="13800005266" data-name="刘女士" data-region="华南" data-advisor="黄琳" data-intent="B" data-status="跟进中" data-manager="张敏" data-branch="深圳福田分院" data-source="企业微信" data-provided-at="2026/08/06" data-created-at="2026/08/06 08:46">
+                    <td>2</td><td><strong>刘女士</strong></td><td class="lead-phone-cell has-duplicate"><span class="lead-duplicate-corner">重复</span>13800005266</td>
                     <td><span class="badge badge-blue">企业微信</span></td>
                     <td>深圳福田分院</td>
                     <td>张敏</td><td>黄琳</td>
-                    <td><span class="badge badge-green">跟进中</span><br><span class="muted">首次回访剩余 2 天</span></td><td><span class="badge badge-blue">B</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-advisor="黄琳">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-phone="13800005266" data-lead-source="企业微信" data-lead-branch="深圳福田分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-source="企业微信">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260806-019" data-lead-name="刘女士">查看时间轴</button></div></td>
+                    <td><span class="badge badge-green">跟进中</span></td><td><span class="badge badge-amber">B</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-advisor="黄琳">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-phone="13800005266" data-lead-source="企业微信" data-lead-branch="深圳福田分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260806-019" data-lead-name="刘女士" data-lead-source="企业微信">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260806-019" data-lead-name="刘女士">查看时间轴</button></div></td>
                   </tr>
-                  <tr data-lead-row data-id="L-20260714-031" data-phone="18600000718" data-name="陈女士" data-region="华北" data-advisor="${state.leadAssignmentCompleted ? "李雯" : ""}" data-intent="" data-status="待分配" data-manager="王丽" data-branch="北京朝阳分院" data-source="飞书">
-                    <td>L-20260714-031</td><td><strong>陈女士</strong></td><td>18600000718</td>
+                  <tr data-lead-row data-id="L-20260714-031" data-phone="18600000718" data-name="陈女士" data-region="华北" data-advisor="${state.leadAssignmentCompleted ? "李雯" : ""}" data-intent="C" data-status="待分配" data-manager="王丽" data-branch="北京朝阳分院" data-source="飞书" data-provided-at="2026/07/14" data-created-at="2026/07/14 15:30">
+                    <td>3</td><td><strong>陈女士</strong></td><td>18600000718</td>
                     <td><span class="badge badge-blue">飞书</span></td>
                     <td>北京朝阳分院</td>
                     <td>王丽</td><td>${state.leadAssignmentCompleted ? "李雯" : "—"}</td>
                     ${state.leadAssignmentCompleted
-                      ? '<td><span class="badge badge-green">跟进中</span><br><span class="muted">已分配李雯｜首次回访剩余 3 天</span></td><td></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-advisor="李雯">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-phone="18600000718" data-lead-source="飞书" data-lead-branch="北京朝阳分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-source="飞书">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-031" data-lead-name="陈女士">查看时间轴</button></div></td>'
-                      : '<td><span class="badge badge-blue">待分配</span><br><span class="muted">已等待 2 天 4 小时</span></td><td></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="assign">分配顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-phone="18600000718" data-lead-source="飞书" data-lead-branch="北京朝阳分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-source="飞书">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-031" data-lead-name="陈女士">查看时间轴</button></div></td>'}
+                      ? '<td><span class="badge badge-green">跟进中</span></td><td><span class="badge badge-blue">C</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-advisor="李雯">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-phone="18600000718" data-lead-source="飞书" data-lead-branch="北京朝阳分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-source="飞书">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-031" data-lead-name="陈女士">查看时间轴</button></div></td>'
+                      : '<td><span class="badge badge-blue">待分配</span></td><td><span class="badge badge-blue">C</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="assign">分配顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-phone="18600000718" data-lead-source="飞书" data-lead-branch="北京朝阳分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-031" data-lead-name="陈女士" data-lead-source="飞书">线索登记表</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-031" data-lead-name="陈女士">查看时间轴</button></div></td>'}
                   </tr>
-                  <tr data-lead-row data-id="L-20260714-029" data-phone="15800006712" data-name="赵女士" data-region="华中" data-advisor="王敏" data-intent="未定级" data-status="跟进中" data-manager="李华" data-branch="武汉分院" data-source="CRM本地">
-                    <td>L-20260714-029</td><td><strong>赵女士</strong></td><td>15800006712</td>
+                  <tr data-lead-row data-id="L-20260714-029" data-phone="15800006712" data-name="赵女士" data-region="华中" data-advisor="王敏" data-intent="未定级" data-status="跟进中" data-manager="李华" data-branch="武汉分院" data-source="CRM本地" data-provided-at="2026/07/14" data-created-at="2026/07/14 11:08">
+                    <td>4</td><td><strong>赵女士</strong></td><td>15800006712</td>
                     <td><span class="badge badge-blue">CRM本地</span></td>
                     <td>武汉分院</td>
                     <td>李华</td><td>王敏</td>
                     ${state.leadSignedContracts["L-20260714-029"]
-                      ? '<td><span class="badge badge-gray">已签约</span><br><span class="muted">法大大合同已关联</span></td><td><span class="badge badge-gray">未定级</span></td><td><div class="compact-actions"><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-source="CRM本地">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260714-029">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-029" data-lead-name="赵女士">查看时间轴</button></div></td>'
-                      : '<td><span class="badge badge-green">跟进中</span><br><span class="muted">系统自动分配｜首次回访剩余 2 天</span></td><td><span class="badge badge-gray">未定级</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-advisor="王敏">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-phone="15800006712" data-lead-source="CRM本地" data-lead-branch="武汉分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-source="CRM本地">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260714-029">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-029" data-lead-name="赵女士">查看时间轴</button></div></td>'}
+                      ? '<td><span class="badge badge-gray">已签约</span></td><td><span class="badge badge-gray">未定级</span></td><td><div class="compact-actions"><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-source="CRM本地">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260714-029">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-029" data-lead-name="赵女士">查看时间轴</button></div></td>'
+                      : '<td><span class="badge badge-green">跟进中</span></td><td><span class="badge badge-gray">未定级</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-advisor="王敏">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-phone="15800006712" data-lead-source="CRM本地" data-lead-branch="武汉分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-029" data-lead-name="赵女士" data-lead-source="CRM本地">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260714-029">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-029" data-lead-name="赵女士">查看时间轴</button></div></td>'}
                   </tr>
-                  <tr data-lead-row data-id="L-20260713-022" data-phone="13600009836" data-name="林女士" data-region="华南" data-advisor="黄琳" data-intent="A" data-status="跟进中" data-manager="刘洁" data-branch="广州分院" data-source="HIS">
-                    <td>L-20260713-022</td><td><strong>林女士</strong></td><td>13600009836</td>
+                  <tr data-lead-row data-id="L-20260713-022" data-phone="13600009836" data-name="林女士" data-region="华南" data-advisor="黄琳" data-intent="A" data-status="跟进中" data-manager="刘洁" data-branch="广州分院" data-source="HIS" data-provided-at="2026/07/13" data-created-at="2026/07/13 16:20">
+                    <td>5</td><td><strong>林女士</strong></td><td>13600009836</td>
                     <td><span class="badge badge-purple">HIS</span></td>
                     <td>广州分院</td>
                     <td>刘洁</td><td>黄琳</td>
                     ${state.leadSignedContracts["L-20260713-022"]
-                      ? '<td><span class="badge badge-gray">已签约</span><br><span class="muted">法大大合同已关联</span></td><td><span class="badge badge-amber">A</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-customer-archive-id="ARC-202607-0001">查看客户档案</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260713-022">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260713-022" data-lead-name="林女士">查看时间轴</button></div></td>'
+                      ? '<td><span class="badge badge-gray">已签约</span></td><td><span class="badge badge-red">A</span></td><td><div class="compact-actions"><button class="btn" data-customer-archive-id="ARC-202607-0001">客户档案</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260713-022">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260713-022" data-lead-name="林女士">查看时间轴</button></div></td>'
                       : state.leadFollowTerminated
-                      ? '<td><span class="badge badge-gray">终止跟进</span><br><span class="muted">原因：患者暂缓治疗</span></td><td><span class="badge badge-amber">A</span></td><td><div class="compact-actions"><button class="btn" data-lead-action="registration" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260713-022">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260713-022" data-lead-name="林女士">查看时间轴</button></div></td>'
-                      : '<td><span class="badge badge-green">跟进中</span><br><span class="muted">A 类｜明日完成第 2 次回访</span></td><td><span class="badge badge-amber">A</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-advisor="黄琳">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-phone="13600009836" data-lead-source="HIS" data-lead-branch="广州分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260713-022">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260713-022" data-lead-name="林女士">查看时间轴</button></div></td>'}
+                      ? '<td><span class="badge badge-gray">终止跟进</span></td><td><span class="badge badge-red">A</span></td><td><div class="compact-actions"><button class="btn" data-lead-action="registration" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260713-022">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260713-022" data-lead-name="林女士">查看时间轴</button></div></td>'
+                      : '<td><span class="badge badge-green">跟进中</span></td><td><span class="badge badge-red">A</span></td><td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="contract-sign" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-advisor="黄琳">合同签约</button><button class="btn btn-primary" data-lead-action="change-advisor">更换顾问</button><button class="btn btn-primary" data-lead-action="terminate-follow">终止跟进</button><button class="btn btn-danger" data-lead-action="delete-lead" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-phone="13600009836" data-lead-source="HIS" data-lead-branch="广州分院">删除</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260713-022" data-lead-name="林女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260713-022">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260713-022" data-lead-name="林女士">查看时间轴</button></div></td>'}
                   </tr>
-                  <tr data-lead-row data-id="L-20260711-015" data-phone="13500004187" data-name="孙女士" data-region="华南" data-advisor="黄琳" data-intent="B" data-status="终止跟进" data-manager="刘洁" data-branch="广州分院" data-source="飞书">
-                    <td>L-20260711-015</td><td><strong>孙女士</strong></td><td>13500004187</td>
+                  <tr data-lead-row data-id="L-20260711-015" data-phone="13500004187" data-name="孙女士" data-region="华南" data-advisor="黄琳" data-intent="D" data-status="终止跟进" data-manager="刘洁" data-branch="广州分院" data-source="飞书" data-provided-at="2026/07/11" data-created-at="2026/07/11 10:15">
+                    <td>6</td><td><strong>孙女士</strong></td><td>13500004187</td>
                     <td><span class="badge badge-blue">飞书</span></td>
                     <td>广州分院</td>
                     <td>刘洁</td><td>黄琳</td>
-                    <td><span class="badge badge-gray">终止跟进</span><br><span class="muted">原因：已选择其他机构｜终止于昨日 16:20</span></td><td><span class="badge badge-blue">B</span></td>
+                    <td><span class="badge badge-gray">终止跟进</span></td><td><span class="badge badge-blue">D</span></td>
                     <td><div class="compact-actions"><button class="btn btn-primary" data-lead-action="activate-lead">激活线索</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260711-015" data-lead-name="孙女士" data-lead-source="飞书">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260711-015">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260711-015" data-lead-name="孙女士">查看时间轴</button></div></td>
                   </tr>
-                  <tr data-lead-row data-id="L-20260714-026" data-phone="13700003390" data-name="黄女士" data-region="华南" data-advisor="黄琳" data-intent="A" data-status="已签约" data-manager="刘洁" data-branch="广州分院" data-source="HIS">
-                    <td>L-20260714-026</td><td><strong>黄女士</strong></td><td>13700003390</td>
+                  <tr data-lead-row data-id="L-20260714-026" data-phone="13700003390" data-name="黄女士" data-region="华南" data-advisor="黄琳" data-intent="A" data-status="已签约" data-manager="刘洁" data-branch="广州分院" data-source="HIS" data-provided-at="2026/07/14" data-created-at="2026/07/14 09:40">
+                    <td>7</td><td><strong>黄女士</strong></td><td>13700003390</td>
                     <td><span class="badge badge-purple">HIS</span></td>
                     <td>广州分院</td>
                     <td>刘洁</td><td>黄琳</td>
-                    <td><span class="badge badge-gray">已签约</span><br><span class="muted">法大大合同已回写</span></td><td><span class="badge badge-amber">A</span></td>
-                    <td><div class="compact-actions"><button class="btn btn-primary" data-customer-archive-id="ARC-202606-0003">查看客户档案</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-026" data-lead-name="黄女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260714-026">查看回访</button><button class="btn" data-lead-action="sign-proof">查看签约依据</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-026" data-lead-name="黄女士">查看时间轴</button></div></td>
+                    <td><span class="badge badge-gray">已签约</span></td><td><span class="badge badge-red">A</span></td>
+                    <td><div class="compact-actions"><button class="btn" data-customer-archive-id="ARC-202606-0003">客户档案</button><button class="btn" data-lead-action="sign-proof">签约依据</button><button class="btn" data-lead-action="registration" data-lead-id="L-20260714-026" data-lead-name="黄女士" data-lead-source="HIS">线索登记表</button><button class="btn" data-lead-action="view-followup" data-lead-id="L-20260714-026">查看回访</button><button class="btn" data-lead-action="timeline" data-lead-id="L-20260714-026" data-lead-name="黄女士">查看时间轴</button></div></td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div></div>
-          <section class="panel customer-rules-doc lead-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>线索管理规则说明</h2><span class="muted">规则来源：<a href="线索管理.md" target="_blank" rel="noopener">线索管理.md</a>；下方内容与规则文档同步展示。</span></div><span class="badge badge-blue">只读展示</span></div><iframe src="线索管理规则说明.html" title="线索管理规则说明"></iframe></div></section>
+          <section class="panel customer-rules-doc lead-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>线索管理规则说明</h2><span class="muted">规则来源：<a href="线索管理.md" target="_blank" rel="noopener">线索管理.md</a>；点击“更新”读取最新文档内容。</span></div><div class="compact-actions"><span class="badge badge-blue">只读展示</span><button class="btn" data-lead-rule-refresh>更新</button></div></div><iframe src="线索管理规则说明.html" title="线索管理规则说明"></iframe></div></section>
         </section>
       `;
       state.deletedLeadIds.forEach((id) => mainEl.querySelector(`[data-lead-row][data-id="${id}"]`)?.remove());
-      setRule("R-01");
+      mainEl.querySelectorAll('[data-lead-action="registration"]').forEach((button) => {
+        const statusText = button.closest("[data-lead-row]")?.querySelector("td:nth-child(8)")?.textContent || "";
+        if (statusText.includes("终止跟进") || statusText.includes("已签约")) {
+          button.dataset.leadAction = "patient-detail";
+          button.textContent = "患者详情";
+          return;
+        }
+        button.dataset.leadAction = "registration-edit";
+        button.classList.add("btn-primary");
+        button.textContent = "编辑";
+  const deleteButton = button.closest(".compact-actions")?.querySelector('[data-lead-action="delete-lead"]');
+  button.insertAdjacentHTML("afterend", '<button class="btn" data-lead-action="patient-detail">患者详情</button>');
+  if (deleteButton) button.after(deleteButton);
+});
+mainEl.querySelectorAll('[data-lead-action="timeline"]').forEach((button) => {
+  button.textContent = "时间轴";
+});
+mainEl.querySelectorAll('[data-lead-row]').forEach((row) => {
+  const actions = row.querySelector(".compact-actions");
+  const timelineButton = actions?.querySelector('[data-lead-action="timeline"]');
+  if (!actions || !timelineButton || actions.querySelector('[data-lead-action="view-followup"]')) return;
+  timelineButton.insertAdjacentHTML("beforebegin", `<button class="btn" data-lead-action="view-followup" data-lead-id="${row.dataset.id}">查看回访</button>`);
+});
+mainEl.querySelectorAll('[data-lead-row]').forEach((row) => {
+  const actions = row.querySelector(".compact-actions");
+  const actionCell = actions?.closest("td");
+  if (!actions || !actionCell) return;
+
+  actionCell.insertAdjacentHTML(
+    "beforebegin",
+    `<td class="lead-date-cell">${row.dataset.providedAt || "—"}</td><td class="lead-date-cell">${row.dataset.createdAt || "—"}</td>`
+  );
+
+  const buttons = Array.from(actions.children).filter((item) => item.matches("button"));
+  const primaryActions = document.createElement("div");
+  primaryActions.className = "lead-primary-actions";
+  buttons.slice(0, 3).forEach((button) => primaryActions.appendChild(button));
+  actions.replaceChildren(primaryActions);
+
+  if (buttons.length > 3) {
+    const more = document.createElement("div");
+    more.className = "lead-more-actions";
+    const summary = document.createElement("button");
+    summary.type = "button";
+    summary.className = "btn";
+    summary.dataset.leadMoreToggle = "";
+    summary.setAttribute("aria-expanded", "false");
+    summary.textContent = "更多";
+    const menu = document.createElement("div");
+    menu.className = "lead-more-menu";
+    menu.hidden = true;
+    buttons.slice(3).forEach((button) => menu.appendChild(button));
+    more.append(summary, menu);
+    actions.appendChild(more);
+  }
+});
+setRule("R-01");
     }
 
     function followBadge(status) {
@@ -4337,7 +4748,7 @@
 
     function renderFollowProgress(task) {
       const progress = followProgress[task.id] || { totalCount: "已回访 0 次", levelPath: [task.intent] };
-      const intentClass = task.intent === "A" ? "badge-red" : task.intent === "B" ? "badge-amber" : task.intent === "C" ? "badge-blue" : "badge-purple";
+      const intentClass = task.intent === "A" ? "badge-red" : task.intent === "B" ? "badge-amber" : (task.intent === "C" || task.intent === "D") ? "badge-blue" : "badge-gray";
       const totalCount = Number((progress.totalCount.match(/\d+/) || ["0"])[0]);
       const nextTask = ["已完结", "已暂停"].includes(task.status) ? "-" : totalCount === 0 ? "首次回访" : `第 ${totalCount + 1} 次回访`;
       return `<td><span class="badge ${intentClass}">${task.intent}</span></td><td>${progress.levelPath.join(" → ")}</td><td><strong>${nextTask}</strong></td>`;
@@ -4419,7 +4830,12 @@
       return `<div class="follow-result-readonly"><div class="status-source"><strong>${task.name}｜${event.intent || "未定级"} 类｜回访时间 ${event.time}</strong></div><div class="form-row"><label>回访时间 <span class="required-mark">*</span></label><input type="date" value="${event.time}" readonly tabindex="-1"></div>${readOnlySelect("回访方式", event.followMethod, true)}${readOnlySelect("患者当前阶段", event.patientStage, true)}${readOnlySelect("主要沟通事项", event.communicationTopic || event.content, true)}${readOnlySelect("患者主要顾虑", event.patientConcern, true)}${readOnlySelect("意向等级", event.intent, true)}${readOnlySelect("是否需要推荐医生介入", event.doctorIntervention, true)}${readOnlySelect("跟进计划", event.followPlan, true)}${readOnlySelect("回访计划（C、D级别）", event.returnPlan)}<div class="form-row"><label>备注</label><textarea readonly>${value(event.remark)}</textarea></div></div>`;
     }
 
+    function renderPatientDetailEmpty(label) {
+      return `<div class="patient-detail-empty"><div class="empty-icon">▱</div><strong>暂无${label}数据</strong><span>该患者暂未同步${label}信息</span></div>`;
+    }
+
     function renderMedicalRecordTab(task) {
+      if (task.noPatientDetailData) return renderPatientDetailEmpty("病历");
       const records = [
         { date: "2026-07-12", doctor: "张医生", type: "初诊病历", department: "妇科 / 生殖医学科", chief: "备孕咨询，既往自然流产 1 次，计划评估辅助生殖方案。", history: "2022 年结婚，夫妻双方初婚，婚后性生活正常，婚后未避孕。2024 年曾自然妊娠后胎停，已行清宫；此后规律备孕未孕。", assessment: "生育力初步评估，建议完善基础检查后复诊。", advice: "完善性激素六项、AMH、妇科超声及男方精液检查；携带既往检查资料复诊。" },
         { date: "2026-07-08", doctor: "李医生", type: "复诊病历", department: "妇科 / 生殖医学科", chief: "携带基础检查结果复诊，咨询后续治疗路径。", history: "基础检查资料已初步收集，患者关注成功率、治疗周期及就诊安排；既往妊娠相关病史同前。", assessment: "结合当前检查结果，建议由主诊医生评估后确定辅助生殖方案。", advice: "安排医生面谈，结合卵巢储备及双方检查结果制定个体化方案。" },
@@ -4443,7 +4859,8 @@
         </article></div></div>`;
     }
 
-    function renderLabReportTab() {
+    function renderLabReportTab(task) {
+      if (task?.noPatientDetailData) return renderPatientDetailEmpty("检验");
       const reports = [
         { id: "cbc", name: "血常规五分类", specimen: "EDTA 抗凝血", time: "2026-07-10 08:53", rows: [["WBC", "白细胞计数", "4.53", "", "[4.00-10.00]", "10^9/L"], ["LYM#", "淋巴细胞计数", "1.27", "", "[0.80-4.00]", "10^9/L"], ["NEU#", "中性粒细胞计数", "2.92", "", "[2.00-7.00]", "10^9/L"], ["HGB", "血红蛋白", "110.0", "", "[110-160]", "g/L"], ["HCT", "红细胞压积", "33.30", "↓", "[37.00-54.00]", "%"], ["MCV", "平均红细胞体积", "75.4", "↓", "[80.00-100.00]", "fl"], ["PLT", "血小板计数", "236.0", "", "[100-300]", "10^9/L"]] },
         { id: "hormone", name: "性激素六项", specimen: "血清", time: "2026-07-09 09:16", rows: [["FSH", "促卵泡激素", "6.32", "", "[3.03-8.08]", "IU/L"], ["LH", "促黄体生成素", "5.18", "", "[2.39-6.60]", "IU/L"], ["E2", "雌二醇", "48.20", "", "[21-251]", "pg/mL"], ["PRL", "泌乳素", "18.60", "", "[4.79-23.30]", "ng/mL"], ["T", "睾酮", "0.42", "", "[0.10-0.75]", "ng/mL"], ["P", "孕酮", "0.36", "", "[0.31-1.52]", "ng/mL"]] },
@@ -4453,28 +4870,137 @@
       return `<div class="lab-report-layout"><aside class="lab-report-list"><h3>检验报告</h3>${reports.map((report) => `<button class="lab-report-item ${report.id === selected.id ? "is-active" : ""}" data-lab-report-id="${report.id}"><strong>${report.name}</strong><span>${report.specimen} · ${report.time}</span></button>`).join("")}</aside><div class="lab-report-detail"><div class="lab-report-title"><h3>项目 - ${selected.name}</h3><span>检验时间：${selected.time}　标本：${selected.specimen}</span></div><div style="overflow-x:auto"><table class="lab-result-table"><thead><tr><th>序号</th><th>英文名称</th><th>中文名称</th><th>检验结果</th><th>结果状态</th><th>参考值</th><th>单位</th><th>备注</th></tr></thead><tbody>${selected.rows.map((row, index) => `<tr><td>${index + 1}</td><td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td class="${row[3] === "↓" ? "is-low" : row[3] === "↑" ? "is-high" : ""}">${row[3]}</td><td>${row[4]}</td><td>${row[5]}</td><td>${row[3] === "↓" ? "偏低" : row[3] === "↑" ? "偏高" : ""}</td></tr>`).join("")}</tbody></table></div></div></div>`;
     }
 
-    function renderLaboratoryTab() {
+    function renderImportantIndicatorsTab() {
+      const indicators = [
+        { id: "amh", name: "AMH", unit: "ng/ml", rows: [["2026-07-09", "0.59", "[0.25-7.02]"], ["2026-03-18", "0.72", "[0.25-7.02]"], ["2025-11-26", "0.68", "[0.25-7.02]"]] },
+        { id: "lh", name: "血清促黄体生成素", unit: "IU/L", rows: [["2026-07-09", "2.26", "卵泡期：2.4-12.6；排卵期：14.0-95.6；黄体期：1.0-11.4；绝经后：7.7-58.5"], ["2026-03-18", "3.18", "卵泡期：2.4-12.6；排卵期：14.0-95.6；黄体期：1.0-11.4；绝经后：7.7-58.5"], ["2025-11-26", "4.02", "卵泡期：2.4-12.6；排卵期：14.0-95.6；黄体期：1.0-11.4；绝经后：7.7-58.5"]] },
+        { id: "fsh", name: "血清促卵泡刺激素", unit: "IU/L", rows: [["2026-07-09", "5.36", "卵泡期：3.5-12.5；排卵期：4.7-21.5；黄体期：1.7-7.7；绝经后：25.8-134.8"], ["2026-03-18", "6.08", "卵泡期：3.5-12.5；排卵期：4.7-21.5；黄体期：1.7-7.7；绝经后：25.8-134.8"], ["2025-11-26", "5.82", "卵泡期：3.5-12.5；排卵期：4.7-21.5；黄体期：1.7-7.7；绝经后：25.8-134.8"]] },
+        { id: "prog", name: "孕酮", unit: "ng/mL", rows: [["2026-07-09", "0.24", "卵泡期：0.057-0.893；排卵期：0.121-12.00；黄体期：1.83-23.9；绝经后：<0.05-0.126"], ["2026-03-18", "0.31", "卵泡期：0.057-0.893；排卵期：0.121-12.00；黄体期：1.83-23.9；绝经后：<0.05-0.126"], ["2025-11-26", "0.28", "卵泡期：0.057-0.893；排卵期：0.121-12.00；黄体期：1.83-23.9；绝经后：<0.05-0.126"]] },
+        { id: "e2", name: "雌二醇", unit: "pg/mL", rows: [["2026-07-09", "28.89", "卵泡期：12.4-233；排卵期：41-398；黄体期：22.3-341；绝经后：<5.0-138"], ["2026-03-18", "35.60", "卵泡期：12.4-233；排卵期：41-398；黄体期：22.3-341；绝经后：<5.0-138"], ["2025-11-26", "42.15", "卵泡期：12.4-233；排卵期：41-398；黄体期：22.3-341；绝经后：<5.0-138"]] },
+        { id: "prl", name: "血清泌乳素", unit: "mIU/L", rows: [["2026-07-09", "208.10", "未孕女性：102-496"], ["2026-03-18", "192.40", "未孕女性：102-496"], ["2025-11-26", "216.80", "未孕女性：102-496"]] },
+        { id: "testo", name: "睾酮", unit: "ng/mL", rows: [["2026-07-09", "0.29", "[0.084-0.481]"], ["2026-03-18", "0.33", "[0.084-0.481]"], ["2025-11-26", "0.27", "[0.084-0.481]"]] }
+      ];
+      const selected = indicators.find((indicator) => indicator.id === state.followIndicatorId) || indicators[0];
+      requestAnimationFrame(() => {
+        document.querySelectorAll("[data-follow-indicator-id]").forEach((button) => {
+          const indicator = indicators.find((item) => item.id === button.dataset.followIndicatorId);
+          const latestDate = indicator?.rows?.[0]?.[0];
+          const hint = button.querySelector("span");
+          if (hint && latestDate) hint.textContent = latestDate;
+        });
+      });
+      return `<div class="lab-report-layout"><aside class="lab-report-list"><h3>重要指标</h3>${indicators.map((indicator) => `<button class="lab-report-item ${indicator.id === selected.id ? "is-active" : ""}" data-follow-indicator-id="${indicator.id}"><strong>${indicator.name}</strong><span>历史测定值</span></button>`).join("")}</aside><div class="lab-report-detail"><div class="lab-report-title"><h3>${selected.name}｜历史数值</h3><span>单位：${selected.unit}｜按日期倒序</span></div><div style="overflow-x:auto"><table class="lab-result-table"><thead><tr><th>序号</th><th>日期</th><th>测定值</th><th>参考范围</th></tr></thead><tbody>${selected.rows.map((row, index) => `<tr><td>${index + 1}</td><td>${row[0]}</td><td>${row[1]} ${selected.unit}</td><td>${row[2]}</td></tr>`).join("")}</tbody></table></div></div></div>`;
+    }
+
+    function renderLaboratoryTab(task) {
+      if (task?.noPatientDetailData) return renderPatientDetailEmpty("检验");
       const subtab = state.followLabSubtab;
-      return `<div class="lab-subtabs" role="tablist" aria-label="检验子页"><button class="lab-subtab ${subtab === "report" ? "is-active" : ""}" data-follow-lab-tab="report">检验报告</button><button class="lab-subtab ${subtab === "indicators" ? "is-active" : ""}" data-follow-lab-tab="indicators">重要指标</button></div>${subtab === "report" ? renderLabReportTab() : '<div class="follow-patient-panel"><div class="status-source"><strong>重要指标</strong><span>重要指标页将在下一步补充。</span></div></div>'}`;
+      return `<div class="lab-subtabs" role="tablist" aria-label="检验子页"><button class="lab-subtab ${subtab === "report" ? "is-active" : ""}" data-follow-lab-tab="report">检验报告</button><button class="lab-subtab ${subtab === "indicators" ? "is-active" : ""}" data-follow-lab-tab="indicators">重要指标</button></div>${subtab === "report" ? renderLabReportTab(task) : renderImportantIndicatorsTab()}`;
+    }
+
+    function renderExaminationReportTab(task) {
+      if (task?.noPatientDetailData) return renderPatientDetailEmpty("检查");
+      const reports = [
+        { id: "abdominal-ultrasound", name: "腹部彩超检查", time: "2026-09-17 16:16", department: "超声医学科", item: "腹部彩超早孕 23+3 周－单胎" },
+        { id: "pelvic-ultrasound", name: "妇科超声检查", time: "2026-09-12 10:24", department: "超声医学科", item: "妇科彩超检查" },
+        { id: "tubal-patency", name: "输卵管通畅度检查", time: "2026-08-28 14:32", department: "放射科", item: "输卵管通畅度造影" }
+      ];
+      const selected = reports.find((report) => report.id === state.followExaminationReportId) || reports[0];
+      const isAbdominal = selected.id === "abdominal-ultrasound";
+      const findings = isAbdominal
+        ? `<p>LMP：2026-4-15</p><p>宫内孕，单胎，可见胎心搏动及胎动。</p><p>双顶径：55mm，头围：201mm，腹围：186mm，股骨长径：40mm，肱骨长径：38mm，胎心率：153 次/分，律齐。</p><p>胎儿颈部未见“U”形压迹。CDFI：颈部未见彩色血流信号。</p><p>脐动脉血流：V：36.89cm/s，S/D：3.96，RI：0.75，PI：1.23。</p><p>颅骨光环显示，脑中线显示，脊柱可见。四腔心可见，双肾可见，膀胱腹壁插入点未见明显包块。</p><p>四肢大体可见，不包括手掌、脚掌。羊水最大深度：48mm，透声可。胎盘位于前壁，厚度约：28mm，胎盘成熟度：0 级。</p>`
+        : selected.id === "pelvic-ultrasound"
+          ? `<p>子宫大小形态正常，肌层回声均匀，内膜线清晰。</p><p>双侧附件区未见明显异常回声，盆腔未见游离液性暗区。</p><p>检查所见请结合临床症状及实验室检查结果综合评估。</p>`
+          : `<p>子宫输卵管造影显示宫腔形态规则，双侧输卵管显影可。</p><p>造影剂弥散情况请以影像原片及主诊医师最终判读为准。</p>`;
+      const prompt = isAbdominal
+        ? "宫内妊娠 22w3d（按 LMP 计），单活胎。超声孕周约：22w6d（按 AUA）。本次超声检查只做胎儿生长径线测量及胎盘、羊水等一般情况检查，属于常规 I 级检查。"
+        : "本报告仅反映本次检查情况，供临床参考，不替代主诊医师的综合诊断。";
+      return `<div class="lab-report-layout"><aside class="lab-report-list"><h3>检查报告</h3>${reports.map((report) => `<button class="lab-report-item ${report.id === selected.id ? "is-active" : ""}" data-examination-report-id="${report.id}"><strong>${report.name}</strong><span>${report.department} · ${report.time}</span></button>`).join("")}</aside><div class="lab-report-detail"><div class="examination-report-document"><div class="examination-report-brand"><h2>木棉花生殖专科连锁</h2><h3>${isAbdominal ? "彩色超声报告单" : "检查报告单"}</h3></div><div class="examination-report-meta"><span class="wide">机构：木棉花专科门诊部</span><span class="wide">仪器型号：${isAbdominal ? "美国 GE-Voluson E6" : "HIS 同步设备"}</span><span>姓名：陈女士</span><span>性别：女</span><span>年龄：35 岁</span><span>门诊号：OP-20260712</span><span>检查号：${isAbdominal ? "C70141" : "C70142"}</span><span class="wide">检查部位：${selected.item}</span><span class="wide">临床诊断：${isAbdominal ? "孕 23 周" : "辅助生殖术前评估"}</span></div>${isAbdominal ? `<div class="examination-image-row"><div class="examination-image">超声影像 1</div><div class="examination-image">超声影像 2</div><div class="examination-image">超声影像 3</div></div>` : ""}<section class="examination-report-section"><h4>超声所见：</h4>${findings}</section><section class="examination-report-section"><h4>超声提示：</h4><p>${prompt}</p></section><div class="examination-report-signature"><span><strong>申请医生：</strong>刘志辉</span><span><strong>报告医生：</strong>蒙思薇</span><span><strong>审核签字：</strong></span></div><div class="examination-report-footer"><span>（此报告仅反映本次检查的情况，仅供临床参考，不做其它用途）</span><strong>报告时间：${selected.time}</strong></div></div></div></div>`;
+    }
+
+    function renderCurrentLeadInfo(task) {
+      const saved = state.leadRegistrationSaved?.[task.leadId] || {};
+      const value = (label, fallback) => saved[label] ?? fallback;
+      const fields = [
+        ["线索提供日期 *", "2026/07/05"], ["患者姓名 *", task.name], ["患者电话（可选）", task.phone],
+        ["线索提供分院 *", task.sourceBranch], ["线索来源 *", "企业微信"],
+        ["线索提供人－内部人员 *", "门诊同事｜王敏"], ["线索提供人－外部人员 *", "无"],
+        ["患者情况概述 *", "患者咨询辅助生殖方案及检查安排，已完成初步信息登记，等待持续回访跟进。", "wide"],
+        ["患者年龄", "未填写"], ["患者 AMH", "未填写"], ["患者常住地", "未填写"],
+        ["既往/现试管医院", "未填写"], ["过往取卵次数", "未填写"], ["过往移植次数", "未填写"],
+        ["剩余胚胎数量", "未填写"], ["附件", "暂无附件", "wide"]
+      ];
+      return `<div class="follow-patient-panel"><div class="status-source follow-patient-summary"><strong>线索信息｜当前有效内容</strong><span>展示线索管理中最后一次保存的线索资料。</span></div><div class="registration-grid">${fields.map(([label, fallback, width]) => `<div class="registration-item ${width || ""}"><strong>${label}</strong><span>${value(label, fallback)}</span></div>`).join("")}</div></div>`;
     }
 
     function renderFollowPatientDetail(task) {
       const tab = state.followPatientDetailTab;
-      const tabs = [["medical", "患者病历"], ["laboratory", "检验"], ["examination", "检查"], ["registration", "线索登记表"]];
+      const tabs = [["medical", "患者病历"], ["laboratory", "检验"], ["examination", "检查"], ["registration", "线索信息"]];
       const content = {
         medical: renderMedicalRecordTab(task),
-        laboratory: renderLaboratoryTab(),
-        examination: `<div class="follow-patient-panel"><div class="status-source follow-patient-summary"><strong>检查结果</strong><span>展示已同步的检查结论；完整报告以 HIS 为准。</span></div><div style="overflow-x:auto;"><table class="small-table"><thead><tr><th>检查日期</th><th>项目</th><th>检查结论</th><th>状态</th><th>来源</th></tr></thead><tbody><tr><td>2026-07-08</td><td>妇科超声检查</td><td>检查结论已同步至病历摘要，建议由主诊医生结合诊疗情况解读。</td><td><span class="badge badge-green">已同步</span></td><td>HIS</td></tr><tr><td>2026-07-06</td><td>输卵管通畅度检查</td><td>报告已归档，详见 HIS 检查报告。</td><td><span class="badge badge-green">已同步</span></td><td>HIS</td></tr></tbody></table></div></div>`,
+        laboratory: renderLaboratoryTab(task),
+        examination: renderExaminationReportTab(task),
         registration: `<div class="follow-patient-panel"><div class="status-source follow-patient-summary"><strong>试管线索登记表｜统一字段结构</strong><span>展示该患者唯一线索 ID 对应的只读登记信息。</span></div><div class="registration-grid"><div class="registration-item"><strong>线索提供日期 *</strong><span>2026/07/05</span></div><div class="registration-item"><strong>患者姓名 *</strong><span>${task.name}</span></div><div class="registration-item"><strong>患者电话（可选）</strong><span>${task.phone}</span></div><div class="registration-item"><strong>线索提供分院 *</strong><span>${task.sourceBranch}</span></div><div class="registration-item"><strong>线索来源 *</strong><span>企业微信</span></div><div class="registration-item wide"><strong>线索提供人－内部人员 *</strong><span>门诊同事｜王敏</span></div><div class="registration-item wide"><strong>线索提供人－外部人员 *</strong><span>无</span></div><div class="registration-item wide"><strong>患者情况概述 *</strong><span>患者咨询辅助生殖方案及检查安排，已完成初步信息登记，等待持续回访跟进。</span></div><div class="registration-item"><strong>患者年龄</strong><span>未填写</span></div><div class="registration-item"><strong>患者 AMH</strong><span>未填写</span></div><div class="registration-item"><strong>患者常住地</strong><span>未填写</span></div><div class="registration-item"><strong>既往/现试管医院</strong><span>未填写</span></div><div class="registration-item"><strong>过往取卵次数</strong><span>未填写</span></div><div class="registration-item"><strong>过往移植次数</strong><span>未填写</span></div><div class="registration-item"><strong>剩余胚胎数量</strong><span>未填写</span></div><div class="registration-item wide"><strong>附件</strong><span>暂无附件</span></div></div></div>`
       };
+      content.registration = renderCurrentLeadInfo(task);
       return `<div class="status-source"><strong>${task.name}｜${task.leadId}</strong><span>电话：${task.phone}｜提供分院：${task.sourceBranch}｜回访状态：${task.status}</span></div><div class="tabs" role="tablist" aria-label="患者详情">${tabs.map(([key, label]) => `<button class="tab ${tab === key ? "is-active" : ""}" data-follow-patient-tab="${key}">${label}</button>`).join("")}</div>${content[tab] || content.medical}`;
+    }
+
+    function renderLeadPatientDetail(lead) {
+      const tab = state.followPatientDetailTab;
+      const tabs = [["medical", "患者病历"], ["laboratory", "检验"], ["examination", "检查"], ["registration", "原始线索登记表"]];
+      const content = {
+        medical: renderMedicalRecordTab({ ...lead, noPatientDetailData: lead.id === "L-20260806-019" }),
+        laboratory: renderLaboratoryTab({ ...lead, noPatientDetailData: lead.id === "L-20260806-019" }),
+        examination: renderExaminationReportTab({ ...lead, noPatientDetailData: lead.id === "L-20260806-019" }),
+        registration: renderOriginalLeadRegistration(lead)
+      };
+      return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>电话：${lead.phone}｜提供分院：${lead.branch}｜线索状态：${lead.status}</span></div><div class="tabs" role="tablist" aria-label="患者详情">${tabs.map(([key, label]) => `<button class="tab ${tab === key ? "is-active" : ""}" data-follow-patient-tab="${key}">${label}</button>`).join("")}</div>${content[tab] || content.medical}`;
+    }
+
+    function renderOriginalLeadRegistration(lead) {
+      const records = {
+        HIS: { kind: "HIS 同步转换记录", date: "2026/08/05", phone: "13900004821", branch: "深圳分院", source: "门诊咨询", internal: "HIS 自动同步｜首诊医生 张医生", external: "未填写", summary: "HIS 同步：患者已完成门诊建档并咨询辅助生殖方案；同步病历摘要及检查结果。", age: "35 岁", amh: "1.06 ng/mL", address: "广东省深圳市", hospital: "本院初诊", egg: "0 次", transfer: "0 次", embryo: "未同步", attachment: "门诊病历摘要、AMH 检查报告（HIS 同步）" },
+        "企业微信": { kind: "企业微信会话提交记录", date: "2026/08/05", phone: "13800005266", branch: "上海徐汇分院", source: "患者自来", internal: "企业微信会话｜顾问 黄琳", external: "无", summary: "微信客户咨询试管方案，已完成会话内线索登记；来源分院为上海徐汇分院。", age: "未填写", amh: "未填写", address: "未填写", hospital: "未填写", egg: "未填写", transfer: "未填写", embryo: "未填写", attachment: "企业微信会话记录" },
+        "CRM本地": { kind: "CRM 本地新建记录", date: "2026/07/14", phone: "15800006712", branch: "武汉分院", source: "患者自来", internal: "CRM 本地新建｜线索管理员 李华", external: "无", summary: "线索管理员通过 CRM 新建线索窗口录入，数据来源自动记录为 CRM本地。", age: "未填写", amh: "未填写", address: "未填写", hospital: "未填写", egg: "未填写", transfer: "未填写", embryo: "未填写", attachment: "暂无附件" },
+        "飞书": { kind: "飞书原始登记表快照", date: "2026/08/05", phone: "18600000718", branch: "北京朝阳分院", source: "亲友推荐", internal: "门诊同事｜王敏", external: "无", summary: "患者计划咨询试管方案；34 岁，既往有 1 次取卵经历，关注卵巢储备及后续治疗安排。", age: "34 岁", amh: "1.28 ng/mL", address: "北京市朝阳区", hospital: "无", egg: "1 次", transfer: "0 次", embryo: "0 枚", attachment: "AMH 检查报告.pdf、既往就诊病历.jpg（飞书原始上传）" }
+      };
+      const record = records[lead.source] || records["飞书"];
+      return `<div class="follow-patient-panel"><div class="status-source follow-patient-summary"><strong>试管线索登记表｜${record.kind}</strong><span>来源系统原始登记内容，只读展示，不可编辑。</span></div><div class="registration-grid"><div class="registration-item"><strong>线索提供日期 *</strong><span>${record.date}</span></div><div class="registration-item"><strong>患者姓名 *</strong><span>${lead.name}</span></div><div class="registration-item"><strong>患者电话（可选）</strong><span>${lead.phone || record.phone}</span></div><div class="registration-item"><strong>线索提供分院 *</strong><span>${lead.branch || record.branch}</span></div><div class="registration-item"><strong>线索来源 *</strong><span>${record.source}</span></div><div class="registration-item"><strong>线索提供人－内部人员 *</strong><span>${record.internal}</span></div><div class="registration-item"><strong>线索提供人－外部人员 *</strong><span>${record.external}</span></div><div class="registration-item wide"><strong>患者情况概述 *</strong><span>${record.summary}</span></div><div class="registration-item"><strong>患者年龄</strong><span>${record.age}</span></div><div class="registration-item"><strong>患者 AMH</strong><span>${record.amh}</span></div><div class="registration-item"><strong>患者常住地</strong><span>${record.address}</span></div><div class="registration-item"><strong>既往/现试管医院</strong><span>${record.hospital}</span></div><div class="registration-item"><strong>过往取卵次数</strong><span>${record.egg}</span></div><div class="registration-item"><strong>过往移植次数</strong><span>${record.transfer}</span></div><div class="registration-item"><strong>剩余胚胎数量</strong><span>${record.embryo}</span></div><div class="registration-item wide"><strong>附件</strong><span>${record.attachment}</span></div></div></div>`;
+    }
+
+    function renderOpenPatientDetail() {
+      const isLeadDetail = state.followModalAction === "leadPatientDetail";
+      const detail = isLeadDetail ? state.leadPatientDetail : followUpTasks.find((item) => item.id === state.followTaskId);
+      if (detail) $("#followModalBody").innerHTML = isLeadDetail ? renderLeadPatientDetail(detail) : renderFollowPatientDetail(detail);
+    }
+
+    function openLeadPatientDetail(lead) {
+      state.leadPatientDetail = lead;
+      state.followModalAction = "leadPatientDetail";
+      state.followPatientDetailTab = "medical";
+      state.followMedicalRecordDate = "2026-07-12";
+      state.followLabSubtab = "report";
+      state.followLabReportId = "cbc";
+      state.followIndicatorId = "amh";
+      state.followExaminationReportId = "abdominal-ultrasound";
+      const followDialog = $("#followModal").querySelector(".dialog");
+      followDialog.classList.add("follow-patient-dialog");
+      followDialog.classList.remove("follow-result-dialog");
+      $("#followModalTitle").textContent = `患者详情｜${lead.name}`;
+      renderOpenPatientDetail();
+      $("#followModalCancel").textContent = "取消";
+      $("#followModalSubmit").textContent = "关闭";
+      $("#followModal").classList.add("is-open");
+      $("#followModal").setAttribute("aria-hidden", "false");
+      setRule("R-04");
     }
 
     function renderFollowActions(task) {
       const detailButton = `<button class="btn" data-follow-action="patientDetail" data-task-id="${task.id}">患者详情</button>`;
       const recordButton = `<button class="btn" data-follow-action="timeline" data-task-id="${task.id}">回访记录</button>`;
       const archiveId = customerArchiveByLeadId(task.leadId);
-      const archiveButton = archiveId ? `<button class="btn btn-primary" data-customer-archive-id="${archiveId}">查看客户档案</button>` : "";
+      const archiveButton = archiveId ? `<button class="btn" data-customer-archive-id="${archiveId}">客户档案</button>` : "";
       if (["已完结", "已暂停"].includes(task.status)) return `<div class="compact-actions follow-actions">${task.status === "已完结" ? archiveButton : ""}${detailButton}${recordButton}</div>`;
       return `<div class="compact-actions follow-actions"><button class="btn btn-primary" data-follow-action="contact" data-task-id="${task.id}">录入结果</button><button class="btn btn-primary" data-follow-action="reschedule" data-task-id="${task.id}">改期</button>${detailButton}${recordButton}</div>`;
     }
@@ -4546,7 +5072,7 @@
 
     function renderWecomLeadPanel() {
       const submitted = state.wecomLeadSubmitted;
-      return `<section class="his-lead-panel"><div class="his-lead-panel-head"><div><strong>试管线索提交表</strong><span class="muted">　字段与 HIS“试管线索”一致，提交后按手机号核对并进入分院分配流程。</span></div><span class="badge ${submitted ? "badge-green" : "badge-amber"}">${submitted ? "已提交" : "未提交"}</span></div><div class="wecom-form-grid"><div class="form-row"><label>线索提供日期 *</label><input value="2026/08/05" readonly></div><div class="form-row"><label>患者姓名 *</label><input value="周女士"></div><div class="form-row wecom-phone-check"><label>患者电话（可选）</label><div class="phone-check-row"><input value="13900001234" aria-label="企业微信患者电话"><button class="btn" type="button" data-wecom-phone-check>查重</button></div><span class="phone-check-result" data-wecom-phone-check-result>请输入手机号后点击查重</span></div><div class="form-row"><label>线索提供分院 *</label><select><option>北京朝阳分院</option><option>北京海淀分院</option><option>广州天河分院</option><option>武汉分院</option></select></div><div class="form-row"><label>线索来源 *</label><input value="企业微信" readonly></div><div class="form-row wide"><label>线索提供人－内部人员 *</label><select><option>门诊同事｜王敏</option><option>内部医生｜张医生</option><option>A+B 共同推荐</option></select></div><div class="form-row wide"><label>线索提供人－外部人员 *</label><input value="无"></div><div class="form-row wide"><label>患者情况概述 *</label><textarea>客户咨询试管方案，计划近期到北京就诊；已沟通初步检查及预约安排。</textarea></div><div class="form-row"><label>患者年龄</label><input value="33"></div><div class="form-row"><label>患者 AMH</label><input placeholder="如 1.28 ng/mL"></div><div class="form-row"><label>患者常住地</label><input value="北京市朝阳区"></div><div class="form-row"><label>既往/现试管医院</label><input value="无"></div><div class="form-row"><label>过往取卵次数</label><input value="0"></div><div class="form-row"><label>过往移植次数</label><input value="0"></div><div class="form-row"><label>剩余胚胎数量</label><input value="0"></div><div class="form-row wide"><label>附件</label><input value="可上传就诊病历、检查报告等" readonly></div></div><div class="detail-actions" style="margin-top:16px"><button class="btn" data-wecom-action="save-draft">保存草稿</button><button class="btn btn-primary" data-wecom-action="submit-lead" ${submitted ? "disabled" : ""}>${submitted ? "已提交" : "确认提交"}</button></div></section>`;
+      return `<section class="his-lead-panel"><div class="his-lead-panel-head"><div><strong>试管线索提交表</strong><span class="muted">　字段与 HIS“试管线索”一致，提交后按手机号核对并进入分院分配流程。</span></div><span class="badge ${submitted ? "badge-green" : "badge-amber"}">${submitted ? "已提交" : "未提交"}</span></div><div class="wecom-form-grid"><div class="form-row"><label>线索提供日期 *</label><input value="2026/08/05" readonly></div><div class="form-row"><label>患者姓名 *</label><input value="周女士"></div><div class="form-row wecom-phone-check"><label>患者电话（可选）</label><div class="phone-check-row"><input value="13900001234" aria-label="企业微信患者电话"><button class="btn" type="button" data-wecom-phone-check>查重</button></div><span class="phone-check-result" data-wecom-phone-check-result>请输入手机号后点击查重</span></div><div class="form-row"><label>线索提供分院 *</label><select><option>北京朝阳分院</option><option>北京海淀分院</option><option>广州天河分院</option><option>武汉分院</option></select></div><div class="form-row"><label>线索来源 *</label><input value="患者自来" readonly></div><div class="form-row wide"><label>线索提供人－内部人员 *</label><input value="门诊同事｜王敏"></div><div class="form-row wide"><label>线索提供人－外部人员 *</label><input value="无"></div><div class="form-row wide"><label>患者情况概述 *</label><textarea>客户咨询试管方案，计划近期到北京就诊；已沟通初步检查及预约安排。</textarea></div><div class="form-row"><label>患者年龄</label><input value="33"></div><div class="form-row"><label>患者 AMH</label><input placeholder="如 1.28 ng/mL"></div><div class="form-row"><label>患者常住地</label><input value="北京市朝阳区"></div><div class="form-row"><label>既往/现试管医院</label><input value="无"></div><div class="form-row"><label>过往取卵次数</label><input value="0"></div><div class="form-row"><label>过往移植次数</label><input value="0"></div><div class="form-row"><label>剩余胚胎数量</label><input value="0"></div><div class="form-row wide"><label>附件</label><input value="可上传就诊病历、检查报告等" readonly></div></div>${submitted ? "" : `<div class="detail-actions" style="margin-top:16px"><button class="btn" data-wecom-action="save-draft">保存草稿</button><button class="btn btn-primary" data-wecom-action="submit-lead">确认提交</button></div>`}</section>`;
     }
 
     function renderWecomView() {
@@ -4560,11 +5086,11 @@
         <div class="wecom-form-grid">
           <div class="form-row"><label>线索提供日期 *</label><input value="2026/08/05" readonly></div>
           <div class="form-row"><label>患者姓名 *</label><input value="周女士"></div>
-          <div class="form-row"><label>患者电话（可选）</label><input value="139****7621"></div>
+          <div class="form-row"><label>患者电话（可选）</label><input value="13900007621"></div>
           <div class="form-row"><label>手机号是否重复录入</label><input value="待提交后核对" readonly></div>
           <div class="form-row"><label>线索提供分院 *</label><select><option>北京朝阳分院</option><option>北京海淀分院</option><option>广州天河分院</option><option>武汉分院</option></select></div>
-          <div class="form-row"><label>线索来源 *</label><input value="企业微信" readonly></div>
-          <div class="form-row wide"><label>线索提供人－内部人员 *</label><select><option>门诊同事｜王敏</option><option>内部医生｜张医生</option><option>A+B 共同推荐</option></select></div>
+          <div class="form-row"><label>线索来源 *</label><input value="患者自来" readonly></div>
+          <div class="form-row wide"><label>线索提供人－内部人员 *</label><input value="门诊同事｜王敏"></div>
           <div class="form-row wide"><label>线索提供人－外部人员 *</label><input value="无"></div>
           <div class="form-row wide"><label>患者情况概述 *</label><textarea>客户咨询试管方案，计划近期到北京就诊；已沟通初步检查及预约安排。</textarea></div>
           <div class="form-row"><label>患者年龄</label><input value="33"></div>
@@ -4594,7 +5120,18 @@
           </div>
           <div class="wecom-side"><div class="wecom-side-head"><strong>企业微信 CRM</strong><span class="badge badge-blue">会话内登记</span></div><div class="wecom-tabs"><button class="wecom-tab ${state.wecomTab === "quick" ? "is-active" : ""}" data-wecom-tab="quick">快捷回复</button><button class="wecom-tab ${state.wecomTab === "profile" ? "is-active" : ""}" data-wecom-tab="profile">客户详情</button><button class="wecom-tab ${state.wecomTab === "crm" ? "is-active" : ""}" data-wecom-tab="crm">试管线索</button><button class="wecom-tab ${state.wecomTab === "custom" ? "is-active" : ""}" data-wecom-tab="custom">自定义</button></div><div class="wecom-side-body">${tabContent}</div></div>
         </section>`;
-      if (state.wecomTab === "crm") mainEl.querySelector(".wecom-side-body").innerHTML = renderWecomLeadPanel();
+      if (state.wecomTab === "crm") {
+        mainEl.querySelector(".wecom-side-body").innerHTML = renderWecomLeadPanel();
+        mainEl.querySelector(".his-lead-panel-head .muted")?.remove();
+        const saveButton = mainEl.querySelector('[data-wecom-action="save-draft"]');
+        if (saveButton) saveButton.textContent = "保存";
+        const attachmentRow = Array.from(mainEl.querySelectorAll(".wecom-form-grid .form-row")).find((row) => row.querySelector("label")?.textContent.trim() === "附件");
+        if (attachmentRow) attachmentRow.innerHTML = `<label>附件</label><div class="attachment-upload-row" data-lead-attachment-row><input type="file" data-lead-attachment multiple accept=".doc,.docx,.pdf,.xls,.xlsx,.png,.jpg,.jpeg"><span class="attachment-file-name">支持 Word、PDF、Excel、PNG、JPG；可多选或继续添加</span><div class="attachment-file-list" data-lead-file-list><span class="attachment-file-name">暂未选择附件</span></div></div>`;
+        if (state.wecomLeadSubmitted) {
+          mainEl.querySelectorAll(".wecom-form-grid input, .wecom-form-grid textarea").forEach((field) => { field.readOnly = true; });
+          mainEl.querySelectorAll(".wecom-form-grid select, .wecom-form-grid input[type=file], .wecom-form-grid button").forEach((field) => { field.disabled = true; });
+        }
+      }
       Array.from(mainEl.querySelectorAll(".wecom-form-grid .form-row")).find((row) => row.querySelector("label")?.textContent.trim() === "线索管理员")?.remove();
       mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("企业微信规则说明", "企业微信.md"));
       setRule("R-29");
@@ -4604,35 +5141,18 @@
       mainEl.classList.add("module-page");
       mainEl.dataset.view = "his";
       $("#searchInput")?.setAttribute("placeholder", "搜索 HIS 患者、病历号或手机号");
-      const marked = state.hisLeadMarked;
-      const submitted = state.hisLeadSubmitted;
       mainEl.innerHTML = `
-        <section class="his-shell has-rule"><button class="rule-corner" data-rule="R-27">R-27</button>
-          <div class="his-topbar"><span>▦　⌂ 首页　　▣ 门诊医生站</span><div class="his-top-actions"><span>广州越秀分院</span><span>♧　◌　⌗</span><span>◉ 陈锦园⌄　—　×</span></div></div>
+        <section class="his-shell has-rule"><button class="rule-corner" data-rule="HIS-01">HIS-01</button>
+          <div class="his-topbar"><span>▦　⌂ 首页　　▣ 门诊医生站　×</span><div class="his-top-actions"><span>广州越秀分院　♧　◌　⌗</span><span>◉ 陈锦园⌄　—　×</span></div></div>
           <div class="his-workspace">
-            <aside class="his-left"><div class="his-search"><input value="陈红英" aria-label="搜索患者"><button class="btn">查询</button></div><div class="his-patient-mini"><div class="his-photo">👤</div><strong>陈红英</strong><span>17817514031</span><span>女，32岁</span></div><ul class="his-tree"><li>▾ HIS 接口日志</li><li>▾ 病历　＋病历　合并病历</li><li>　▱ IMG00063（2026-08-19）</li><li>▾ 医嘱单 (2)</li><li>　▱ 西成药处方 (1)</li><li>　▱ 中草药处方 (1)</li><li>　▱ 毒麻处方</li><li>　▱ 检查　检验　手术</li></ul></aside>
-            <div class="his-content"><div class="his-nav-title">▦ 导航:患者（陈红英）</div><div class="his-tabs"><span>病历首页</span><span>本次就诊</span><span class="is-active">客户档案</span><span>消费情况</span><span>过往设计</span><span>患者病历</span><span>报价单</span><span>执行记录</span><span>预约情况</span><span>回访情况</span></div>
-              <div class="his-toolbar"><button class="his-action">客户附件</button><button class="his-action">客户标签</button><button class="his-action">▣ 新增预约</button><button class="his-action">◉ 新增回访</button><button class="his-action ${marked ? "is-marked" : ""}" data-his-action="mark-lead">${marked ? "✓ 已标记试管线索" : "试管线索标记"}</button></div>
-              <div class="his-section-title">基本信息</div><div class="his-record-grid"><div class="his-record-field"><strong>客户卡号：</strong>＜入会后才有卡号＞</div><div class="his-record-field"><strong>所属机构：</strong>广州越秀分院⌄</div><div class="his-record-field"><strong>客户姓名：</strong>陈红英</div><div class="his-record-field"><strong>英文名：</strong>—</div><div class="his-record-field"><strong>手机：</strong>17817514031</div><div class="his-record-field"><strong>联系电话：</strong>—</div><div class="his-record-field"><strong>出生日期：</strong>1993-12-5</div><div class="his-record-field"><strong>性别：</strong>女　年龄：32 岁</div><div class="his-record-field"><strong>婚姻状况：</strong>—</div><div class="his-record-field"><strong>档案号(病案号)：</strong>—</div><div class="his-record-field wide"><strong>现住址：</strong>清远市</div><div class="his-record-field"><strong>建档人：</strong>admin</div><div class="his-record-field"><strong>建档时间：</strong>2025-02-26 00:00:00</div><div class="his-record-field"><strong>初诊时间：</strong>2026-07-22 14:16:47</div></div>
-              <section class="his-lead-panel ${marked ? "" : "is-pending"}"><div class="his-lead-panel-head"><div><strong>试管线索提交表</strong><span class="muted">　字段与企业微信“试管线索登记”一致，提交后按手机号核对并进入分院分配流程。</span></div><span class="badge ${marked ? "badge-green" : "badge-amber"}">${marked ? "已标记" : "待标记"}</span></div><div class="wecom-form-grid"><div class="form-row"><label>线索提供日期 *</label><input value="2026/08/19" readonly></div><div class="form-row"><label>患者姓名 *</label><input value="陈红英"></div><div class="form-row"><label>患者电话（可选）</label><input value="17817514031"></div><div class="form-row"><label>手机号是否重复录入</label><input value="待提交后核对" readonly></div><div class="form-row"><label>线索提供分院 *</label><select><option>广州越秀分院</option><option>广州天河分院</option><option>北京朝阳分院</option></select></div><div class="form-row"><label>线索来源 *</label><input value="HIS" readonly></div><div class="form-row wide"><label>线索提供人－内部人员 *</label><select><option>门诊医生｜陈锦园</option><option>门诊同事｜王敏</option></select></div><div class="form-row wide"><label>线索提供人－外部人员 *</label><input value="无"></div><div class="form-row wide"><label>患者情况概述 *</label><textarea>门诊建档患者，已咨询辅助生殖方案，建议进一步登记试管意向并安排顾问跟进。</textarea></div><div class="form-row"><label>患者年龄</label><input value="32"></div><div class="form-row"><label>患者 AMH</label><input placeholder="如 1.28 ng/mL"></div><div class="form-row"><label>患者常住地</label><input value="清远市"></div><div class="form-row"><label>既往/现试管医院</label><input value="未填写"></div><div class="form-row"><label>过往取卵次数</label><input value="未填写"></div><div class="form-row"><label>过往移植次数</label><input value="未填写"></div><div class="form-row"><label>剩余胚胎数量</label><input value="未填写"></div><div class="form-row"><label>线索管理员</label><select><option>张敏</option><option>王丽</option></select></div><div class="form-row wide"><label>附件</label><input value="可上传病历、检查报告等" readonly></div></div><div class="detail-actions" style="margin-top:16px"><button class="btn" data-his-action="save-draft">保存草稿</button><button class="btn btn-primary" data-his-action="submit-lead">提交并核对手机号</button></div></section>
+            <aside class="his-left"><div class="his-search"><select><option>自动</option></select><input placeholder="按自动检索"><button class="btn">查询</button></div><div class="his-patient-mini"><div class="his-photo">👤</div><strong>杨眉</strong><span>13310883505</span><span>女，44岁</span></div><ul class="his-tree"><li>▾ 本次(2026-09-21 16:27)</li><li>　▱ 首页</li><li>　▱ 实时状态－接诊　调整</li><li>　▱ 过敏史(无)</li><li>　▱ lis报告信息</li><li>▾ 病历　＋病历　合并病历</li><li>▾ 检查报告</li><li>　▱ 彩超(监测卵泡再次)</li><li>▾ 医嘱单(1)</li><li>　▱ 西成药处方</li><li>　▱ 中草药处方</li><li>　▱ 毒麻处方</li><li>　▱ 检查(1)</li><li>　▱ 检验　手术　治疗　材料</li><li>▾ 附件管理</li><li>▱ 生命体征</li></ul></aside>
+            <div class="his-content"><div class="his-nav-title">▦ 导航:患者（杨眉）</div><div class="his-tabs"><span>病历首页</span><span class="is-active">本次就诊</span><span>客户档案</span><span>消费情况</span><span>过往设计</span><span>患者病历</span><span>报价单</span><span>执行记录</span><span>预约情况</span><span>回访情况</span><span>客户照片</span><span>Visia报告</span><span>投诉及处理</span><span>就医情况</span></div>
+              <div class="his-toolbar"><button class="his-action">✚ 开立⌄</button><button class="his-action">▣ 保存</button><button class="his-action">↶ 作废</button><button class="his-action">▣ 存为方案⌄</button><button class="his-action">💡 过敏史</button><button class="his-action">🖨 打印检查⌄</button><button class="his-action">💡 功能⌄</button><button class="his-action">查看检验结果</button><label class="his-lead-check"><input type="checkbox" data-his-lead-checkbox ${state.hisLeadMarked ? "checked" : ""}>试管线索</label><button class="his-action">▣ 关闭</button></div>
+              <div class="his-exam-shell"><div class="his-exam-main"><div class="his-exam-summary"><div class="his-exam-summary-head"><span>检查(1)　　260921768981　　85.00　　引用　选择引用</span><span>侯树妹/妇科 2026-09-21 16:27 【已收费】</span></div><div class="his-exam-line"><strong>诊断：</strong><span>（主）备孕调理　↻</span></div><div class="his-exam-line"><strong>病历摘要：</strong><span>请输入病历摘要</span></div><div class="his-exam-line"><strong>体格检查：</strong><span>请输入辅助/体格检查</span></div><div class="his-exam-line"><strong>检查目的：</strong><span>请输入检查目的</span></div><table class="his-exam-table"><thead><tr><th>名称</th><th>紧急</th><th>次数</th><th>检查科室</th><th>检查部位</th><th>嘱托</th></tr></thead><tbody><tr><td>彩超(监测卵泡再次)</td><td></td><td>1</td><td>超声影像科</td><td></td><td></td></tr></tbody></table></div><table class="his-exam-table his-exam-bottom"><thead><tr><th>序号</th><th>医嘱名称</th><th>名称</th><th>编码</th><th>单位</th><th>参考价</th><th>单价</th><th>折扣率</th><th>数量</th><th>金额</th><th>执行科室</th></tr></thead><tbody><tr><td>1</td><td>彩超(监测卵泡再次)</td><td>彩超(监测卵泡再次)</td><td>120100001</td><td>次</td><td>85</td><td>85</td><td>100%</td><td>1</td><td>85.00</td><td>超声影像科</td></tr></tbody></table></div><aside class="his-plan-side"><div class="his-plan-tabs"><span>诊疗方案</span><span>常用</span><span>知识库</span></div><div class="his-plan-search">请输入关键字,回车过滤　⌕</div><ul class="his-plan-tree"><li>▾ 全院方案</li><li>　□ 全麻宫腔镜术前检查</li><li>　□ 无麻宫腔镜术前</li><li>　□ 宫腔灌注</li><li>　□ 胰岛素释放试验</li><li>　□ 感染四项（打球蛋白）</li><li>　□ 造影用药</li><li>　□ 葡萄糖耐量试验</li><li>　□ 内膜活检CD138/CD</li><li>　□ 造影项目</li><li>　□ 内膜活检</li><li>　□ 大排畸（周力学教授）</li><li>　□ NT(周力学教授)</li><li>　□ NT（陈少文医生VIF）</li><li>　□ 宫腔抽吸</li><li>　□ 免疫球蛋白</li><li>　□ 免疫三项</li><li>　□ PRP</li></ul></aside></div>
             </div>
           </div>
-        </section>`;
-      const hisLeadPanel = mainEl.querySelector(".his-lead-panel");
-      hisLeadPanel.classList.remove("is-pending");
-      mainEl.querySelector('[data-his-action="mark-lead"]')?.remove();
-      mainEl.querySelector(".his-toolbar").insertAdjacentHTML("beforeend", `<button class="his-action" data-his-action="open-lead">试管线索</button>`);
-      Array.from(hisLeadPanel.querySelectorAll(".form-row")).find((row) => row.querySelector("label")?.textContent.trim() === "线索管理员")?.remove();
-      const hisSubmitStatus = hisLeadPanel.querySelector(".his-lead-panel-head .badge");
-      hisSubmitStatus.className = `badge ${submitted ? "badge-green" : "badge-amber"}`;
-      hisSubmitStatus.textContent = submitted ? "已提交" : "未提交";
-      const hisBranchSelect = hisLeadPanel.querySelector("select");
-      hisBranchSelect.disabled = submitted;
-      hisBranchSelect.title = submitted ? "重复提交时，线索提供分院不可修改。" : "";
-      const hisSubmitButton = hisLeadPanel.querySelector('[data-his-action="submit-lead"]');
-      hisSubmitButton.textContent = submitted ? "再次提交并覆盖之前数据" : "提交并核对手机号";
-      hisLeadPanel.classList.add("his-lead-panel-template");
-      setRule("R-27");
+        </section>${embeddedRulesDocument("HIS 页面规则说明", "HIS.md")}`;
+      setRule("HIS-01");
     }
 
     function renderLoginView() {
@@ -4650,7 +5170,7 @@
           </div>
           <div class="login-note">验证码有效期为 5 分钟、单次使用。验证通过后系统自动加载该用户全部角色的权限集合，直接进入系统，不需要选择角色。</div>
         </div>
-      </section>`;
+      </section>${embeddedRulesDocument("登录页规则说明", "登录页.md")}`;
       setRule("UM-02");
     }
 
@@ -4684,13 +5204,31 @@
       $("#hisLeadSubmitConfirmModal").setAttribute("aria-hidden", "true");
     }
 
+    function openWecomLeadSubmitConfirm() {
+      $("#wecomLeadSubmitConfirmModal").classList.add("is-open");
+      $("#wecomLeadSubmitConfirmModal").setAttribute("aria-hidden", "false");
+    }
+
+    function closeWecomLeadSubmitConfirm() {
+      $("#wecomLeadSubmitConfirmModal").classList.remove("is-open");
+      $("#wecomLeadSubmitConfirmModal").setAttribute("aria-hidden", "true");
+    }
+
+    function confirmWecomLeadSubmit() {
+      state.wecomLeadSubmitted = true;
+      closeWecomLeadSubmitConfirm();
+      renderWecomView();
+      setRule("R-29");
+      showToast("线索已确认提交，登记表已切换为只读。");
+    }
+
     function confirmHisLeadSubmit() {
       const repeated = state.hisLeadSubmitted;
       state.hisLeadSubmitted = true;
       state.hisLeadMarked = true;
       closeHisLeadSubmitConfirm();
       renderHisView();
-      openHisLeadModal();
+      document.querySelector("#hisLeadWorkbench")?.scrollIntoView({ behavior: "smooth", block: "start" });
       showToast(repeated ? "已再次提交，已用本次内容覆盖此前线索数据。" : "HIS 线索已提交：将执行手机号重复核对，并进入分院分配流程。");
     }
 
@@ -4757,7 +5295,7 @@
               ${[["到期完成率", 86, "86%"], ["已联系率", 72, "72%"], ["逾期率", 11, "11%"], ["A 类任务量", 38, "38"]].map((row) => `<div class="bar-line"><span>${row[0]}</span><div class="bar"><span style="width:${row[1]}%"></span></div><strong>${row[2]}</strong></div>`).join("")}
             </div>
           </div></div>
-          <section class="panel customer-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>回访管理规则说明</h2><span class="muted">以下内容按“回访管理.md”排版展示，用于边看页面边核对业务规则。</span></div><span class="badge badge-blue">只读展示</span></div><iframe src="回访管理规则说明.html" title="回访管理规则说明"></iframe></div></section>
+          ${embeddedRulesDocument("回访管理规则说明", "回访管理.md")}
         </section>`;
       setRule("R-22");
     }
@@ -4844,7 +5382,7 @@
           <div class="panel"><div class="panel-body"><div class="section-head"><div><h2>续存协同闭环</h2><span class="muted">角色分工清晰，任何一步未完成都不能把续存标记为完成。</span></div><button class="btn" data-rule="ES-03">ES-03</button></div><div class="embryo-process-grid">
             <div class="embryo-process-step"><strong>1. 实验室 / HIS</strong><span class="muted">同步胚胎数量、管数、冷冻日期和实际有效期。</span></div><div class="embryo-process-step"><strong>2. 顾问</strong><span class="muted">按 90 / 30 / 7 天提醒，记录意向、联系和续存期限。</span></div><div class="embryo-process-step"><strong>3. 财务</strong><span class="muted">核对缴费流水并确认入账，不以顾问口头确认替代。</span></div><div class="embryo-process-step"><strong>4. 实验室</strong><span class="muted">确认续存并回写新有效期，形成最终闭环。</span></div>
           </div></div></div>
-          <section class="panel customer-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>胚胎冻存管理规则说明</h2><span class="muted">规则来源：<a href="胚胎冻存管理.md" target="_blank" rel="noopener">胚胎冻存管理.md</a>；下方直接展示排版后的规则文档。</span></div><span class="badge badge-blue">只读展示</span></div><iframe src="胚胎冻存管理规则说明.html" title="胚胎冻存管理规则说明"></iframe></div></section>
+          ${embeddedRulesDocument("胚胎冻存管理规则说明", "胚胎冻存管理.md")}
         </section>`;
       setRule("ES-02");
     }
@@ -5041,6 +5579,7 @@
           <div class="panel"><div class="panel-body"><div class="section-head"><div><h2>财务核对口径</h2><span class="muted">页面金额用于工作台核对，正式账务以审批通过的合同、银行流水及财务系统为准。</span></div><button class="btn" data-rule="R-12">查看口径版本</button></div><div class="record-list"><div class="record"><strong>净应收口径</strong><span class="muted">合同金额－已确认优惠；优惠变更后应重新生成应收调整记录，不覆盖历史金额。</span></div><div class="record"><strong>收款与对账</strong><span class="muted">登记收款不等于确认入账；须匹配付款人、金额、渠道流水后才计入已对账实收。</span></div><div class="record"><strong>退款与保险</strong><span class="muted">退款必须关联合同结束类型和审批单；保险理赔、保险退款分别跟踪，不与普通退款合并。</span></div><div class="record"><strong>催缴留痕</strong><span class="muted">记录催缴金额、次数、时间、执行人和患者反馈；超过约定次数升级至顾问或区域负责人。</span></div></div></div></div>
         </section>
       `;
+      mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("合同财务规则说明", "合同财务.md"));
       setRule("R-10");
     }
 
@@ -5073,7 +5612,7 @@
           <div class="panel"><div class="panel-body"><div class="section-head"><div><h2>客户经营报表</h2><span class="muted">以夫妻档案为单位观察签约客户状态和院区分布。</span></div><button class="btn" data-report-export="customer">导出 Excel</button></div><div style="overflow-x:auto"><table class="small-table"><thead><tr><th>来源分院</th><th>签约档案</th><th>当月新增</th><th>病历已建档</th><th>未建病历</th><th>进行中客户</th><th>已结束客户</th></tr></thead><tbody><tr><td>广州越秀分院</td><td>3</td><td>2</td><td>2</td><td>1</td><td>2</td><td>1</td></tr><tr><td>北京朝阳分院</td><td>3</td><td>2</td><td>3</td><td>0</td><td>3</td><td>0</td></tr><tr><td>深圳分院</td><td>2</td><td>2</td><td>2</td><td>0</td><td>1</td><td>1</td></tr></tbody></table></div></div></div>
           <div class="panel has-rule"><button class="rule-corner" data-rule="R-10">R-10</button><div class="panel-body"><div class="section-head"><div><h2>合同经营报表</h2><span class="muted">跟踪签约、执行、保险与结束合同的金额和结构。</span></div><button class="btn" data-report-export="contract">导出 Excel</button></div><div style="overflow-x:auto"><table class="small-table"><thead><tr><th>合同状态</th><th>合同数</th><th>合同金额</th><th>有保险</th><th>优惠内容已录入</th><th>关联进行中周期</th><th>管理提示</th></tr></thead><tbody><tr><td>执行中</td><td>4</td><td>¥392,000</td><td>2</td><td>3</td><td>1</td><td>关注权益消耗与周期匹配</td></tr><tr><td>待弃用</td><td>1</td><td>¥76,000</td><td>0</td><td>1</td><td>0</td><td>核对弃用原因及替代合同</td></tr><tr><td>合同结束</td><td>5</td><td>¥257,600</td><td>0</td><td>5</td><td>0</td><td>核对五类结束类型与后续服务</td></tr></tbody></table></div></div></div>
           <div class="panel has-rule"><button class="rule-corner" data-rule="R-10">R-10</button><div class="panel-body"><div class="section-head"><div><h2>周期经营报表</h2><span class="muted">监控治疗阶段、结局和待关联周期，识别医疗协同风险。</span></div><button class="btn" data-report-export="cycle">导出 Excel</button></div><div style="overflow-x:auto"><table class="small-table"><thead><tr><th>周期阶段</th><th>周期数</th><th>进行中</th><th>已完成/结局</th><th>待关联合同</th><th>已分配医护</th><th>管理提示</th></tr></thead><tbody><tr><td>取卵</td><td>2</td><td>1</td><td>1</td><td>0</td><td>2</td><td>关注胚胎结果回传</td></tr><tr><td>移植</td><td>3</td><td>1</td><td>2</td><td>1</td><td>3</td><td>待确认合同关联</td></tr><tr><td>验孕</td><td>3</td><td>1</td><td>2</td><td>0</td><td>3</td><td>关注未妊娠与生化妊娠结局</td></tr></tbody></table></div></div></div>
-          <section class="panel customer-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>经营管理规则说明</h2><span class="muted">规则来源：<a href="经营管理.md" target="_blank" rel="noopener">经营管理.md</a>；下方内容与规则文档同步展示。</span></div><span class="badge badge-blue">只读展示</span></div><iframe src="经营管理规则说明.html" title="经营管理规则说明"></iframe></div></section>
+          ${embeddedRulesDocument("经营报表规则说明", "经营管理.md")}
         </section>
       `;
       setRule("R-11");
@@ -5115,6 +5654,7 @@
           <div class="panel"><div class="panel-body"><div class="section-head"><h2>角色管理</h2><span class="badge badge-blue">8 个角色</span></div><p class="muted">维护各角色的数据范围、菜单权限与业务操作权限。</p><button class="btn btn-primary" data-view="settings-role">进入角色管理</button></div></div>
           <div class="panel"><div class="panel-body"><div class="section-head"><h2>字典管理</h2><span class="badge badge-blue">9 个字典项</span></div><p class="muted">维护回访结果及改期下拉字段的可选值，默认值与业务弹窗保持一致。</p><button class="btn btn-primary" data-view="settings-dictionary">进入字典管理</button></div></div>
         </section>`;
+      mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("基础设置规则说明", "基础设置.md"));
       setRule("R-28");
     }
 
@@ -5134,6 +5674,7 @@
             <tr><td>深圳分院</td><td>张敏</td><td>黄琳（1）</td><td><span class="badge badge-green">自动直分配</span></td><td><button class="btn" data-branch-management="edit" data-branch-name="深圳分院" data-branch-id="BR-202607-006">编辑</button></td></tr>
           </tbody></table></div>
         </div></div></section>`;
+      mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("分院管理规则说明", "分院管理.md"));
       setRule("R-28");
     }
 
@@ -5149,6 +5690,7 @@
             <tr><td>陈芳</td><td>13800000103</td><td>广州天河分院、广州番禺分院</td><td><span class="badge badge-green">在岗</span></td><td>0</td><td>4</td><td>可处理</td><td><button class="btn" data-lead-manager-detail="陈芳">查看详情</button></td></tr>
           </tbody></table></div>
         </div></div></section>`;
+      mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("线索管理员列表规则说明", "线索管理员列表.md"));
       setRule("R-28");
     }
 
@@ -5165,6 +5707,7 @@
             <tr><td>周洁</td><td>13800000107</td><td>广州番禺分院</td><td><span class="badge badge-gray">停用</span></td><td><span class="badge badge-gray">否</span></td><td>6</td><td>不计入可接收顾问数量</td><td><button class="btn" data-advisor-detail="周洁">详情</button></td></tr>
           </tbody></table></div>
         </div></div></section>`;
+      mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("顾问列表规则说明", "顾问列表.md"));
       setRule("R-28");
     }
 
@@ -5214,6 +5757,7 @@
           (q.status && row.dataset.status !== q.status)
         );
       });
+      mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("用户管理规则说明", "用户管理规则说明.md"));
       setRule("UM-01");
     }
 
@@ -5235,6 +5779,7 @@
             <tr><td>客服</td><td>18</td><td>负责患者</td><td>患者档案、服务沟通、复诊提醒</td><td>仅处理本人负责患者的服务沟通与协同</td><td><button class="btn" data-role-modal="edit" data-role-name="客服">编辑</button></td></tr>
           </tbody></table></div>
         </div></div></section>`;
+      mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("角色管理规则说明", "角色管理.md"));
       setRule("R-28");
     }
 
@@ -5261,6 +5806,7 @@
       const dictionaryToolbar = $(".dictionary-detail-toolbar");
       const dictionarySearch = $("#dictionaryValueQuery");
       if (dictionaryToolbar && dictionarySearch) dictionaryToolbar.prepend(dictionarySearch);
+      mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("字典管理规则说明", "字典管理.md"));
       setRule("R-23");
     }
 
@@ -5416,12 +5962,8 @@
 
     function renderCustomerCommunicationTimeline(customer) {
       const records = customerCommunicationRecords(customer).slice().sort((a, b) => b.time.localeCompare(a.time));
-      if (!records.length) return `<div class="empty">暂无沟通记录，可点击右上角“新增沟通记录”进行录入。</div>`;
-      return `<div class="communication-timeline">${records.map((record) => {
-        const attachments = (record.attachments || []).length ? `<div class="communication-attachments">${record.attachments.map((file) => `<span>附件：${escapeHtml(file)}</span>`).join("")}</div>` : "";
-        const related = record.related ? `<span>关联资料：${escapeHtml(record.related)}</span>` : "";
-        return `<article class="communication-item"><strong>${escapeHtml(record.time)}｜${escapeHtml(record.operator)}</strong><div class="communication-meta"><span>联系对象：${escapeHtml(record.target)}</span><span>方式：${escapeHtml(record.method)}</span><span>结果：${escapeHtml(record.result)}</span>${related}</div><p>${escapeHtml(record.content)}</p>${record.plan ? `<span>后续处理：${escapeHtml(record.plan)}</span>` : ""}${attachments}</article>`;
-      }).join("")}</div>`;
+      if (!records.length) return `<div class="empty">暂无跟进记录，可点击右上角“新增跟进记录”进行录入。</div>`;
+      return `<div class="communication-timeline">${records.map((record) => `<article class="communication-item"><strong>${escapeHtml(record.time)}｜${escapeHtml(record.type || "跟进记录")}</strong><p>${escapeHtml(record.content)}</p></article>`).join("")}</div>`;
     }
 
     function customerComplaintRecords(customer) {
@@ -5459,15 +6001,12 @@
 
     function renderCustomerCommunicationModal() {
       const customer = customers.find((item) => item.id === state.customerCommunicationId) || activeCustomer();
-      const isComplaint = state.customerCommunicationTitle === "客诉记录";
-      $("#customerCommunicationTitle").textContent = `${customer.woman}｜${state.customerCommunicationTitle}`;
-      $("#addCustomerCommunication").textContent = isComplaint ? "新增客诉记录" : "新增沟通记录";
-      $("#customerCommunicationBody").innerHTML = isComplaint
-        ? `<div class="status-source"><strong>历史客诉记录</strong><span>按处理时间倒序展示已维护的客诉、处理结果及后续跟进情况。</span></div>${renderCustomerComplaintTimeline(customer)}`
-        : `<div class="status-source"><strong>历史沟通记录</strong><span>有权查看案例的角色均可新增、修改、删除沟通记录；异常检查沟通须关联对应检查结果或病历条目。</span></div>${renderCustomerCommunicationTimeline(customer)}`;
+      $("#customerCommunicationTitle").textContent = `${customer.woman}｜跟进记录`;
+      $("#addCustomerCommunication").textContent = "新增跟进记录";
+      $("#customerCommunicationBody").innerHTML = `<div class="status-source"><strong>历史跟进记录</strong><span>按跟进时间倒序展示跟进记录、客诉及特殊事项。</span></div>${renderCustomerCommunicationTimeline(customer)}`;
     }
 
-    function openCustomerCommunicationModal(customerId = state.activeCustomerId, title = "沟通记录") {
+    function openCustomerCommunicationModal(customerId = state.activeCustomerId, title = "跟进记录") {
       const customer = customers.find((item) => item.id === customerId) || activeCustomer();
       state.activeCustomerId = customer.id;
       state.customerCommunicationId = customer.id;
@@ -5484,16 +6023,10 @@
     }
 
     function openCustomerCommunicationEntryModal() {
-      const customer = customers.find((item) => item.id === state.customerCommunicationId) || activeCustomer();
-      $("#communicationTarget").value = "女方";
       $("#communicationTime").value = "2026-07-17T12:00";
-      $("#communicationOperator").value = customer.nurse && customer.nurse !== "-" ? `陪诊护士-${customer.nurse}` : `区域负责人-${customer.regionOwner}`;
-      $("#communicationMethod").value = "电话";
+      $("#communicationType").value = "跟进记录";
       $("#communicationContent").value = "";
-      $("#communicationResult").value = "已联系";
-      $("#communicationPlan").value = "";
-      $("#communicationRelated").value = "";
-      $("#communicationAttachments").value = "";
+      $("#customerCommunicationEntryTitle").textContent = "新增跟进记录";
       $("#customerCommunicationEntryModal").classList.add("is-open");
       $("#customerCommunicationEntryModal").setAttribute("aria-hidden", "false");
     }
@@ -5506,49 +6039,26 @@
     function submitCustomerCommunication() {
       const customer = customers.find((item) => item.id === state.customerCommunicationId) || activeCustomer();
       const time = $("#communicationTime").value;
-      const operator = $("#communicationOperator").value.trim();
+      const type = $("#communicationType").value;
       const content = $("#communicationContent").value.trim();
-      if (!time || !operator || !content) {
-        showToast("请填写沟通时间、沟通人和沟通内容。");
+      if (!time || !type || !content) {
+        showToast("请填写跟进时间、类型和说明。");
         return;
       }
-      const files = Array.from($("#communicationAttachments").files || []).map((file) => file.name);
       const record = {
         id: `CT-${Date.now()}`,
         time: time.replace("T", " "),
-        operator,
-        target: $("#communicationTarget").value,
-        method: $("#communicationMethod").value,
-        content,
-        result: $("#communicationResult").value,
-        plan: $("#communicationPlan").value.trim(),
-        related: $("#communicationRelated").value.trim(),
-        attachments: files
+        type,
+        content
       };
-      if (state.customerCommunicationTitle === "客诉记录") {
-        customerComplaintRecords(customer).unshift({
-          id: `CP-${Date.now()}`,
-          time: record.time,
-          operator: record.operator,
-          status: record.result === "已联系" ? "已处理" : record.result,
-          type: record.method,
-          content: record.content,
-          result: record.plan || "已登记，待持续跟进处理。",
-          followUp: record.related || "待处理人持续跟进。"
-        });
-        closeCustomerCommunicationEntryModal();
-        renderCustomerCommunicationModal();
-        showToast("客诉记录已保存，可在时间轴中查看。 ");
-        return;
-      }
       customerCommunicationRecords(customer).unshift(record);
       customer.contacts = customer.contacts || [];
-      customer.contacts.unshift({ id: record.id, time: record.time, operator: record.operator, target: record.target, method: record.method, result: record.result, plan: record.plan, related: record.related });
+      customer.contacts.unshift({ id: record.id, time: record.time, type: record.type, content: record.content });
       closeCustomerCommunicationEntryModal();
       renderCustomerCommunicationModal();
       if ($("#customerDetailModal").classList.contains("is-open")) renderCustomerDetailModal();
       setRule("CM-09");
-      showToast("沟通记录已保存，可在时间轴中查看历史记录。");
+      showToast("跟进记录已保存，可在时间轴中查看历史记录。");
     }
 
     function renderCustomerDetail(customer) {
@@ -5573,7 +6083,7 @@
         huchuang: `<div class="filter-row customer-subtabs">${["病历", "促排监测记录", "夜针记录", "取卵报告", "胚胎结果记录", "PGT筛查记录", "移植手术记录", "超声报告"].map((label, index) => `<button class="chip ${index === 0 ? "is-active" : ""}" data-customer-subtab="${label}">${label}</button>`).join("")}</div>${customerRecordTableWithSync(customer.huchuang, "暂无互创病历", "huchuang")}`,
         historyMedical: `<div class="section-head"><div><h3>历史病历</h3><span class="muted">汇总展示已同步的门诊及互创病历记录</span></div></div>${customerRecordTableWithSync([...(customer.outpatient || []), ...(customer.huchuang || []).map(([label, date, content, source, sync]) => [date, label, source, sync, content])], "暂无历史病历")}`,
         male: `<div class="customer-summary-grid"><div class="customer-card"><p>男方基本信息</p><h3>${customer.spouse}</h3><p>${customer.spouseAge} 岁｜身份证号：${customer.spouseId}</p></div><div class="customer-card"><p>关联合同</p><h3>${customer.contractNo}</h3><p>与女方案例关联展示</p></div></div>${customerRecordTableWithSync(customer.male, "暂无男方检查或病历资料")}`,
-        contacts: `<div class="section-head"><div><h3>沟通记录</h3><span class="muted">所有有权查看该案例的角色均可维护</span></div><button class="btn btn-primary" data-customer-action="add-contact">新增沟通记录</button></div>${renderCustomerCommunicationTimeline(customer)}`,
+        contacts: `<div class="section-head"><div><h3>跟进记录</h3><span class="muted">统一维护跟进记录、客诉和特殊事项</span></div><button class="btn btn-primary" data-customer-action="add-contact">新增跟进记录</button></div>${renderCustomerCommunicationTimeline(customer)}`,
         status: `<div class="status-source"><strong>当前状态：${customer.state}</strong><span>当前值以互创最新状态为准；允许跳过或回退阶段，管理员人工调整可被后续同步覆盖。</span></div><div class="timeline customer-state-lane">${customerStates.map((item, index) => `<div class="stage ${index < statusIndex ? "is-done" : index === statusIndex ? "is-current" : ""}"><strong>${item}</strong><small>${index < statusIndex ? "已完成" : index === statusIndex ? "当前状态" : "待触发"}</small></div>`).join("")}</div><div class="customer-status-history">${customer.history.map((item) => `<div class="customer-status-item"><strong>${item[0]}｜${item[1]}｜${item[2]}</strong><span>${item[3]}</span></div>`).join("")}</div><div class="rule-callout"><span class="badge badge-amber">管理员</span><span>仅管理员可调整单个患者状态；状态字典由后台固定，页面不提供字典维护按钮。</span><button class="btn" data-customer-action="adjust-state">管理员调整状态</button></div>`
       };
       return `<section class="customer-detail"><div class="panel"><div class="panel-body"><div class="detail-header customer-hero"><div class="detail-title"><div><h1>${customer.woman} <span class="muted">· 男方 ${customer.spouse}</span></h1><div class="patient-meta"><span>合同编号：${customer.contractNo}</span><span>病历号：${customer.medicalRecordNo}</span><span>来源分院：${customer.sourceBranch}</span><span>区域负责人：${customer.regionOwner}</span><span>当前状态：${customer.state}</span><span>主诊医生：${customer.doctor}</span><span>陪诊护士：${customer.nurse}</span></div></div><div class="detail-actions"><button class="btn" data-customer-action="sync">手动同步全部数据</button><button class="btn" data-customer-action="assign">分配/重新分配</button></div></div><div class="status-source"><strong>最近同步：${customer.lastSync}｜${customer.syncStatus}</strong><span>同步失败时仅提示联系管理员，最近一次成功同步数据继续保留。</span></div></div></div><div class="panel"><div class="tabs customer-tabs" role="tablist" aria-label="客户详情"><div class="customer-tab-scroll">${visibleTabs.map(([key, label]) => `<button class="tab ${state.customerTab === key ? "is-active" : ""}" data-customer-tab="${key}">${label}</button>`).join("")}</div></div><div class="panel-body customer-tab-content">${tabPanels[state.customerTab] || tabPanels.overview}</div></div></section>`;
@@ -5729,7 +6239,7 @@
       mainEl.querySelectorAll(":scope > .module-grid.full")[2]?.remove();
       mainEl.querySelectorAll('[data-domain-view="contract"]').forEach((button, index) => {
         const archiveId = couples[index]?.archiveId;
-        button.outerHTML = `<div class="compact-actions"><button class="btn" data-customer-archive-detail="${archiveId}">查看详情</button><button class="btn" data-customer-archive-contract="${archiveId}">查看合同</button><button class="btn" data-customer-archive-cycle="${archiveId}">查看周期</button><button class="btn" data-customer-care-assign="${archiveId}">分配医护</button><button class="btn btn-primary" data-customer-archive-complaint="${archiveId}">客诉记录</button></div>`;
+        button.outerHTML = `<div class="compact-actions"><button class="btn" data-customer-archive-detail="${archiveId}">查看详情</button><button class="btn" data-customer-archive-contract="${archiveId}">查看合同</button><button class="btn" data-customer-archive-cycle="${archiveId}">查看周期</button><button class="btn" data-customer-care-assign="${archiveId}">分配医护</button><button class="btn btn-primary" data-customer-archive-complaint="${archiveId}">跟进记录</button></div>`;
       });
       const archiveOverviewTable = mainEl.querySelector(".small-table");
       archiveOverviewTable.classList.add("archive-overview-table");
@@ -6091,7 +6601,7 @@
             <div class="compact-actions"><button class="btn btn-primary" data-customer-action="search">查询</button><button class="btn" data-customer-action="reset-filter">重置</button></div>
           </div>
           <div class="customer-table-wrap"><table class="small-table customer-table"><thead><tr><th>合同编号</th><th>总周期数</th><th>当前周期数</th><th>女方姓名</th><th>男方姓名</th><th>病历号</th><th>来源分院</th><th>状态</th><th>试管套餐</th><th>区域负责人</th><th>主诊医生</th><th>陪诊护士</th><th>推荐医生</th><th>试管顾问</th><th>签约时间</th><th>进周时间</th><th>下次复诊</th><th>最近同步</th><th>操作</th></tr></thead><tbody>${rows.map((customer) => `<tr class="${customer.id === selected.id ? "is-selected" : ""}"><td>${customer.contractNo}</td><td>${customer.totalCycles}</td><td>${customer.currentCycle}</td><td><button class="link-btn" data-customer-select="${customer.id}">${customer.woman}</button><span class="lead-id">身份证：${customer.womanId}</span></td><td>${customer.spouse}<span class="lead-id">身份证：${customer.spouseId}</span></td><td>${customer.medicalRecordNo}</td><td>${customer.sourceBranch}</td><td><span class="badge ${customer.state === "合同结束" ? "badge-gray" : "badge-green"}">${customer.state}</span></td><td>${customer.package}</td><td>${customer.regionOwner}</td><td>${customer.doctor}</td><td>${customer.nurse}</td><td>${customer.recommender}</td><td>${customer.consultant}</td><td>${customer.signedAt}</td><td>${customer.cycleAt}</td><td>${customer.nextVisit}</td><td><span class="badge ${customer.syncStatus === "成功" ? "badge-green" : "badge-red"}">${customer.syncStatus}</span><span class="lead-id">${customer.lastSync}</span></td><td><div class="compact-actions"><button class="btn" data-customer-communication="${customer.id}">沟通记录</button><button class="btn" data-customer-assign="${customer.id}">分配医护</button><button class="btn btn-primary" data-customer-select="${customer.id}">患者详情</button></div></td></tr>`).join("") || '<tr><td colspan="19" class="muted">没有匹配的已签约案例</td></tr>'}</tbody></table></div></div></div></section>
-        <section class="panel customer-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>客户管理规则说明（旧）</h2><span class="muted">以下内容按“客户管理（旧）.md”排版展示，用于边看页面边核对旧版业务规则。</span></div><span class="badge badge-blue">只读展示</span></div><iframe src="客户管理规则说明（旧）.html" title="客户管理规则说明（旧）"></iframe></div></section>`;
+        ${embeddedRulesDocument("客户管理规则说明（旧）", "客户管理（旧）.md")}`;
       setRule("CM-01");
     }
 
@@ -6190,6 +6700,7 @@
 
     function render() {
       renderModuleView();
+      renderEmbeddedRulesDocuments();
       syncOpenView();
       renderListPagination();
       renderRules();
@@ -6244,7 +6755,7 @@
 
     const leadModalTemplates = {
       new: {
-        title: "新建线索登记表",
+        title: "新建线索",
         rule: "R-01",
         cancel: "✖️",
         submit: "保存",
@@ -6291,7 +6802,7 @@
         title: "删除线索",
         rule: "R-01",
         submit: "确认删除",
-        body: () => { const lead = state.leadDeleteTarget; return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>删除后将移入线索回收箱，可由线索管理员复原。</span></div><div class="form-row"><label for="leadDeleteReason">删除原因</label><textarea id="leadDeleteReason" placeholder="请输入删除原因"></textarea></div>`; }
+        body: () => { const lead = state.leadDeleteTarget; return `<div class="status-source"><strong>${lead.name}｜${lead.phone || "—"}</strong><span>删除后将移入线索回收箱，可在2个月内复原。</span></div><div class="form-row"><label for="leadDeleteReason">删除原因</label><textarea id="leadDeleteReason" placeholder="请输入删除原因"></textarea></div>`; }
       },
       "recycle-bin": {
         title: "线索回收箱",
@@ -6303,7 +6814,7 @@
           const rows = records.length
             ? records.map((lead) => `<tr><td>${lead.id}</td><td>${lead.name}</td><td>${lead.phone || "—"}</td><td>${lead.source || "—"}</td><td>${lead.branch || "—"}</td><td>${lead.deletedAt}</td><td>${lead.reason}</td><td><div class="compact-actions"><button class="btn btn-primary" data-recycle-restore data-recycle-id="${lead.id}">复原</button><button class="btn btn-danger" data-recycle-delete data-recycle-id="${lead.id}">删除</button></div></td></tr>`).join("")
             : '<tr><td colspan="8" class="muted" style="text-align:center; padding:24px;">暂无已删除线索</td></tr>';
-          return `<div class="status-source"><strong>已删除线索</strong><span>删除线索保留来源登记表和操作时间轴，可由线索管理员复原。</span></div><table class="small-table"><thead><tr><th>线索 ID</th><th>姓名</th><th>手机号</th><th>来源</th><th>提供分院</th><th>删除时间</th><th>删除原因</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table><p class="muted" style="margin-top:12px;">回收箱仅保留 2 个月内的已删除线索；到期自动清理。可在保留期内复原，也可手动删除。</p>`;
+          return `<table class="small-table"><thead><tr><th>线索 ID</th><th>姓名</th><th>手机号</th><th>来源</th><th>提供分院</th><th>删除时间</th><th>删除原因</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table><p class="muted" style="margin-top:12px;">回收箱仅保留 2 个月内的已删除线索；到期自动清理。可在保留期内复原，也可手动删除。</p>`;
         }
       },
       "duplicate-confirm": {
@@ -6321,11 +6832,8 @@
       "contract-sign": {
         title: "合同签约",
         rule: "R-17",
-        submit: "关联法大大合同",
-        body: () => {
-          const lead = state.leadContractTarget;
-          return `<div class="status-source"><strong>${lead.name || "跟进中线索"}｜${lead.id || "—"}</strong><span>录入已签署的法大大合同 ID 并完成关联；关联成功后线索更新为“已签约”。</span></div><div class="form-row"><label>法大大合同 ID *</label><input id="fddContractId" placeholder="如 FD-20260810-001" aria-label="法大大合同 ID"></div><div class="form-row"><label>签约套餐</label><select aria-label="签约套餐"><option>三代套餐</option><option>一代套餐</option><option>二代套餐</option><option>冻胚移植套餐</option></select></div><div class="form-row"><label>关联备注</label><textarea>已核对患者、顾问与法大大已签署合同信息。</textarea></div><div class="rule-callout"><span class="badge badge-blue">法大大</span><span>合同关联成功即停止该线索后续自动回访，并保留合同关联操作记录。</span></div>`;
-        }
+        submit: "确定",
+        body: () => `<div class="form-row"><label>法大大合同 ID *</label><input id="fddContractId" placeholder="如 FD-20260810-001" aria-label="法大大合同 ID"></div><div class="form-row"><label>签约套餐</label><select aria-label="签约套餐"><option>三代套餐</option><option>一代套餐</option><option>二代套餐</option><option>冻胚移植套餐</option></select></div><div class="form-row"><label>关联备注</label><textarea>已核对患者、顾问与法大大已签署合同信息。</textarea></div>`
       },
       assign: {
         title: "分配顾问",
@@ -6334,20 +6842,20 @@
         body: `<div style="margin-bottom:12px; font-weight:700;">陈女士 - 北京朝阳分院</div><div class="form-row"><label>分配顾问 *</label><select><option>李雯</option><option>赵莹</option><option>陈洁</option></select></div>`
       },
       registration: {
-        title: "线索登记表",
+        title: "编辑线索",
         rule: "R-27",
-        submit: "关闭",
+        submit: "保存修改",
         body: () => {
           const lead = state.leadRegistration;
           const source = lead.source || "飞书";
           const records = {
-            HIS: { kind: "HIS 同步转换记录", date: "2026/08/05", phone: "139****4821", branch: "深圳分院", leadSource: "门诊咨询", internal: "HIS 自动同步｜首诊医生 张医生", external: "未填写", summary: "HIS 同步：患者已完成门诊建档并咨询辅助生殖方案；同步病历摘要及检查结果。", age: "35 岁", amh: "1.06 ng/mL", address: "广东省深圳市", hospital: "本院初诊", egg: "0 次", transfer: "0 次", embryo: "未同步", manager: "张敏", attachment: "门诊病历摘要、AMH 检查报告（HIS 同步）" },
+            HIS: { kind: "HIS 同步转换记录", date: "2026/08/05", phone: "13900004821", branch: "深圳分院", leadSource: "门诊咨询", internal: "HIS 自动同步｜首诊医生 张医生", external: "未填写", summary: "HIS 同步：患者已完成门诊建档并咨询辅助生殖方案；同步病历摘要及检查结果。", age: "35 岁", amh: "1.06 ng/mL", address: "广东省深圳市", hospital: "本院初诊", egg: "0 次", transfer: "0 次", embryo: "未同步", manager: "张敏", attachment: "门诊病历摘要、AMH 检查报告（HIS 同步）" },
             "企业微信": { kind: "企业微信会话提交记录", date: "2026/08/05", phone: "13800005266", branch: "上海徐汇分院", leadSource: "患者咨询", internal: "企业微信会话｜顾问 黄琳", external: "无", summary: "微信客户咨询试管方案，已完成会话内线索登记；来源分院为上海徐汇分院。", age: "未填写", amh: "未填写", address: "未填写", hospital: "未填写", egg: "未填写", transfer: "未填写", embryo: "未填写", manager: "黄琳", attachment: "企业微信会话记录" },
             "CRM本地": { kind: "CRM 本地新建记录", date: "2026/07/14", phone: "15800006712", branch: "武汉分院", leadSource: "患者自来", internal: "CRM 本地新建｜线索管理员 李华", external: "无", summary: "线索管理员通过 CRM 新建线索窗口录入，数据来源自动记录为 CRM本地。", age: "未填写", amh: "未填写", address: "未填写", hospital: "未填写", egg: "未填写", transfer: "未填写", embryo: "未填写", manager: "李华", attachment: "暂无附件" },
-            "飞书": { kind: "飞书原始登记表快照", date: "2026/08/05", phone: "186****0718", branch: "北京朝阳分院", leadSource: "亲友推荐", internal: "门诊同事｜王敏", external: "无", summary: "患者计划咨询试管方案；34 岁，既往有 1 次取卵经历，关注卵巢储备及后续治疗安排。", age: "34 岁", amh: "1.28 ng/mL", address: "北京市朝阳区", hospital: "无", egg: "1 次", transfer: "0 次", embryo: "0 枚", manager: "张敏", attachment: "AMH 检查报告.pdf、既往就诊病历.jpg（飞书原始上传）" }
+            "飞书": { kind: "飞书原始登记表快照", date: "2026/08/05", phone: "18600000718", branch: "北京朝阳分院", leadSource: "亲友推荐", internal: "门诊同事｜王敏", external: "无", summary: "患者计划咨询试管方案；34 岁，既往有 1 次取卵经历，关注卵巢储备及后续治疗安排。", age: "34 岁", amh: "1.28 ng/mL", address: "北京市朝阳区", hospital: "无", egg: "1 次", transfer: "0 次", embryo: "0 枚", manager: "张敏", attachment: "AMH 检查报告.pdf、既往就诊病历.jpg（飞书原始上传）" }
           };
           const record = records[source] || records["飞书"];
-          return `<div class="status-source"><strong>试管线索登记表｜${record.kind}</strong><span>${lead.name || "陈女士"}｜${lead.id || "L-20260714-031"}｜统一字段结构，只读展示</span></div><div class="registration-grid"><div class="registration-item"><strong>线索提供日期 *</strong><span>${record.date}</span></div><div class="registration-item"><strong>患者姓名 *</strong><span>${lead.name || "陈女士"}</span></div><div class="registration-item"><strong>患者电话（可选）</strong><span>${record.phone}</span></div><div class="registration-item"><strong>该手机号是否重复录入</strong><span>待人工核对</span></div><div class="registration-item"><strong>线索提供分院 *</strong><span>${record.branch}</span></div><div class="registration-item"><strong>线索来源 *</strong><span>${record.leadSource}</span></div><div class="registration-item wide"><strong>线索提供人－内部人员 *</strong><span>${record.internal}</span></div><div class="registration-item wide"><strong>线索提供人－外部人员 *</strong><span>${record.external}</span></div><div class="registration-item wide"><strong>患者情况概述 *</strong><span>${record.summary}</span></div><div class="registration-item"><strong>患者年龄</strong><span>${record.age}</span></div><div class="registration-item"><strong>患者 AMH</strong><span>${record.amh}</span></div><div class="registration-item"><strong>患者常住地</strong><span>${record.address}</span></div><div class="registration-item"><strong>既往/现试管医院</strong><span>${record.hospital}</span></div><div class="registration-item"><strong>过往取卵次数</strong><span>${record.egg}</span></div><div class="registration-item"><strong>过往移植次数</strong><span>${record.transfer}</span></div><div class="registration-item"><strong>剩余胚胎数量</strong><span>${record.embryo}</span></div><div class="registration-item"><strong>线索管理员</strong><span>${record.manager}</span></div><div class="registration-item wide"><strong>附件</strong><span>${record.attachment}</span></div></div>`;
+          return `<div class="registration-grid"><div class="registration-item"><strong>线索提供日期 *</strong><span>${record.date}</span></div><div class="registration-item"><strong>患者姓名 *</strong><span>${lead.name || "陈女士"}</span></div><div class="registration-item"><strong>患者电话（可选）</strong><span>${lead.phone || record.phone}</span></div><div class="registration-item"><strong>该手机号是否重复录入</strong><span>待人工核对</span></div><div class="registration-item"><strong>线索提供分院 *</strong><span>${lead.branch || record.branch}</span></div><div class="registration-item"><strong>线索来源 *</strong><span>${record.leadSource}</span></div><div class="registration-item wide"><strong>线索提供人－内部人员 *</strong><span>${record.internal}</span></div><div class="registration-item wide"><strong>线索提供人－外部人员 *</strong><span>${record.external}</span></div><div class="registration-item wide"><strong>患者情况概述 *</strong><span>${record.summary}</span></div><div class="registration-item"><strong>患者年龄</strong><span>${record.age}</span></div><div class="registration-item"><strong>患者 AMH</strong><span>${record.amh}</span></div><div class="registration-item"><strong>患者常住地</strong><span>${record.address}</span></div><div class="registration-item"><strong>既往/现试管医院</strong><span>${record.hospital}</span></div><div class="registration-item"><strong>过往取卵次数</strong><span>${record.egg}</span></div><div class="registration-item"><strong>过往移植次数</strong><span>${record.transfer}</span></div><div class="registration-item"><strong>剩余胚胎数量</strong><span>${record.embryo}</span></div><div class="registration-item"><strong>线索管理员</strong><span>${record.manager}</span></div><div class="registration-item wide"><strong>附件</strong><span>${record.attachment}</span></div></div>`;
         }
       },
       trace: {
@@ -6416,7 +6924,10 @@
       if (action === "new-duplicate-confirm") state.newLeadDuplicate = { name: context.name || "", phone: context.phone || "", existingId: context.existingId || "" };
       if (action === "delete-lead") state.leadDeleteTarget = { id: context.id || "", name: context.name || "", phone: context.phone || "", source: context.source || "", branch: context.branch || "" };
       if (action === "timeline") state.leadTimeline = { id: context.id || "L-20260714-034", name: context.name || "王女士" };
-      if (action === "registration") state.leadRegistration = { id: context.id || "L-20260714-031", name: context.name || "陈女士", source: context.source || "飞书" };
+      if (action === "registration") {
+        state.leadRegistration = { id: context.id || "L-20260714-031", name: context.name || "陈女士", phone: context.phone || "", branch: context.branch || "", source: context.source || "飞书" };
+        state.leadRegistrationEditing = false;
+      }
       if (action === "contract-sign") state.leadContractTarget = { id: context.id || "", name: context.name || "", advisor: context.advisor || "" };
       const leadDialog = $("#leadModal").querySelector(".dialog");
       leadDialog.classList.toggle("lead-registration-dialog", action === "registration");
@@ -6424,12 +6935,41 @@
       $("#leadModalTitle").textContent = config.title;
       $("#leadModalBody").innerHTML = typeof config.body === "function" ? config.body() : config.body;
       $("#leadModalSubmit").textContent = config.submit;
-      if (action === "registration" && state.leadRegistration.source === "CRM本地") {
-        enableLocalRegistrationEdit();
-        $("#leadModalTitle").textContent = "编辑线索登记表";
-        $("#leadModalSubmit").textContent = "保存修改";
+      if (action === "registration") {
+        $$("#leadModalBody .registration-item").forEach((item) => {
+          const label = item.querySelector("strong")?.textContent || "";
+          if (label.includes("该手机号是否重复录入") || label.includes("线索管理员")) item.remove();
+          if (label.includes("线索提供人－内部人员") || label.includes("线索提供人－外部人员")) item.classList.remove("wide");
+        });
+        const savedValues = state.leadRegistrationSaved?.[state.leadRegistration.id] || {};
+        $$("#leadModalBody .registration-item").forEach((item) => {
+          const key = item.querySelector("strong")?.textContent.trim() || "";
+          const value = savedValues[key];
+          const field = item.querySelector("span");
+          if (value !== undefined && field) field.textContent = value;
+        });
       }
-      $("#leadModal").querySelector("[data-lead-modal-close]").textContent = config.cancel || "✖️";
+      const leadModalHeaderClose = $("#leadModal .dialog-head [data-lead-modal-close]");
+      const leadModalFooterClose = $("#leadModal .dialog-foot [data-lead-modal-close]");
+      const leadModalFootnote = $("#leadModalFootnote");
+      leadModalFootnote.hidden = action !== "new";
+      leadModalFootnote.textContent = action === "new" ? "新建线索时同步生成原始线索登记表" : "";
+      if (action === "registration") {
+        leadModalHeaderClose.textContent = "关闭";
+        leadModalFooterClose.hidden = true;
+        leadModalFooterClose.style.display = "none";
+        enableLocalRegistrationEdit();
+        state.leadRegistrationEditing = true;
+        $("#leadModalSubmit").textContent = "保存修改";
+        leadModalFooterClose.hidden = false;
+        leadModalFooterClose.style.display = "";
+        leadModalFooterClose.textContent = "取消";
+      } else {
+        leadModalHeaderClose.textContent = config.cancel || "✖️";
+        leadModalFooterClose.hidden = false;
+        leadModalFooterClose.style.display = "";
+        leadModalFooterClose.textContent = action === "new" ? "取消" : (config.cancel || "取消");
+      }
       $("#leadModal").classList.add("is-open");
       $("#leadModal").setAttribute("aria-hidden", "false");
       setRule(config.rule);
@@ -6448,6 +6988,19 @@
         const value = item.querySelector("span")?.textContent.trim() || "";
         if (label.includes("附件")) {
           item.innerHTML = `<strong>附件</strong><div class="attachment-upload-row" data-lead-attachment-row><input type="file" data-lead-attachment multiple accept=".doc,.docx,.pdf,.xls,.xlsx,.png,.jpg,.jpeg"><span class="attachment-file-name">支持 Word、PDF、Excel、PNG、JPG；可多选或继续添加</span><div class="attachment-file-list" data-lead-file-list><span class="attachment-file-name">${value || "暂未选择附件"}</span></div></div>`;
+          return;
+        }
+        if (label.includes("患者电话")) {
+          item.classList.add("phone-check-item");
+          item.innerHTML = `<strong>${label}</strong><div class="phone-check-row"><input value="${value}" aria-label="患者电话"><button class="btn" type="button" data-lead-phone-check>查重</button></div><span class="attachment-file-name phone-check-result" id="leadPhoneCheckResult">请输入手机号后点击查重</span>`;
+          return;
+        }
+        if (label.includes("线索提供分院")) {
+          const branches = [...new Set([value, "广州天河分院", "广州分院", "深圳分院", "深圳福田分院", "北京朝阳分院", "武汉分院"])]
+            .filter(Boolean)
+            .map((branch) => `<option ${branch === value ? "selected" : ""}>${branch}</option>`)
+            .join("");
+          item.innerHTML = `<strong>${label}</strong><select aria-label="线索提供分院">${branches}</select>`;
           return;
         }
         const isSummary = label.includes("患者情况概述");
@@ -6517,9 +7070,18 @@
         showToast("线索已删除并移入回收箱。");
         return;
       }
-      if (action === "registration" && state.leadRegistration.source === "CRM本地") {
-        closeLeadModal();
-        showToast("CRM本地线索登记表已保存修改。");
+      if (action === "registration" && state.leadRegistrationEditing) {
+        const values = {};
+        $$("#leadModalBody .registration-item").forEach((item) => {
+          const label = item.querySelector("strong")?.textContent.trim() || "";
+          const field = item.querySelector("input:not([type='file']), select, textarea");
+          if (label && field) values[label] = field.value;
+        });
+        state.leadRegistrationSaved ||= {};
+        state.leadRegistrationSaved[state.leadRegistration.id] = values;
+        const registration = { ...state.leadRegistration };
+        openLeadModal("registration", registration);
+        showToast("线索登记表已保存修改。");
         return;
       }
       if (action === "duplicate-confirm") {
@@ -6794,7 +7356,7 @@
         renderFollowupView();
         showToast("负责顾问已更换：修改前后顾问和更换原因已写入回访记录。");
       }
-      else if (action === "timeline" || action === "patientDetail") return;
+      else if (action === "timeline" || action === "patientDetail" || action === "leadPatientDetail") return;
       else showToast("回访规则配置已保存，仅影响后续新生成的任务。");
     }
 
@@ -6808,6 +7370,7 @@
         return coupleIdentities[coupleId] || {};
       };
       const recipientForRecord = (record, role) => {
+        if (Array.isArray(role)) return role.map((item) => recipientForRecord(record, item)).join("、");
         const contract = contractRecords.find((item) => item.archiveId === record.archiveId);
         const cycle = contract && cycleRecords.find((item) => item.contractId === contract.id);
         if (role === "周期护士") return cycle?.cycleNurses?.join("、") || "待分配周期护士";
@@ -6824,22 +7387,42 @@
       const overdue = embryoStorageRecords.filter((record) => record.daysRemaining < 0);
       const headers = ["冻存档案ID", "女方姓名", "女方身份证号", "男方姓名", "男方身份证号", "病历号", "胚胎冷冻日", "截止时间", "到期情况", "冷冻胚胎数", "管数", "提醒对象"];
       return [
-        { type: "embryo-list", key: "embryo-due60", title: "胚胎冷冻60天到期名单", sentAt: "2026-08-20 07:50", content: `共 ${due60.length} 条冻存档案将在 31—60 天内到期，已推送给对应周期护士。`, headers, rows: due60.map((record) => toRow(record, "周期护士")) },
-        { type: "embryo-list", key: "embryo-due30", title: "胚胎冷冻30天到期名单", sentAt: "2026-08-20 08:00", content: `共 ${due30.length} 条冻存档案将在 8—30 天内到期，已推送给对应客服。`, headers, rows: due30.map((record) => toRow(record, "客服")) },
+        { type: "embryo-list", key: "embryo-due60", title: "胚胎冷冻60天到期名单", sentAt: "2026-08-20 07:50", content: `共 ${due60.length} 条冻存档案将在 31—60 天内到期，已推送给对应周期护士和顾问。`, headers, rows: due60.map((record) => toRow(record, ["周期护士", "顾问"])) },
+        { type: "embryo-list", key: "embryo-due30", title: "胚胎冷冻30天到期名单", sentAt: "2026-08-20 08:00", content: `共 ${due30.length} 条冻存档案将在 8—30 天内到期，已推送给对应客服和顾问。`, headers, rows: due30.map((record) => toRow(record, ["客服", "顾问"])) },
         { type: "embryo-list", key: "embryo-due7", title: "胚胎冷冻7天到期名单", sentAt: "2026-08-20 08:03", content: `共 ${due7.length} 条冻存档案将在 7 天内到期，已推送给对应顾问。`, headers, rows: due7.map((record) => toRow(record, "顾问")) },
         { type: "embryo-list", key: "embryo-overdue", title: "胚胎冷冻逾期名单", sentAt: "2026-08-20 08:05", content: `共 ${overdue.length} 条冻存档案已超过保存有效期，已推送给对应顾问。`, headers, rows: overdue.map((record) => toRow(record, "顾问")) }
       ];
     }
 
+    function contractNotificationItems() {
+      const today = new Date("2026-08-20T00:00:00");
+      const daysUntil = (date) => Math.round((new Date(`${date}T00:00:00`) - today) / 86400000);
+      const activeContracts = contractRecords.filter((contract) => contract.status !== "合同结束" && contract.endsAt);
+      const toRow = (contract) => [contract.contractNo, contract.woman, contract.spouse, contract.medicalRecordNo || "—", contract.endsAt, `剩余 ${daysUntil(contract.endsAt)} 天`, contract.advisor || "待分配顾问", `${contract.woman}（企微）`];
+      const terminatedRow = (contract) => [contract.contractNo, contract.woman, contract.spouse, contract.medicalRecordNo || "—", contract.endType || "合同终止", contract.advisor || "待分配顾问", `${contract.woman}（企微）`];
+      const halfYear = activeContracts.filter((contract) => { const days = daysUntil(contract.endsAt); return days >= 151 && days <= 184; });
+      const threeMonths = activeContracts.filter((contract) => { const days = daysUntil(contract.endsAt); return days >= 61 && days <= 92; });
+      const oneMonth = activeContracts.filter((contract) => { const days = daysUntil(contract.endsAt); return days >= 1 && days <= 31; });
+      const terminated = contractRecords.filter((contract) => contract.status === "合同结束");
+      const headers = ["合同编号", "女方姓名", "男方姓名", "病历号", "合同到期日", "到期情况", "负责顾问", "企微接收对象"];
+      const terminatedHeaders = ["合同编号", "女方姓名", "男方姓名", "病历号", "终止类型", "负责顾问", "企微接收对象"];
+      return [
+        { type: "contract-list", key: "contract-due-half-year", title: "合同半年到期名单", sentAt: "2026-08-20 07:35", content: `共 ${halfYear.length} 份合同将在半年内到期，已推送给对应顾问，并同步推送至对应企微。`, headers, rows: halfYear.map(toRow) },
+        { type: "contract-list", key: "contract-due-three-months", title: "合同3个月到期名单", sentAt: "2026-08-20 07:40", content: `共 ${threeMonths.length} 份合同将在 3 个月内到期，已推送给对应顾问，并同步推送至对应企微。`, headers, rows: threeMonths.map(toRow) },
+        { type: "contract-list", key: "contract-due-one-month", title: "合同1个月到期名单", sentAt: "2026-08-20 07:45", content: `共 ${oneMonth.length} 份合同将在 1 个月内到期，已推送给对应顾问，并同步推送至对应企微。`, headers, rows: oneMonth.map(toRow) },
+        { type: "contract-list", key: "contract-terminated", title: "合同终止名单", sentAt: "2026-08-20 07:48", content: `共 ${terminated.length} 份合同已终止，已推送给对应顾问，并同步推送至对应企微。`, headers: terminatedHeaders, rows: terminated.map(terminatedRow) }
+      ];
+    }
+
     function allNotifications() {
-      return [...embryoStorageNotificationItems(), ...followNotifications];
+      return [...contractNotificationItems(), ...embryoStorageNotificationItems(), ...followNotifications];
     }
 
     function renderNotifications() {
       return allNotifications().map((notice) => {
         const isRead = isNotificationRead(notice);
         const content = `<div class="notice-item-head"><strong>${isRead ? "已读" : "未读"} · ${notice.title}</strong><time>${notice.sentAt}</time></div><span>${notice.content}</span>`;
-        return notice.type === "follow-list" || notice.type === "embryo-list"
+        return ["follow-list", "embryo-list", "contract-list"].includes(notice.type)
           ? `<button class="notice-item notice-item-button ${isRead ? "is-read" : "is-unread"}" data-follow-notification-list="${notice.key}">${content}</button>`
           : `<div class="notice-item ${isRead ? "is-read" : "is-unread"}">${content}</div>`;
       }).join("");
@@ -6860,7 +7443,7 @@
     }
 
     function openFollowNotificationList(key) {
-      const notice = allNotifications().find((item) => ["follow-list", "embryo-list"].includes(item.type) && item.key === key);
+      const notice = allNotifications().find((item) => ["follow-list", "embryo-list", "contract-list"].includes(item.type) && item.key === key);
       if (!notice) return;
       $("#followNotificationListTitle").textContent = notice.title;
       const headers = notice.headers || ["患者姓名", "线索 ID", "意向等级", "待办任务", "截止时间", "顾问"];
@@ -6870,7 +7453,7 @@
       closeNotificationModal();
       $("#followNotificationListModal").classList.add("is-open");
       $("#followNotificationListModal").setAttribute("aria-hidden", "false");
-      setRule(notice.type === "embryo-list" ? "ES-02" : "R-24");
+      setRule(notice.type === "embryo-list" ? "ES-02" : notice.type === "contract-list" ? "CT-01" : "R-24");
     }
 
     function closeFollowNotificationList() {
@@ -6933,8 +7516,18 @@
         "客服": "负责患者"
       }[roleName] || "全量") : "全量";
       $("#rolePermissionModal").dataset.mode = mode;
+      refreshRolePermissionSummary();
       $("#rolePermissionModal").classList.add("is-open");
       $("#rolePermissionModal").setAttribute("aria-hidden", "false");
+    }
+
+    function refreshRolePermissionSummary() {
+      const summary = $("#rolePermissionSummary");
+      if (!summary) return;
+      const selected = $$("#rolePermissionModal input[data-permission-name]:checked");
+      summary.innerHTML = selected.length
+        ? selected.map((item) => `<tr><td>${escapeHtml(item.dataset.permissionName)}</td><td>${escapeHtml(item.dataset.permissionDescription || "—")}</td></tr>`).join("")
+        : '<tr><td colspan="2" class="permission-selection-empty">暂未选择任何功能权限</td></tr>';
     }
 
     function closeRolePermissionModal() {
@@ -7055,7 +7648,6 @@
 
     function applyLeadFieldFilters() {
       const values = {
-        id: $("#leadFilterId")?.value.trim().toLowerCase() || "",
         phone: $("#leadFilterPhone")?.value.trim() || "",
         name: $("#leadFilterName")?.value.trim() || "",
         advisor: $("#leadFilterAdvisor")?.value || "",
@@ -7066,8 +7658,7 @@
       };
       let count = 0;
       $$('[data-lead-row]').forEach((row) => {
-        const match = (!values.id || row.dataset.id.toLowerCase().includes(values.id))
-          && (!values.phone || row.dataset.phone.includes(values.phone))
+        const match = (!values.phone || row.dataset.phone.includes(values.phone))
           && (!values.name || row.dataset.name.includes(values.name))
           && (!values.region || row.dataset.region === values.region)
           && (!values.advisor || row.dataset.advisor === values.advisor)
@@ -7083,7 +7674,7 @@
     }
 
     function resetLeadFieldFilters() {
-      ["#leadFilterId", "#leadFilterPhone", "#leadFilterName", "#leadFilterAdvisor", "#leadFilterIntent", "#leadFilterManager", "#leadFilterBranch", "#leadFilterSource"].forEach((selector) => {
+      ["#leadFilterPhone", "#leadFilterName", "#leadFilterAdvisor", "#leadFilterIntent", "#leadFilterManager", "#leadFilterBranch", "#leadFilterSource"].forEach((selector) => {
         const el = $(selector);
         if (el) el.value = "";
       });
@@ -7099,6 +7690,25 @@
 
     document.addEventListener("click", (event) => {
       if (!event.target.closest(".account-menu-wrap")) closeAccountMenu();
+
+      const leadMoreToggle = event.target.closest("[data-lead-more-toggle]");
+      if (leadMoreToggle) {
+        const currentMenu = leadMoreToggle.parentElement?.querySelector(".lead-more-menu");
+        const willOpen = Boolean(currentMenu?.hidden);
+        document.querySelectorAll(".lead-more-menu").forEach((menu) => { menu.hidden = true; });
+        document.querySelectorAll("[data-lead-more-toggle]").forEach((button) => button.setAttribute("aria-expanded", "false"));
+        document.querySelectorAll(".lead-table td.is-menu-open").forEach((cell) => cell.classList.remove("is-menu-open"));
+        if (currentMenu) currentMenu.hidden = !willOpen;
+        if (willOpen) currentMenu?.closest("td")?.classList.add("is-menu-open");
+        leadMoreToggle.setAttribute("aria-expanded", String(willOpen));
+        return;
+      }
+
+      if (!event.target.closest(".lead-more-actions")) {
+        document.querySelectorAll(".lead-more-menu").forEach((menu) => { menu.hidden = true; });
+        document.querySelectorAll("[data-lead-more-toggle]").forEach((button) => button.setAttribute("aria-expanded", "false"));
+        document.querySelectorAll(".lead-table td.is-menu-open").forEach((cell) => cell.classList.remove("is-menu-open"));
+      }
 
       const pageTabClose = event.target.closest("[data-page-tab-close]");
       if (pageTabClose) {
@@ -7638,7 +8248,7 @@
       const customerArchiveComplaint = event.target.closest("[data-customer-archive-complaint]");
       if (customerArchiveComplaint) {
         const customer = legacyCustomerForArchive(customerArchiveComplaint.dataset.customerArchiveComplaint);
-        openCustomerCommunicationModal(customer.id, "客诉记录");
+        openCustomerCommunicationModal(customer.id, "跟进记录");
         return;
       }
 
@@ -7830,37 +8440,49 @@
       }
 
       const followPatientTab = event.target.closest("[data-follow-patient-tab]");
-      if (followPatientTab && state.followModalAction === "patientDetail") {
+      if (followPatientTab && ["patientDetail", "leadPatientDetail"].includes(state.followModalAction)) {
         state.followPatientDetailTab = followPatientTab.dataset.followPatientTab;
-        const task = followUpTasks.find((item) => item.id === state.followTaskId);
-        if (task) $("#followModalBody").innerHTML = renderFollowPatientDetail(task);
+        renderOpenPatientDetail();
         setRule("R-04");
         return;
       }
 
       const medicalRecordDate = event.target.closest("[data-medical-record-date]");
-      if (medicalRecordDate && state.followModalAction === "patientDetail") {
+      if (medicalRecordDate && ["patientDetail", "leadPatientDetail"].includes(state.followModalAction)) {
         state.followMedicalRecordDate = medicalRecordDate.dataset.medicalRecordDate;
-        const task = followUpTasks.find((item) => item.id === state.followTaskId);
-        if (task) $("#followModalBody").innerHTML = renderFollowPatientDetail(task);
+        renderOpenPatientDetail();
         setRule("R-04");
         return;
       }
 
       const followLabTab = event.target.closest("[data-follow-lab-tab]");
-      if (followLabTab && state.followModalAction === "patientDetail") {
+      if (followLabTab && ["patientDetail", "leadPatientDetail"].includes(state.followModalAction)) {
         state.followLabSubtab = followLabTab.dataset.followLabTab;
-        const task = followUpTasks.find((item) => item.id === state.followTaskId);
-        if (task) $("#followModalBody").innerHTML = renderFollowPatientDetail(task);
+        renderOpenPatientDetail();
         setRule("R-04");
         return;
       }
 
       const labReport = event.target.closest("[data-lab-report-id]");
-      if (labReport && state.followModalAction === "patientDetail") {
+      if (labReport && ["patientDetail", "leadPatientDetail"].includes(state.followModalAction)) {
         state.followLabReportId = labReport.dataset.labReportId;
-        const task = followUpTasks.find((item) => item.id === state.followTaskId);
-        if (task) $("#followModalBody").innerHTML = renderFollowPatientDetail(task);
+        renderOpenPatientDetail();
+        setRule("R-04");
+        return;
+      }
+
+      const followIndicator = event.target.closest("[data-follow-indicator-id]");
+      if (followIndicator && ["patientDetail", "leadPatientDetail"].includes(state.followModalAction)) {
+        state.followIndicatorId = followIndicator.dataset.followIndicatorId;
+        renderOpenPatientDetail();
+        setRule("R-04");
+        return;
+      }
+
+      const examinationReport = event.target.closest("[data-examination-report-id]");
+      if (examinationReport && ["patientDetail", "leadPatientDetail"].includes(state.followModalAction)) {
+        state.followExaminationReportId = examinationReport.dataset.examinationReportId;
+        renderOpenPatientDetail();
         setRule("R-04");
         return;
       }
@@ -7878,6 +8500,8 @@
           state.followMedicalRecordDate = "2026-07-12";
           state.followLabSubtab = "report";
           state.followLabReportId = "cbc";
+          state.followIndicatorId = "amh";
+          state.followExaminationReportId = "abdominal-ultrasound";
         }
         openFollowModal(followAction.dataset.followAction, followAction.dataset.taskId);
         return;
@@ -7971,6 +8595,12 @@
       }
 
       if (event.target.closest("[data-lead-modal-close]")) {
+        const isFooterCancel = event.target.closest(".dialog-foot [data-lead-modal-close]");
+        if (state.leadModalAction === "registration" && state.leadRegistrationEditing && isFooterCancel) {
+          closeLeadModal();
+          showToast("已取消编辑，未保存的修改已撤销。");
+          return;
+        }
         closeLeadModal();
         return;
       }
@@ -8016,11 +8646,34 @@
 
       const leadAction = event.target.closest("[data-lead-action]");
       if (leadAction) {
+        if (leadAction.dataset.leadAction === "patient-detail") {
+          const row = leadAction.closest("[data-lead-row]");
+          if (!row) return;
+          openLeadPatientDetail({
+            id: row.dataset.id,
+            name: row.dataset.name,
+            phone: row.dataset.phone,
+            branch: row.dataset.branch,
+            status: row.dataset.status
+          });
+          return;
+        }
+        if (leadAction.dataset.leadAction === "registration-edit") {
+          const row = leadAction.closest("[data-lead-row]");
+          openLeadModal("registration", {
+            id: leadAction.dataset.leadId,
+            name: leadAction.dataset.leadName,
+            phone: row?.dataset.phone || "",
+            branch: row?.dataset.branch || "",
+            source: leadAction.dataset.leadSource
+          });
+          return;
+        }
         if (leadAction.dataset.leadAction === "view-followup") {
           const leadId = leadAction.dataset.leadId;
           const task = followUpTasks.find((item) => item.leadId === leadId);
           if (!task) {
-            showToast("暂无回访记录");
+            showToast("暂无回访数据");
             return;
           }
           state.activeView = "followup";
@@ -8033,6 +8686,13 @@
           return;
         }
         openLeadModal(leadAction.dataset.leadAction, { id: leadAction.dataset.leadId, name: leadAction.dataset.leadName, phone: leadAction.dataset.leadPhone, source: leadAction.dataset.leadSource, branch: leadAction.dataset.leadBranch, duplicateKey: leadAction.dataset.duplicateKey });
+        return;
+      }
+
+      if (event.target.closest("[data-lead-rule-refresh]")) {
+        const frame = document.querySelector(".lead-rules-doc iframe");
+        if (frame) frame.src = `线索管理规则说明.html?refresh=${Date.now()}`;
+        showToast("正在读取最新线索管理规则文档。");
         return;
       }
 
@@ -8269,10 +8929,7 @@
             showToast("该线索已提交，不可再次提交。 ");
             return;
           }
-          state.wecomLeadSubmitted = true;
-          renderWecomView();
-          setRule("R-29");
-          showToast("线索已确认提交：将执行手机号核对并进入分院分配流程。");
+          openWecomLeadSubmitConfirm();
           return;
         }
         const messages = {
@@ -8289,8 +8946,8 @@
       const hisAction = event.target.closest("[data-his-action]");
       if (hisAction) {
         const action = hisAction.dataset.hisAction;
-        if (action === "open-lead") {
-          openHisLeadModal();
+        if (action === "focus-lead") {
+          mainEl.querySelector("#hisLeadWorkbench")?.scrollIntoView({ behavior: "smooth", block: "start" });
           return;
         }
         if (action === "mark-lead") {
@@ -8304,13 +8961,23 @@
           openHisLeadSubmitConfirm();
           return;
         }
-        setRule("R-27");
+        setRule("HIS-01");
         showToast("HIS 试管线索登记草稿已保存。");
         return;
       }
 
       if (event.target.closest("[data-his-submit-confirm-close]")) {
         closeHisLeadSubmitConfirm();
+        return;
+      }
+
+      if (event.target.closest("[data-wecom-submit-confirm-close]")) {
+        closeWecomLeadSubmitConfirm();
+        return;
+      }
+
+      if (event.target.closest("#confirmWecomLeadSubmit")) {
+        confirmWecomLeadSubmit();
         return;
       }
 
@@ -8379,6 +9046,25 @@
       });
     });
     document.addEventListener("change", (event) => {
+      if (event.target.matches("#rolePermissionModal [data-permission-menu]")) {
+        const menu = event.target.dataset.permissionMenu;
+        $$(`#rolePermissionModal [data-permission-operation="${menu}"]`).forEach((item) => { item.checked = event.target.checked; });
+        refreshRolePermissionSummary();
+        return;
+      }
+      if (event.target.matches("#rolePermissionModal [data-permission-operation]")) {
+        const menu = event.target.dataset.permissionOperation;
+        const menuInput = $(`#rolePermissionModal [data-permission-menu="${menu}"]`);
+        const operations = $$(`#rolePermissionModal [data-permission-operation="${menu}"]`);
+        if (menuInput) menuInput.checked = event.target.checked || operations.some((item) => item.checked);
+        refreshRolePermissionSummary();
+        return;
+      }
+      if (event.target.matches("[data-his-lead-checkbox]")) {
+        state.hisLeadMarked = event.target.checked;
+        showToast(event.target.checked ? "已勾选试管线索。" : "已取消勾选试管线索。");
+        return;
+      }
       if (event.target.id === "dictionaryItemQuery") {
         state.dictionaryItemQuery = event.target.value;
         renderDictionarySettingsView();
@@ -8504,6 +9190,9 @@
     });
     $("#hisLeadSubmitConfirmModal").addEventListener("click", (event) => {
       if (event.target.id === "hisLeadSubmitConfirmModal") closeHisLeadSubmitConfirm();
+    });
+    $("#wecomLeadSubmitConfirmModal").addEventListener("click", (event) => {
+      if (event.target.id === "wecomLeadSubmitConfirmModal") closeWecomLeadSubmitConfirm();
     });
     $("#hisLeadModal").addEventListener("click", (event) => {
       if (event.target.id === "hisLeadModal") closeHisLeadModal();
