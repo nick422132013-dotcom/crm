@@ -1685,6 +1685,37 @@
     .dictionary-value-table .btn-link { height: auto; padding: 0; border: 0; color: var(--primary); background: transparent; }
     .dictionary-value-table .danger-text { color: var(--danger); }
 
+    .menu-management-workbench { display: grid; grid-template-columns: 430px minmax(0, 1fr); min-height: 650px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+    .menu-tree-pane { padding: 14px; border-right: 1px solid var(--line); background: #fbfcff; }
+    .menu-tree-toolbar { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; align-items: center; }
+    .menu-tree-list { margin-top: 14px; max-height: 570px; overflow: auto; padding-right: 3px; }
+    .menu-tree-node { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; align-items: center; gap: 4px; min-height: 38px; border-radius: 6px; }
+    .menu-tree-node:hover { background: var(--primary-soft); }
+    .menu-tree-node.is-active { background: #e7f0ff; }
+    .menu-tree-select { display: flex; align-items: center; gap: 7px; min-width: 0; height: 38px; padding: 0 8px; border: 0; color: var(--ink); background: transparent; text-align: left; cursor: pointer; }
+    .menu-tree-toggle { width: 18px; height: 28px; padding: 0; border: 0; color: var(--muted); background: transparent; cursor: pointer; }
+    .menu-tree-toggle:disabled { cursor: default; opacity: .55; }
+    .menu-tree-select strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .menu-tree-node.is-active .menu-tree-select { color: var(--primary); }
+    .menu-tree-branch { color: var(--muted); font-size: 11px; }
+    .menu-tree-node-actions { display: flex; gap: 2px; padding-right: 5px; }
+    .menu-tree-node-actions .btn { height: 26px; padding: 0 6px; border: 0; background: transparent; color: var(--primary); font-size: 11px; }
+    .menu-tree-node-actions .btn.danger-text { color: var(--red); }
+    .menu-node-detail { padding: 22px; min-width: 0; }
+    .menu-node-detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+    .menu-node-detail-head h2 { margin: 0 0 5px; font-size: 21px; }
+    .menu-node-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .menu-node-field { min-height: 72px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: #fbfcff; }
+    .menu-node-field label { display: block; margin-bottom: 7px; color: var(--muted); font-size: 12px; }
+    .menu-node-field code { display: inline-block; max-width: 100%; overflow-wrap: anywhere; color: #1d4ed8; }
+    .menu-node-role-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+
+    @media (max-width: 980px) {
+      .menu-management-workbench { grid-template-columns: 1fr; }
+      .menu-tree-pane { border-right: 0; border-bottom: 1px solid var(--line); }
+      .menu-tree-list { max-height: 300px; }
+    }
+
     @media (max-width: 860px) {
       .dictionary-workbench { grid-template-columns: 1fr; }
       .dictionary-aside { border-right: 0; border-bottom: 1px solid var(--line); }
@@ -2310,6 +2341,34 @@
     .permission-selection-panel td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; font-size: 13px; }
     .permission-selection-panel th { background: #f3f7fd; color: #64748b; font-weight: 700; }
     .permission-selection-empty { padding: 26px 12px; color: var(--muted); text-align: center; }
+
+    .role-branch-multiselect { position: relative; }
+    .role-branch-toggle {
+      width: 100%; min-height: 40px; padding: 8px 12px; border: 1px solid var(--line);
+      border-radius: 7px; background: #fff; color: var(--ink); display: flex;
+      align-items: center; justify-content: space-between; gap: 12px; text-align: left; cursor: pointer;
+    }
+    .role-branch-toggle[aria-expanded="true"] { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(37, 99, 235, .1); }
+    .role-branch-toggle > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .role-branch-options {
+      position: absolute; z-index: 20; top: calc(100% + 5px); left: 0; right: 0;
+      max-height: 245px; overflow: auto; padding: 7px; border: 1px solid var(--line);
+      border-radius: 8px; background: #fff; box-shadow: 0 12px 28px rgba(15, 23, 42, .16);
+      display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; text-align: left;
+    }
+    #roleBranchScopeRow[hidden], .role-branch-options[hidden] { display: none !important; }
+    .form-row .role-branch-options label {
+      display: flex; align-items: center; justify-content: flex-start; gap: 8px;
+      width: 100%; min-height: 34px; padding: 5px 8px; border-radius: 6px;
+      box-sizing: border-box; cursor: pointer; text-align: left; white-space: nowrap;
+      overflow: hidden; line-height: 1.35;
+    }
+    .role-branch-options label:hover { background: #f1f6ff; }
+    .form-row .role-branch-options input[type="checkbox"] {
+      width: 15px; min-width: 15px; height: 15px; margin: 0; padding: 0;
+      flex: 0 0 15px; accent-color: var(--primary);
+    }
+    .role-branch-select-all { color: #1d4ed8; font-weight: 700; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
 
     .customer-detail-dialog {
       width: min(1220px, 96vw);
@@ -3072,7 +3131,7 @@
         <div class="account-menu-wrap">
           <button class="account-info" id="accountMenuBtn" type="button" aria-label="当前登录账号" aria-expanded="false" aria-controls="accountMenu">
             <span class="account-avatar">李</span>
-            <span class="account-text"><strong>李娜</strong><span>顾问</span></span>
+            <span class="account-text"><strong>李娜</strong><span id="currentAccountRoles">顾问</span></span>
           </button>
           <div class="account-menu" id="accountMenu" role="menu" hidden>
             <button type="button" data-account-action="password" role="menuitem">⌘ 登录方式说明</button>
@@ -3103,6 +3162,7 @@
         <button class="nav-item nav-sub-item" data-view="settings-advisor"><span><span>♧</span>顾问列表</span></button>
         <button class="nav-item nav-sub-item" data-view="settings-user"><span><span>♧</span>用户管理</span></button>
         <button class="nav-item nav-sub-item" data-view="settings-role"><span><span>◈</span>角色管理</span></button>
+        <button class="nav-item nav-sub-item" data-view="settings-menu"><span><span>☷</span>菜单管理</span></button>
         <button class="nav-item nav-sub-item" data-view="settings-dictionary"><span><span>▤</span>字典管理</span></button>
       </div>
       <div class="nav-separator" aria-hidden="true"></div>
@@ -3548,7 +3608,8 @@
       <div class="dialog-body">
         <div class="role-permission-hint">权限配置到操作按钮级：先勾选可见菜单，再多选该菜单下允许使用的操作按钮。</div>
         <div class="form-row"><label for="roleNameInput">角色名称 *</label><input id="roleNameInput" placeholder="请输入角色名称"></div>
-        <div class="form-row"><label for="roleScopeInput">数据范围 *</label><select id="roleScopeInput"><option>全量</option><option>负责分院</option><option>负责患者</option></select></div>
+        <div class="form-row"><label for="roleScopeInput">数据范围 *</label><select id="roleScopeInput"><option>全量</option><option>负责分院</option><option>负责患者</option><option>特定分院</option></select></div>
+        <div class="form-row" id="roleBranchScopeRow" hidden><label>选择分院 *</label><div class="role-branch-multiselect"><button type="button" class="role-branch-toggle" id="roleBranchScopeToggle" aria-expanded="false"><span id="roleBranchScopeLabel">请选择分院</span><span>⌄</span></button><div class="role-branch-options" id="roleBranchScopeOptions" hidden><label class="role-branch-select-all"><input type="checkbox" data-role-branch-all>全选分院</label><label><input type="checkbox" value="北京朝阳分院" data-role-branch-option>北京朝阳分院</label><label><input type="checkbox" value="北京海淀分院" data-role-branch-option>北京海淀分院</label><label><input type="checkbox" value="广州天河分院" data-role-branch-option>广州天河分院</label><label><input type="checkbox" value="广州番禺分院" data-role-branch-option>广州番禺分院</label><label><input type="checkbox" value="武汉分院" data-role-branch-option>武汉分院</label><label><input type="checkbox" value="深圳福田分院" data-role-branch-option>深圳福田分院</label></div></div><span class="muted">支持多选；勾选“全选分院”可一次选择全部分院。</span></div>
         <div class="form-row"><label>菜单 - 操作按钮权限 *</label>
           <div class="role-permission-workbench">
             <div class="permission-tree-panel" aria-label="菜单权限树">
@@ -3557,7 +3618,7 @@
               <details open><summary><input type="checkbox" checked data-permission-menu="回访管理" data-permission-name="回访管理" data-permission-description="访问回访管理菜单">回访管理</summary><div class="permission-tree-children"><label class="permission-tree-leaf"><input type="checkbox" checked data-permission-operation="回访管理" data-permission-name="回访管理 / 查看" data-permission-description="查看回访任务与记录">查看</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="回访管理" data-permission-name="回访管理 / 录入结果" data-permission-description="录入回访结果">录入结果</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="回访管理" data-permission-name="回访管理 / 改期" data-permission-description="调整回访时间">改期</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="回访管理" data-permission-name="回访管理 / 查看回访记录" data-permission-description="查看历史回访记录">查看回访记录</label></div></details>
               <details><summary><input type="checkbox" data-permission-menu="客户管理" data-permission-name="客户管理" data-permission-description="访问客户管理菜单">客户管理</summary><div class="permission-tree-children"><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="客户管理" data-permission-name="客户管理 / 查看" data-permission-description="查看客户档案">查看</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="客户管理" data-permission-name="客户管理 / 患者详情" data-permission-description="查看患者详情">患者详情</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="客户管理" data-permission-name="客户管理 / 录入沟通记录" data-permission-description="录入客户沟通记录">录入沟通记录</label></div></details>
               <details><summary><input type="checkbox" data-permission-menu="合同管理" data-permission-name="合同管理" data-permission-description="访问合同管理菜单">合同管理</summary><div class="permission-tree-children"><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="合同管理" data-permission-name="合同管理 / 查看" data-permission-description="查看合同信息">查看</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="合同管理" data-permission-name="合同管理 / 合同签约" data-permission-description="关联法大大合同并完成签约">合同签约</label></div></details>
-              <details><summary><input type="checkbox" data-permission-menu="基础设置" data-permission-name="基础设置" data-permission-description="访问基础设置菜单">基础设置</summary><div class="permission-tree-children"><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="基础设置" data-permission-name="基础设置 / 用户管理" data-permission-description="管理用户账号">用户管理</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="基础设置" data-permission-name="基础设置 / 角色管理" data-permission-description="管理角色与权限">角色管理</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="基础设置" data-permission-name="基础设置 / 字典管理" data-permission-description="管理系统字典">字典管理</label></div></details>
+              <details><summary><input type="checkbox" data-permission-menu="基础设置" data-permission-name="基础设置" data-permission-description="访问基础设置菜单">基础设置</summary><div class="permission-tree-children"><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="基础设置" data-permission-name="基础设置 / 用户管理" data-permission-description="管理用户账号">用户管理</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="基础设置" data-permission-name="基础设置 / 角色管理" data-permission-description="管理角色与权限">角色管理</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="基础设置" data-permission-name="基础设置 / 菜单管理" data-permission-description="维护角色权限树中的菜单、路由与接口">菜单管理</label><label class="permission-tree-leaf"><input type="checkbox" data-permission-operation="基础设置" data-permission-name="基础设置 / 字典管理" data-permission-description="管理系统字典">字典管理</label></div></details>
             </div>
           </div>
         </div>
@@ -3928,12 +3989,18 @@
         { type: "改期", time: "2026-06-24", operator: "顾问-黄琳", originalDate: "2026-06-25", newDate: "2026-06-28", reason: "患者出差，要求周末后再联系。" }
       ],
       "FU-20260715-018": [
-        { type: "已联系", time: "2026-07-13", operator: "顾问-黄琳", result: "已联系（完成任务）", content: "确认合同签署安排，提醒患者查看法大大短信。", summary: "患者已完成签约，系统同步合同结果后回访完结。", intent: "A", tags: "高龄产妇" }
+        { type: "合同签约", time: "2026-07-14", operator: "线索管理员-张敏", contractId: "FD-20260714-026", reason: "法大大合同已签署，线索转为已签约并停止后续回访任务。" },
+        { type: "已联系", time: "2026-07-13", operator: "顾问-黄琳", result: "已联系（完成任务）", content: "确认合同签署安排，提醒患者查看法大大短信。", summary: "患者已完成签约，系统同步合同结果后回访完结。", intent: "A", tags: "高龄产妇" },
+        { type: "修改顾问", time: "2026-07-12", operator: "区域负责人-陈芳", beforeOwner: "顾问-李雯", afterOwner: "顾问-黄琳", reason: "按患者服务分院调整负责顾问。" },
+        { type: "改期", time: "2026-07-11", operator: "顾问-黄琳", originalDate: "2026-07-10", newDate: "2026-07-13", reason: "患者需与家属确认到院安排。" },
+        { type: "已联系", time: "2026-07-09", operator: "顾问-黄琳", result: "已联系（完成任务）", content: "沟通治疗方案及签约资料准备。", summary: "患者意向明确，后续跟进合同签署。", intent: "A", tags: "高龄产妇" },
+        { type: "已联系", time: "2026-07-05", operator: "顾问-李雯", result: "已联系（完成任务）", content: "完成首次回访，了解检查情况和治疗诉求。", summary: "患者愿意继续沟通治疗安排。", intent: "A", tags: "高龄产妇" }
       ],
       "FU-20260715-020": []
     };
 
     const followRescheduleReasonOptions = ["电话未接", "微信未回", "患者忙", "号码错误", "其他"];
+    const leadActivationReasonOptions = ["患者重新咨询", "患者确认继续治疗", "误终止，恢复跟进", "其他"];
 
     const dictionaryCatalog = [
       { id: "follow_method", name: "回访方式", code: "follow_method", usage: "回访管理 / 录入回访结果", values: ["电话", "短信", "微信", "到院"] },
@@ -3942,7 +4009,8 @@
       { id: "patient_concern", name: "患者主要顾虑", code: "patient_concern", usage: "回访管理 / 录入回访结果", values: ["费用", "成功率", "行程距离", "时间", "家人态度", "医生选择", "既往失败阴影", "其它"] },
       { id: "follow_plan", name: "跟进计划", code: "follow_plan", usage: "回访管理 / 录入回访结果", values: ["预约看诊", "到院接待", "转医生沟通", "签约跟进", "暂不跟进", "其它"] },
       { id: "return_plan", name: "回访计划（C、D级别）", code: "return_plan", usage: "回访管理 / 录入回访结果", values: ["群发案例激活", "朋友圈触达", "定向案例分享", "定向邀约"] },
-      { id: "reschedule_reason", name: "改期原因", code: "reschedule_reason", usage: "回访管理 / 改期回访任务", values: followRescheduleReasonOptions }
+      { id: "reschedule_reason", name: "改期原因", code: "reschedule_reason", usage: "回访管理 / 改期回访任务", values: followRescheduleReasonOptions },
+      { id: "lead_activation_reason", name: "激活原因", code: "lead_activation_reason", usage: "线索管理 / 激活线索", values: leadActivationReasonOptions }
     ];
 
     const followNotifications = [
@@ -4111,6 +4179,27 @@
       record.renewalHistory = record.storageStatus === "已续费" ? [{ at: "2026-08-20 14:00", term: record.renewalTerm, renewedAt: "2026-08-20", validUntil: record.validUntil, labValidUntil: record.labValidUntil, operator: "陈芳", note: "实验室已从互创同步确认实际有效期。" }] : [];
     });
 
+    const menuPermissionNodes = [
+      { id: "lead", parentId: "", name: "线索管理", type: "菜单", route: "/leads", api: "GET /api/leads", permission: "lead:view", sort: 10, status: "启用", roles: ["系统管理员", "线索管理员", "顾问"] },
+      { id: "lead-create", parentId: "lead", name: "新建线索", type: "按钮", route: "", api: "POST /api/leads", permission: "lead:create", sort: 10, status: "启用", roles: ["系统管理员", "线索管理员"] },
+      { id: "lead-assign", parentId: "lead", name: "分配顾问", type: "按钮", route: "", api: "POST /api/leads/{id}/assign", permission: "lead:assign", sort: 20, status: "启用", roles: ["系统管理员", "线索管理员"] },
+      { id: "lead-edit", parentId: "lead", name: "编辑", type: "按钮", route: "", api: "PUT /api/leads/{id}", permission: "lead:edit", sort: 30, status: "启用", roles: ["系统管理员", "线索管理员", "顾问"] },
+      { id: "lead-delete", parentId: "lead", name: "删除", type: "按钮", route: "", api: "DELETE /api/leads/{id}", permission: "lead:delete", sort: 40, status: "启用", roles: ["系统管理员", "线索管理员"] },
+      { id: "followup", parentId: "", name: "回访管理", type: "菜单", route: "/followups", api: "GET /api/followups", permission: "followup:view", sort: 20, status: "启用", roles: ["系统管理员", "线索管理员", "顾问"] },
+      { id: "followup-result", parentId: "followup", name: "录入结果", type: "按钮", route: "", api: "POST /api/followups/{id}/result", permission: "followup:result", sort: 10, status: "启用", roles: ["系统管理员", "顾问"] },
+      { id: "followup-reschedule", parentId: "followup", name: "改期", type: "按钮", route: "", api: "PUT /api/followups/{id}/schedule", permission: "followup:reschedule", sort: 20, status: "启用", roles: ["系统管理员", "线索管理员", "顾问"] },
+      { id: "customer", parentId: "", name: "客户管理", type: "菜单", route: "/customers", api: "GET /api/customers", permission: "customer:view", sort: 40, status: "启用", roles: ["系统管理员", "顾问", "医生", "护士", "客服"] },
+      { id: "contract", parentId: "", name: "合同管理", type: "菜单", route: "/contracts", api: "GET /api/contracts", permission: "contract:view", sort: 50, status: "启用", roles: ["系统管理员", "顾问", "财务"] },
+      { id: "settings", parentId: "", name: "基础设置", type: "目录", route: "/settings", api: "", permission: "settings:view", sort: 90, status: "启用", roles: ["系统管理员"] },
+      { id: "settings-user", parentId: "settings", name: "用户管理", type: "菜单", route: "/settings/users", api: "GET /api/users", permission: "user:view", sort: 10, status: "启用", roles: ["系统管理员"] },
+      { id: "settings-role", parentId: "settings", name: "角色管理", type: "菜单", route: "/settings/roles", api: "GET /api/roles", permission: "role:view", sort: 20, status: "启用", roles: ["系统管理员"] },
+      { id: "settings-menu", parentId: "settings", name: "菜单管理", type: "菜单", route: "/settings/menus", api: "GET /api/menus", permission: "menu:view", sort: 30, status: "启用", roles: ["系统管理员"] },
+      { id: "settings-dictionary", parentId: "settings", name: "字典管理", type: "菜单", route: "/settings/dictionaries", api: "GET /api/dictionaries", permission: "dictionary:view", sort: 40, status: "启用", roles: ["系统管理员"] }
+    ];
+
+    const roleBranchScopeAssignments = {};
+
+    const currentAccount = { name: "李娜", roles: ["顾问"] };
     const state = {
       activePatientId: "P001",
       activeFilter: "all",
@@ -4130,6 +4219,7 @@
       leadRegistration: { id: "", name: "" },
       leadPatientDetail: { id: "", name: "", phone: "", branch: "", status: "" },
       leadContractTarget: { id: "", name: "", advisor: "" },
+      leadModalIdentity: { id: "", name: "", phone: "", branch: "" },
       leadSignedContracts: {},
       wecomTab: "crm",
       wecomLeadMarked: false,
@@ -4183,6 +4273,9 @@
       dictionaryItemQuery: "",
       dictionaryValueQuery: "",
       dictionarySelectedValueIds: [],
+      menuActiveId: "lead",
+      menuQuery: "",
+      menuCollapsedIds: [],
       openViews: ["lead"],
       listPages: {},
       loginPhone: "",
@@ -4195,7 +4288,7 @@
     const workbenchMarkup = mainEl.innerHTML;
 
     const viewLabels = {
-      lead: "线索管理", followup: "回访管理", "customer-new": "客户管理", contract: "合同管理", cycle: "周期管理", "embryo-storage": "胚胎冻存管理", finance: "合同财务", report: "经营报表", settings: "基础设置", "settings-branch": "分院管理", "settings-lead-manager": "线索管理员列表", "settings-advisor": "顾问列表", "settings-user": "用户管理", "settings-role": "角色管理", "settings-dictionary": "字典管理", wecom: "企业微信", his: "HIS", login: "登录页", customer: "客户管理（旧）", workbench: "工作台"
+      lead: "线索管理", followup: "回访管理", "customer-new": "客户管理", contract: "合同管理", cycle: "周期管理", "embryo-storage": "胚胎冻存管理", finance: "合同财务", report: "经营报表", settings: "基础设置", "settings-branch": "分院管理", "settings-lead-manager": "线索管理员列表", "settings-advisor": "顾问列表", "settings-user": "用户管理", "settings-role": "角色管理", "settings-menu": "菜单管理", "settings-dictionary": "字典管理", wecom: "企业微信", his: "HIS", login: "登录页", customer: "客户管理（旧）", workbench: "工作台"
     };
 
     function renderPageTabs() {
@@ -4226,6 +4319,7 @@
         "settings-advisor": 28,
         "settings-user": 46,
         "settings-role": 8,
+        "settings-menu": menuPermissionNodes.length,
         "settings-dictionary": 9
       }[state.activeView] || 0;
     }
@@ -4470,8 +4564,9 @@
       `;
     }
 
-    function embeddedRulesDocument(title, markdownFile) {
-      return `<section class="panel customer-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>${title}</h2><span class="muted">规则来源：${markdownFile}；下方直接展示当前规则文档。</span></div><span class="badge badge-blue">只读展示</span></div><iframe data-markdown-document="${markdownFile}" title="${title}"></iframe></div></section>`;
+    function embeddedRulesDocument(title, markdownFile, fallbackFile = "") {
+      const fallback = fallbackFile ? ` data-fallback-document="${fallbackFile}"` : "";
+      return `<section class="panel customer-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>${title}</h2><span class="muted">规则来源：${markdownFile}；下方直接展示当前规则文档。</span></div><span class="badge badge-blue">只读展示</span></div><iframe data-markdown-document="${markdownFile}"${fallback} title="${title}"></iframe></div></section>`;
     }
 
     function renderMarkdownDocument(markdown) {
@@ -4545,6 +4640,12 @@
           })
           .catch(() => {
             if (!frame.isConnected) return;
+            const fallbackFile = frame.dataset.fallbackDocument;
+            if (fallbackFile) {
+              frame.removeAttribute("srcdoc");
+              frame.src = fallbackFile;
+              return;
+            }
             frame.srcdoc = '<!doctype html><html><body style="margin:20px;font:14px/1.7 system-ui,sans-serif;color:#64748b">规则文档暂无法加载，请确认通过 HTTP 服务访问原型。</body></html>';
           });
       });
@@ -4675,7 +4776,7 @@
               </table>
             </div>
           </div></div>
-          <section class="panel customer-rules-doc lead-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>线索管理规则说明</h2><span class="muted">规则来源：<a href="线索管理.md" target="_blank" rel="noopener">线索管理.md</a>；点击“更新”读取最新文档内容。</span></div><div class="compact-actions"><span class="badge badge-blue">只读展示</span><button class="btn" data-lead-rule-refresh>更新</button></div></div><iframe src="线索管理规则说明.html" title="线索管理规则说明"></iframe></div></section>
+          <section class="panel customer-rules-doc lead-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>线索管理规则说明</h2><span class="muted">规则来源：<a href="线索管理.md" target="_blank" rel="noopener">线索管理.md</a>；下方自动读取最新文档，“更新”可手动刷新。</span></div><div class="compact-actions"><span class="badge badge-blue">只读展示</span><button class="btn" data-lead-rule-refresh>更新</button></div></div><iframe src="线索管理规则说明.html" title="线索管理规则说明"></iframe></div></section>
         </section>
       `;
       state.deletedLeadIds.forEach((id) => mainEl.querySelector(`[data-lead-row][data-id="${id}"]`)?.remove());
@@ -4758,6 +4859,9 @@ setRule("R-01");
       if (type === "已联系") return "badge-green";
       if (type === "未联系") return "badge-amber";
       if (type === "改期") return "badge-blue";
+      if (type === "合同签约") return "badge-green";
+      if (type === "终止跟进") return "badge-red";
+      if (type === "激活线索") return "badge-blue";
       return "badge-purple";
     }
 
@@ -4787,13 +4891,13 @@ setRule("R-01");
         ["改期原因", event.reason],
         ...(event.otherReason ? [["具体改期原因", event.otherReason]] : []),
         ...(event.remark ? [["备注", event.remark]] : [])
-      ] : [
+      ] : event.type === "修改顾问" ? [
         ["操作日期", event.time],
         ["操作人", event.operator],
         ["修改前顾问", event.beforeOwner],
         ["修改后顾问", event.afterOwner],
         ...(event.reason ? [["更换原因", event.reason]] : [])
-      ];
+      ] : [["操作日期", event.time], ["操作人", event.operator], ...(event.contractId ? [["法大大合同 ID", event.contractId]] : []), ...(event.reason ? [[event.type === "终止跟进" ? "终止原因及备注" : event.type === "激活线索" ? "激活原因及备注" : "说明", event.reason]] : [])];
       return `<div class="follow-audit-item">
         <div class="follow-audit-head"><strong>${event.time}${event.followStage ? `　${event.followStage}` : ""}</strong><span class="badge ${followHistoryBadge(event.type)}">${event.type}</span></div>
         <div class="follow-audit-fields">${fields.map((field) => `<span><b>${field[0]}：</b>${field[1]}</span>`).join("")}</div>
@@ -4817,9 +4921,17 @@ setRule("R-01");
     }
 
     function renderFollowTimeline(task) {
-      const records = getFollowVisitRecords(task);
-      const cards = records.map((event) => `<div class="follow-audit-item"><div class="follow-audit-head"><strong>${event.time}${event.followStage ? `　${event.followStage}` : ""}</strong><span class="badge ${followHistoryBadge(event.type)}">${event.type}</span></div><div class="follow-audit-fields"><span><b>回访时间：</b>${event.time}</span><span><b>回访人：</b>${event.operator}</span><span><b>主要沟通事项：</b>${event.communicationTopic || event.content || "—"}</span><span><b>意向等级：</b>${event.intent || "—"}</span><div class="follow-audit-action"><button class="btn" data-follow-history-detail data-history-index="${event.historyIndex}" data-task-id="${task.id}">详情</button></div></div></div>`).join("") || '<div class="record"><strong>暂无回访记录</strong><span class="muted">当前尚未产生已完成的回访结果。</span></div>';
-      return `<div class="status-source"><strong>${task.name}｜${task.id}</strong><span>按回访时间倒序展示回访记录；点击详情查看完整回访结果。</span></div><div class="follow-audit-timeline">${cards}</div>`;
+      const records = (followHistory[task.id] || []).map((event) => ({ ...event })).sort((a, b) => b.time.localeCompare(a.time));
+      const visitStages = getFollowVisitRecords(task).reduce((map, event) => (map.set(event.time, event.followStage), map), new Map());
+      const cards = records.map((event) => renderFollowHistoryEvent({ ...event, followStage: visitStages.get(event.time) || "" })).join("") || '<div class="record"><strong>暂无回访记录</strong><span class="muted">当前尚未产生回访或跟进操作记录。</span></div>';
+      return `<div class="status-source"><strong>${task.name}｜${task.id}</strong><span>按操作时间倒序展示完整回访及跟进记录。</span></div><div class="follow-audit-timeline">${cards}</div>`;
+    }
+
+    function appendLeadFollowEvent(leadId, event) {
+      const task = followUpTasks.find((item) => item.leadId === leadId);
+      if (!task) return;
+      followHistory[task.id] ||= [];
+      followHistory[task.id].unshift({ ...event, operator: event.operator || task.owner || "当前顾问" });
     }
 
     function renderFollowResultDetail(task, historyIndex) {
@@ -4955,7 +5067,7 @@ setRule("R-01");
         examination: renderExaminationReportTab({ ...lead, noPatientDetailData: lead.id === "L-20260806-019" }),
         registration: renderOriginalLeadRegistration(lead)
       };
-      return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>电话：${lead.phone}｜提供分院：${lead.branch}｜线索状态：${lead.status}</span></div><div class="tabs" role="tablist" aria-label="患者详情">${tabs.map(([key, label]) => `<button class="tab ${tab === key ? "is-active" : ""}" data-follow-patient-tab="${key}">${label}</button>`).join("")}</div>${content[tab] || content.medical}`;
+      return `<div class="status-source"><strong>${lead.name}</strong><span>电话：${lead.phone}｜提供分院：${lead.branch}｜线索状态：${lead.status}</span></div><div class="tabs" role="tablist" aria-label="患者详情">${tabs.map(([key, label]) => `<button class="tab ${tab === key ? "is-active" : ""}" data-follow-patient-tab="${key}">${label}</button>`).join("")}</div>${content[tab] || content.medical}`;
     }
 
     function renderOriginalLeadRegistration(lead) {
@@ -4987,7 +5099,7 @@ setRule("R-01");
       const followDialog = $("#followModal").querySelector(".dialog");
       followDialog.classList.add("follow-patient-dialog");
       followDialog.classList.remove("follow-result-dialog");
-      $("#followModalTitle").textContent = `患者详情｜${lead.name}`;
+      $("#followModalTitle").textContent = "患者详情";
       renderOpenPatientDetail();
       $("#followModalCancel").textContent = "取消";
       $("#followModalSubmit").textContent = "关闭";
@@ -5295,7 +5407,7 @@ setRule("R-01");
               ${[["到期完成率", 86, "86%"], ["已联系率", 72, "72%"], ["逾期率", 11, "11%"], ["A 类任务量", 38, "38"]].map((row) => `<div class="bar-line"><span>${row[0]}</span><div class="bar"><span style="width:${row[1]}%"></span></div><strong>${row[2]}</strong></div>`).join("")}
             </div>
           </div></div>
-          ${embeddedRulesDocument("回访管理规则说明", "回访管理.md")}
+          ${embeddedRulesDocument("回访管理规则说明", "回访管理.md", "回访管理规则说明.html")}
         </section>`;
       setRule("R-22");
     }
@@ -5652,7 +5764,8 @@ setRule("R-01");
           <div class="panel"><div class="panel-body"><div class="section-head"><h2>顾问列表</h2><span class="badge badge-blue">28 人</span></div><p class="muted">维护服务分院与可接收新线索状态，决定自动或人工分配。</p><button class="btn btn-primary" data-view="settings-advisor">进入顾问列表</button></div></div>
           <div class="panel"><div class="panel-body"><div class="section-head"><h2>用户管理</h2><span class="badge badge-blue">46 个账号</span></div><p class="muted">维护手机号（登录账号）、所属组织、账号状态及对应系统角色。</p><button class="btn btn-primary" data-view="settings-user">进入用户管理</button></div></div>
           <div class="panel"><div class="panel-body"><div class="section-head"><h2>角色管理</h2><span class="badge badge-blue">8 个角色</span></div><p class="muted">维护各角色的数据范围、菜单权限与业务操作权限。</p><button class="btn btn-primary" data-view="settings-role">进入角色管理</button></div></div>
-          <div class="panel"><div class="panel-body"><div class="section-head"><h2>字典管理</h2><span class="badge badge-blue">9 个字典项</span></div><p class="muted">维护回访结果及改期下拉字段的可选值，默认值与业务弹窗保持一致。</p><button class="btn btn-primary" data-view="settings-dictionary">进入字典管理</button></div></div>
+          <div class="panel"><div class="panel-body"><div class="section-head"><h2>菜单管理</h2><span class="badge badge-blue">${menuPermissionNodes.length} 个节点</span></div><p class="muted">维护角色权限树所使用的目录、菜单和按钮，并配置节点路由、接口与权限标识。</p><button class="btn btn-primary" data-view="settings-menu">进入菜单管理</button></div></div>
+          <div class="panel"><div class="panel-body"><div class="section-head"><h2>字典管理</h2><span class="badge badge-blue">10 个字典项</span></div><p class="muted">维护业务表单下拉字段的可选值，默认值与业务弹窗保持一致。</p><button class="btn btn-primary" data-view="settings-dictionary">进入字典管理</button></div></div>
         </section>`;
       mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("基础设置规则说明", "基础设置.md"));
       setRule("R-28");
@@ -5783,6 +5896,144 @@ setRule("R-01");
       setRule("R-28");
     }
 
+    function menuNodeChildren(parentId) {
+      return menuPermissionNodes.filter((item) => item.parentId === parentId).sort((a, b) => a.sort - b.sort || a.name.localeCompare(b.name, "zh-CN"));
+    }
+
+    function flatMenuNodes(parentId = "", depth = 0) {
+      return menuNodeChildren(parentId).flatMap((item) => [{ ...item, depth }, ...flatMenuNodes(item.id, depth + 1)]);
+    }
+
+    function menuNodeDescendantIds(id) {
+      return menuNodeChildren(id).flatMap((item) => [item.id, ...menuNodeDescendantIds(item.id)]);
+    }
+
+    function activeMenuNode() {
+      return menuPermissionNodes.find((item) => item.id === state.menuActiveId) || menuPermissionNodes[0];
+    }
+
+    function renderMenuSettingsView() {
+      const active = activeMenuNode();
+      state.menuActiveId = active.id;
+      const query = state.menuQuery.trim().toLowerCase();
+      const allRows = flatMenuNodes();
+      const matchingRows = allRows.filter((item) => !query || `${item.name} ${item.route} ${item.api} ${item.permission} ${item.type}`.toLowerCase().includes(query));
+      const visibleIds = new Set();
+      matchingRows.forEach((item) => {
+        let current = item;
+        while (current) {
+          visibleIds.add(current.id);
+          current = allRows.find((candidate) => candidate.id === current.parentId);
+        }
+      });
+      const rows = matchingRows.filter((item) => {
+        if (query) return visibleIds.has(item.id);
+        let parentId = item.parentId;
+        while (parentId) {
+          if (state.menuCollapsedIds.includes(parentId)) return false;
+          parentId = allRows.find((candidate) => candidate.id === parentId)?.parentId || "";
+        }
+        return true;
+      });
+      const parent = menuPermissionNodes.find((item) => item.id === active.parentId);
+      const children = menuNodeChildren(active.id);
+      mainEl.classList.add("module-page");
+      mainEl.dataset.view = "settings-menu";
+      mainEl.innerHTML = `<section class="module-grid full"><div class="panel"><div class="panel-body">
+        <div class="section-head"><div><h2>菜单权限目录</h2><p class="muted">角色管理中的菜单权限树以此处配置为准；目录、菜单和按钮均可维护路由、接口和权限标识。</p></div><div class="role-head-actions"><span class="badge badge-blue">${menuPermissionNodes.length} 个节点</span><button class="btn btn-primary" data-menu-node-new="root">新增节点</button></div></div>
+        <div class="menu-management-workbench">
+          <aside class="menu-tree-pane">
+            <div class="menu-tree-toolbar"><input id="menuNodeQuery" value="${escapeHtml(state.menuQuery)}" placeholder="搜索名称、路由、接口"><button class="btn btn-primary" data-menu-query>查询</button><button class="btn" data-menu-query-reset>重置</button></div>
+            <div class="menu-tree-list">${rows.length ? rows.map((item) => { const hasChildren = menuNodeChildren(item.id).length > 0; const collapsed = state.menuCollapsedIds.includes(item.id); return `<div class="menu-tree-node ${item.id === active.id ? "is-active" : ""}" style="padding-left:${item.depth * 18}px"><button class="menu-tree-toggle" data-menu-node-toggle="${item.id}" aria-label="${collapsed ? "展开" : "收起"} ${escapeHtml(item.name)}" ${hasChildren ? "" : "disabled"}>${hasChildren ? collapsed ? "▸" : "▾" : "·"}</button><button class="menu-tree-select" data-menu-node-select="${item.id}"><strong>${escapeHtml(item.name)}</strong><span class="badge ${item.type === "按钮" ? "badge-gray" : "badge-blue"}">${item.type}</span></button><span class="menu-tree-node-actions"><button class="btn" data-menu-node-new="${item.id}">新增下级</button><button class="btn" data-menu-node-edit="${item.id}">编辑</button><button class="btn danger-text" style="color:var(--red)" data-menu-node-delete="${item.id}">删除</button></span></div>`; }).join("") : '<div class="dictionary-empty">未找到匹配的菜单节点</div>'}</div>
+          </aside>
+          <section class="menu-node-detail">
+            <div class="menu-node-detail-head"><div><h2>${escapeHtml(active.name)}</h2></div><div class="compact-actions"><button class="btn btn-primary" data-menu-node-edit="${active.id}">编辑节点</button><button class="btn btn-danger" data-menu-node-delete="${active.id}">删除节点</button></div></div>
+            <div class="menu-node-summary">
+              <div class="menu-node-field"><label>节点类型</label><strong>${active.type}</strong></div>
+              <div class="menu-node-field"><label>状态</label><span class="badge ${active.status === "启用" ? "badge-green" : "badge-gray"}">${active.status}</span></div>
+              <div class="menu-node-field"><label>上级节点</label><strong>${escapeHtml(parent?.name || "—（一级节点）")}</strong></div>
+              <div class="menu-node-field"><label>显示顺序（同层级）</label><strong>${active.sort}</strong></div>
+              <div class="menu-node-field"><label>前端路由</label><code>${escapeHtml(active.route || "—")}</code></div>
+              <div class="menu-node-field"><label>后端接口</label><code>${escapeHtml(active.api || "—")}</code></div>
+              <div class="menu-node-field"><label>权限标识</label><code>${escapeHtml(active.permission || "—")}</code></div>
+              <div class="menu-node-field"><label>下级节点</label><strong>${children.length} 个</strong></div>
+            </div>
+            <div class="rule-callout" style="margin-top:18px"><span class="badge badge-blue">角色授权</span><span>当前共有 ${active.roles.length} 个角色使用该节点；删除前须先解除角色授权及所有下级节点。</span></div>
+            <div class="menu-node-role-list">${active.roles.length ? active.roles.map((role) => `<span class="badge badge-gray">${escapeHtml(role)}</span>`).join("") : '<span class="muted">暂无角色授权</span>'}</div>
+          </section>
+        </div>
+      </div></div></section>`;
+      mainEl.insertAdjacentHTML("beforeend", embeddedRulesDocument("菜单管理规则说明", "菜单管理.md"));
+      setRule("MENU-01");
+    }
+
+    function openMenuNodeModal(mode, id = "") {
+      const editing = mode === "edit";
+      const source = editing ? menuPermissionNodes.find((item) => item.id === id) : null;
+      const parentId = mode === "child" ? id : source?.parentId || "";
+      const blockedIds = source ? new Set([source.id, ...menuNodeDescendantIds(source.id)]) : new Set();
+      const parentOptions = [{ id: "", name: "无（一级节点）", depth: 0 }, ...flatMenuNodes().filter((item) => item.type !== "按钮" && !blockedIds.has(item.id))];
+      let modal = $("#menuNodeModal");
+      if (!modal) {
+        document.body.insertAdjacentHTML("beforeend", '<div class="modal" id="menuNodeModal" aria-hidden="true"><div class="dialog" role="dialog" aria-modal="true"><div class="dialog-head"><h2 id="menuNodeModalTitle"></h2><button class="btn" data-menu-modal-close aria-label="关闭">✖️</button></div><div class="dialog-body" id="menuNodeModalBody"></div><div class="dialog-foot"><button class="btn" data-menu-modal-close>取消</button><button class="btn btn-primary" data-menu-modal-submit>保存</button></div></div></div>');
+        modal = $("#menuNodeModal");
+      }
+      modal.dataset.mode = mode;
+      modal.dataset.id = id;
+      $("#menuNodeModalTitle").textContent = editing ? "编辑菜单节点" : mode === "child" ? "新增下级节点" : "新增节点";
+      $("#menuNodeModalBody").innerHTML = `<div class="form-row"><label for="menuNodeParent">上级节点</label><select id="menuNodeParent">${parentOptions.map((item) => `<option value="${item.id}" ${item.id === parentId ? "selected" : ""}>${"　".repeat(item.depth)}${escapeHtml(item.name)}</option>`).join("")}</select></div><div class="form-row"><label for="menuNodeName">节点名称 *</label><input id="menuNodeName" value="${escapeHtml(source?.name || "")}" placeholder="请输入目录、菜单或按钮名称"></div><div class="form-row"><label for="menuNodeType">节点类型 *</label><select id="menuNodeType">${["目录", "菜单", "按钮"].map((type) => `<option ${source?.type === type ? "selected" : ""}>${type}</option>`).join("")}</select></div><div class="form-row"><label for="menuNodeRoute">前端路由</label><input id="menuNodeRoute" value="${escapeHtml(source?.route || "")}" placeholder="如 /settings/menus"></div><div class="form-row"><label for="menuNodeApi">后端接口</label><input id="menuNodeApi" value="${escapeHtml(source?.api || "")}" placeholder="如 GET /api/menus"></div><div class="form-row"><label for="menuNodePermission">权限标识 *</label><input id="menuNodePermission" value="${escapeHtml(source?.permission || "")}" placeholder="如 menu:view"></div><div class="form-row"><label for="menuNodeSort">显示顺序（同层级）</label><input id="menuNodeSort" type="number" min="0" value="${source?.sort ?? 10}"></div><div class="form-row"><label for="menuNodeStatus">状态</label><select id="menuNodeStatus"><option ${source?.status !== "停用" ? "selected" : ""}>启用</option><option ${source?.status === "停用" ? "selected" : ""}>停用</option></select></div>`;
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      $("#menuNodeName").focus();
+    }
+
+    function closeMenuNodeModal() {
+      const modal = $("#menuNodeModal");
+      if (!modal) return;
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    function submitMenuNodeModal() {
+      const modal = $("#menuNodeModal");
+      const mode = modal?.dataset.mode || "root";
+      const id = modal?.dataset.id || "";
+      const name = $("#menuNodeName")?.value.trim();
+      const permission = $("#menuNodePermission")?.value.trim();
+      if (!name || !permission) {
+        showToast("请填写节点名称和权限标识。");
+        return;
+      }
+      const values = { parentId: $("#menuNodeParent")?.value || "", name, type: $("#menuNodeType")?.value || "菜单", route: $("#menuNodeRoute")?.value.trim() || "", api: $("#menuNodeApi")?.value.trim() || "", permission, sort: Number($("#menuNodeSort")?.value || 0), status: $("#menuNodeStatus")?.value || "启用" };
+      if (mode === "edit") {
+        const node = menuPermissionNodes.find((item) => item.id === id);
+        Object.assign(node, values);
+        state.menuActiveId = node.id;
+        showToast(`菜单节点“${name}”已更新。`);
+      } else {
+        const node = { id: `menu-${Date.now()}`, ...values, roles: [] };
+        menuPermissionNodes.push(node);
+        state.menuActiveId = node.id;
+        showToast(`菜单节点“${name}”已新增。`);
+      }
+      closeMenuNodeModal();
+      renderMenuSettingsView();
+    }
+
+    function deleteMenuNode(id) {
+      const node = menuPermissionNodes.find((item) => item.id === id);
+      if (!node) return;
+      if (menuNodeChildren(id).length) {
+        showToast("该节点存在下级目录，请先删除或迁移下级节点。");
+        return;
+      }
+      if (node.roles.length && !window.confirm(`节点“${node.name}”已授权给 ${node.roles.length} 个角色，确定解除授权并删除吗？`)) return;
+      menuPermissionNodes.splice(menuPermissionNodes.indexOf(node), 1);
+      state.menuActiveId = node.parentId || menuPermissionNodes[0]?.id || "";
+      renderMenuSettingsView();
+      showToast(`菜单节点“${node.name}”已删除。`);
+    }
+
     function activeDictionaryItem() {
       return dictionaryCatalog.find((item) => item.id === state.dictionaryActiveId) || dictionaryCatalog[0];
     }
@@ -5811,8 +6062,9 @@ setRule("R-01");
     }
 
     function syncDictionaryOptionSource(dictionary) {
-      if (dictionary.id !== "reschedule_reason") return;
-      followRescheduleReasonOptions.splice(0, followRescheduleReasonOptions.length, ...dictionaryValueRecords(dictionary).map((entry) => entry.value));
+      const values = dictionaryValueRecords(dictionary).map((entry) => entry.value);
+      if (dictionary.id === "reschedule_reason") followRescheduleReasonOptions.splice(0, followRescheduleReasonOptions.length, ...values);
+      if (dictionary.id === "lead_activation_reason") leadActivationReasonOptions.splice(0, leadActivationReasonOptions.length, ...values);
     }
 
     function openDictionaryModal(mode, index = -1) {
@@ -6691,6 +6943,7 @@ setRule("R-01");
       if (state.activeView === "settings-advisor") renderAdvisorSettingsView();
       if (state.activeView === "settings-user") renderUserSettingsView();
       if (state.activeView === "settings-role") renderRoleSettingsView();
+      if (state.activeView === "settings-menu") renderMenuSettingsView();
       if (state.activeView === "settings-dictionary") renderDictionarySettingsView();
     }
 
@@ -6827,19 +7080,22 @@ setRule("R-01");
         title: "更换顾问",
         rule: "R-18",
         submit: "确认更换",
-        body: `<div class="status-source"><strong>跟进中线索</strong><span>更换后，未完成回访任务、逾期责任和后续提醒同步转交给新顾问，并在回访管理中保留变更记录。</span></div><div class="form-row"><label>当前顾问</label><input value="黄琳" readonly></div><div class="form-row"><label>新顾问 *</label><select><option>李雯</option><option>赵莹</option><option>王敏</option></select></div><div class="form-row"><label>更换原因 *</label><textarea>原顾问工作安排调整，转由新顾问继续跟进。</textarea></div>`
+        body: () => `<div class="status-source"><strong>${state.leadModalIdentity.name || "—"}</strong><span>手机号：${state.leadModalIdentity.phone || "—"}｜分院：${state.leadModalIdentity.branch || "—"}</span></div><div class="form-row"><label>当前顾问</label><input id="leadCurrentAdvisor" value="黄琳" readonly></div><div class="form-row"><label>新顾问 *</label><select id="leadNewAdvisor"><option>李雯</option><option>赵莹</option><option>王敏</option></select></div><div class="form-row"><label>更换原因 *</label><textarea id="leadAdvisorChangeReason">原顾问工作安排调整，转由新顾问继续跟进。</textarea></div>`
       },
       "contract-sign": {
         title: "合同签约",
         rule: "R-17",
         submit: "确定",
-        body: () => `<div class="form-row"><label>法大大合同 ID *</label><input id="fddContractId" placeholder="如 FD-20260810-001" aria-label="法大大合同 ID"></div><div class="form-row"><label>签约套餐</label><select aria-label="签约套餐"><option>三代套餐</option><option>一代套餐</option><option>二代套餐</option><option>冻胚移植套餐</option></select></div><div class="form-row"><label>关联备注</label><textarea>已核对患者、顾问与法大大已签署合同信息。</textarea></div>`
+        body: () => {
+          const lead = state.leadContractTarget;
+          return `<div class="status-source"><strong>${lead.name || "—"}</strong><span>手机号：${lead.phone || "—"}｜分院：${lead.branch || "—"}</span></div><div class="form-row"><label>法大大合同 ID *</label><input id="fddContractId" placeholder="如 FD-20260810-001" aria-label="法大大合同 ID"></div><div class="form-row"><label>签约套餐</label><select aria-label="签约套餐"><option>三代套餐</option><option>一代套餐</option><option>二代套餐</option><option>冻胚移植套餐</option></select></div><div class="form-row"><label>关联备注</label><textarea>已核对患者、顾问与法大大已签署合同信息。</textarea></div>`;
+        }
       },
       assign: {
         title: "分配顾问",
         rule: "R-18",
         submit: "确定",
-        body: `<div style="margin-bottom:12px; font-weight:700;">陈女士 - 北京朝阳分院</div><div class="form-row"><label>分配顾问 *</label><select><option>李雯</option><option>赵莹</option><option>陈洁</option></select></div>`
+        body: () => `<div class="status-source"><strong>${state.leadModalIdentity.name || "—"}</strong><span>手机号：${state.leadModalIdentity.phone || "—"}｜分院：${state.leadModalIdentity.branch || "—"}</span></div><div class="form-row"><label>分配顾问 *</label><select><option>李雯</option><option>赵莹</option><option>陈洁</option></select></div>`
       },
       registration: {
         title: "编辑线索",
@@ -6874,19 +7130,19 @@ setRule("R-01");
         title: "终止跟进",
         rule: "R-20",
         submit: "确认终止跟进",
-        body: `<div class="status-source"><strong>林女士｜A 类｜跟进中</strong><span>终止后停止自动生成回访任务，原因与操作信息将写入时间轴</span></div><div class="form-row"><label>终止跟进原因 *</label><select><option>患者暂缓治疗</option><option>患者明确无意向</option><option>已选择其他机构</option><option>联系方式失效</option><option>其他</option></select></div><div class="form-row"><label>终止跟进备注 *</label><textarea>患者因工作安排暂缓治疗，已确认近期无需继续回访。</textarea></div>`
+        body: () => `<div class="status-source"><strong>${state.leadModalIdentity.name || "—"}</strong><span>手机号：${state.leadModalIdentity.phone || "—"}｜分院：${state.leadModalIdentity.branch || "—"}</span></div><div class="form-row"><label for="leadTerminationReason">终止跟进原因 *</label><select id="leadTerminationReason"><option>患者暂缓治疗</option><option>患者明确无意向</option><option>已选择其他机构</option><option>联系方式失效</option><option>其他</option></select></div><div class="form-row"><label>终止跟进备注 *</label><textarea id="leadTerminationNote">患者因工作安排暂缓治疗，已确认近期无需继续回访。</textarea></div>`
       },
       "activate-lead": {
         title: "激活线索",
         rule: "R-20",
         submit: "确认激活",
-        body: `<div class="status-source"><strong>孙女士｜已终止跟进</strong><span>激活后恢复为跟进中，并重新生成首次待执行回访任务；原终止原因和操作留痕继续保留。</span></div><div class="form-row"><label>激活原因 *</label><select><option>患者重新咨询</option><option>患者确认继续治疗</option><option>误终止，恢复跟进</option><option>其他</option></select></div><div class="form-row"><label>激活备注 *</label><textarea>患者再次咨询治疗方案，确认恢复后续跟进。</textarea></div>`
+        body: () => `<div class="status-source"><strong>${state.leadModalIdentity.name || "孙女士"}</strong><span>手机号：${state.leadModalIdentity.phone || "—"}｜分院：${state.leadModalIdentity.branch || "—"}</span></div><div class="form-row"><label for="leadActivationReason">激活原因 *</label><select id="leadActivationReason" required>${leadActivationReasonOptions.map((reason) => `<option>${reason}</option>`).join("")}</select></div><div class="form-row"><label>激活备注 *</label><textarea id="leadActivationNote">患者再次咨询治疗方案，确认恢复后续跟进。</textarea></div>`
       },
       "sign-proof": {
         title: "签约依据",
         rule: "R-17",
         submit: "关闭",
-        body: `<div class="status-source"><strong>黄女士｜已签约</strong><span>签约成功以法大大合同签署与试管医院字段回写为唯一依据</span></div><table class="small-table"><tbody><tr><th>法大大合同号</th><td>FD-20260628-0047</td></tr><tr><th>合同签署时间</th><td>2026-06-28 10:16</td></tr><tr><th>签约套餐</th><td>一促三移</td></tr><tr><th>试管医院（法大大）</th><td>当地医院｜广州妇女儿童医疗中心</td></tr><tr><th>最终负责顾问</th><td>陈芳</td></tr><tr><th>跟进客服</th><td>黄琳</td></tr></tbody></table>`
+        body: () => `<div class="status-source"><strong>${state.leadModalIdentity.name || "黄女士"}</strong><span>手机号：${state.leadModalIdentity.phone || "13700003390"}｜分院：${state.leadModalIdentity.branch || "深圳分院"}</span></div><table class="small-table"><tbody><tr><th>法大大合同号</th><td>FD-20260628-0047</td></tr><tr><th>合同签署时间</th><td>2026-06-28 10:16</td></tr><tr><th>签约套餐</th><td>一促三移</td></tr><tr><th>试管医院（法大大）</th><td>当地医院｜广州妇女儿童医疗中心</td></tr><tr><th>最终负责顾问</th><td>陈芳</td></tr><tr><th>跟进客服</th><td>黄琳</td></tr></tbody></table>`
       },
       timeline: {
         title: "线索操作时间轴",
@@ -6900,7 +7156,7 @@ setRule("R-01");
               : state.duplicateLeadResolution === "independent"
                 ? '<div class="lead-audit-item"><strong>线索管理员·张敏｜今日 10:20</strong><span>操作内容：确认保留为独立线索</span><span>备注：关联线索 L-20260713-118；当前线索转入深圳分院待分配队列。</span></div>'
                 : '';
-            return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>当前线索为独立 HIS 来源，按操作时间逆序展示操作及备注</span></div><div class="lead-audit-timeline">${resolution}<div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：HIS 日批同步入库</span><span>备注：已创建独立 HIS 来源线索，并写入来源分院。</span></div></div>`;
+            return `<div class="status-source"><strong>${lead.name}</strong><span>手机号：${state.leadModalIdentity.phone || "—"}｜分院：${state.leadModalIdentity.branch || "—"}</span></div><div class="lead-audit-timeline">${resolution}<div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：HIS 日批同步入库</span><span>备注：已创建独立 HIS 来源线索，并写入来源分院。</span></div></div>`;
           }
           const termination = state.leadFollowTerminated && lead.id === "L-20260713-022" ? '<div class="lead-audit-item"><strong>顾问·黄琳｜今日 15:30</strong><span>操作内容：终止跟进</span><span>备注：患者暂缓治疗，已停止自动回访并记录终止原因。</span></div>' : "";
           const statusEvent = lead.id === "L-20260711-015"
@@ -6911,7 +7167,7 @@ setRule("R-01");
           const contractEvent = state.leadSignedContracts[lead.id]
             ? `<div class="lead-audit-item"><strong>线索管理员｜刚刚</strong><span>操作内容：关联合同签约</span><span>备注：已关联法大大合同 ${state.leadSignedContracts[lead.id]}，线索状态更新为“已签约”，停止自动回访。</span></div>`
             : "";
-          return `<div class="status-source"><strong>${lead.name}｜${lead.id}</strong><span>按操作时间逆序展示本页面线索操作及备注；回访记录请在回访管理中查看。</span></div><div class="lead-audit-timeline">${contractEvent}${termination}<div class="lead-audit-item"><strong>线索管理员·王丽｜今日 09:35</strong><span>操作内容：分院顾问分配</span><span>备注：按来源分院统计可接收顾问；多名顾问时由线索管理员选择，分配后直接进入跟进中。</span></div><div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：HIS 日批同步入库</span><span>备注：已创建线索档案并写入来源分院。</span></div>${statusEvent}</div>`;
+          return `<div class="status-source"><strong>${lead.name}</strong><span>手机号：${state.leadModalIdentity.phone || "—"}｜分院：${state.leadModalIdentity.branch || "—"}</span></div><div class="lead-audit-timeline">${contractEvent}${termination}<div class="lead-audit-item"><strong>线索管理员·王丽｜今日 09:35</strong><span>操作内容：分院顾问分配</span><span>备注：按来源分院统计可接收顾问；多名顾问时由线索管理员选择，分配后直接进入跟进中。</span></div><div class="lead-audit-item"><strong>系统｜今日 06:10</strong><span>操作内容：HIS 日批同步入库</span><span>备注：已创建线索档案并写入来源分院。</span></div>${statusEvent}</div>`;
         }
       }
     };
@@ -6920,6 +7176,8 @@ setRule("R-01");
       const config = leadModalTemplates[action];
       if (!config) return;
       state.leadModalAction = action;
+      const leadRow = $(`[data-lead-row][data-id="${context.id || ""}"]`);
+      state.leadModalIdentity = { id: context.id || "", name: context.name || leadRow?.dataset.name || "", phone: context.phone || leadRow?.dataset.phone || "", branch: context.branch || leadRow?.dataset.branch || "" };
       if (action === "duplicate-confirm") state.duplicateLeadTarget = context.duplicateKey || "";
       if (action === "new-duplicate-confirm") state.newLeadDuplicate = { name: context.name || "", phone: context.phone || "", existingId: context.existingId || "" };
       if (action === "delete-lead") state.leadDeleteTarget = { id: context.id || "", name: context.name || "", phone: context.phone || "", source: context.source || "", branch: context.branch || "" };
@@ -6928,7 +7186,7 @@ setRule("R-01");
         state.leadRegistration = { id: context.id || "L-20260714-031", name: context.name || "陈女士", phone: context.phone || "", branch: context.branch || "", source: context.source || "飞书" };
         state.leadRegistrationEditing = false;
       }
-      if (action === "contract-sign") state.leadContractTarget = { id: context.id || "", name: context.name || "", advisor: context.advisor || "" };
+      if (action === "contract-sign") state.leadContractTarget = { id: context.id || "", name: context.name || "", phone: context.phone || "", branch: context.branch || "", advisor: context.advisor || "" };
       const leadDialog = $("#leadModal").querySelector(".dialog");
       leadDialog.classList.toggle("lead-registration-dialog", action === "registration");
       leadDialog.classList.toggle("lead-new-dialog", action === "new");
@@ -7104,6 +7362,7 @@ setRule("R-01");
           return;
         }
         state.leadSignedContracts[state.leadContractTarget.id] = contractId;
+        appendLeadFollowEvent(state.leadContractTarget.id, { type: "合同签约", time: "2026-07-15", operator: "线索管理员-张敏", contractId, reason: "法大大合同已关联，线索已更新为已签约并停止后续回访任务。" });
         closeLeadModal();
         render();
         setRule("R-17");
@@ -7112,6 +7371,7 @@ setRule("R-01");
       }
       if (action === "terminate-follow") {
         state.leadFollowTerminated = true;
+        appendLeadFollowEvent(state.leadModalIdentity.id, { type: "终止跟进", time: "2026-07-15", operator: "顾问-黄琳", reason: `${$("#leadTerminationReason")?.value || "未填写"}；${$("#leadTerminationNote")?.value.trim() || ""}` });
         closeLeadModal();
         render();
         setRule("R-20");
@@ -7124,6 +7384,22 @@ setRule("R-01");
         render();
         setRule("R-18");
         showToast("已分配给顾问：线索直接进入跟进中，并开始首次回访倒计时。");
+        return;
+      }
+      if (action === "activate-lead") {
+        const leadId = state.leadModalIdentity.id || "L-20260711-015";
+        appendLeadFollowEvent(leadId, { type: "激活线索", time: "2026-07-15", operator: "线索管理员-张敏", reason: `${$("#leadActivationReason")?.value || "未填写"}；${$("#leadActivationNote")?.value.trim() || ""}` });
+        closeLeadModal();
+        render();
+        setRule("R-20");
+        showToast("线索已激活：激活操作已写入回访记录。");
+        return;
+      }
+      if (action === "change-advisor") {
+        appendLeadFollowEvent(state.leadModalIdentity.id, { type: "修改顾问", time: "2026-07-15", operator: "线索管理员-张敏", beforeOwner: $("#leadCurrentAdvisor")?.value || "—", afterOwner: $("#leadNewAdvisor")?.value || "—", reason: $("#leadAdvisorChangeReason")?.value.trim() || "" });
+        closeLeadModal();
+        render();
+        showToast("顾问更换已提交，变更已写入回访记录。");
         return;
       }
       const messages = {
@@ -7501,11 +7777,68 @@ setRule("R-01");
       $("#logoutModal").setAttribute("aria-hidden", "true");
     }
 
+    function selectedRoleBranches() {
+      return $$("#roleBranchScopeOptions [data-role-branch-option]:checked").map((input) => input.value);
+    }
+
+    function syncRoleBranchScopeLabel() {
+      const options = $$("#roleBranchScopeOptions [data-role-branch-option]");
+      const selected = options.filter((input) => input.checked);
+      const selectAll = $("#roleBranchScopeOptions [data-role-branch-all]");
+      if (selectAll) {
+        selectAll.checked = options.length > 0 && selected.length === options.length;
+        selectAll.indeterminate = selected.length > 0 && selected.length < options.length;
+      }
+      const label = $("#roleBranchScopeLabel");
+      if (label) {
+        const names = selected.map((input) => input.value).join("、");
+        label.textContent = names || "请选择分院";
+        label.title = names;
+      }
+    }
+
+    function syncRoleBranchScopeVisibility() {
+      const isSpecific = $("#roleScopeInput")?.value === "特定分院";
+      const row = $("#roleBranchScopeRow");
+      const options = $("#roleBranchScopeOptions");
+      const toggle = $("#roleBranchScopeToggle");
+      if (row) row.hidden = !isSpecific;
+      if (!isSpecific && options) options.hidden = true;
+      if (!isSpecific && toggle) toggle.setAttribute("aria-expanded", "false");
+    }
+
+    function setRoleBranchScopeSelection(roleName) {
+      const selected = roleBranchScopeAssignments[roleName] || [];
+      $$("#roleBranchScopeOptions [data-role-branch-option]").forEach((input) => { input.checked = selected.includes(input.value); });
+      syncRoleBranchScopeLabel();
+      syncRoleBranchScopeVisibility();
+    }
+
+    function renderRolePermissionTree(roleName = "", isEdit = false) {
+      const panel = $("#rolePermissionModal .permission-tree-panel");
+      if (!panel) return;
+      const isChecked = (node) => isEdit && node.roles.includes(roleName);
+      const nodeDescription = (node) => [node.type, node.route, node.api, node.permission].filter(Boolean).join(" · ");
+      const renderChild = (node, rootId, path) => {
+        const children = menuNodeChildren(node.id);
+        const name = [...path, node.name].join(" / ");
+        const input = `<input type="checkbox" ${isChecked(node) ? "checked" : ""} data-permission-operation="${rootId}" data-menu-node-id="${node.id}" data-permission-name="${escapeHtml(name)}" data-permission-description="${escapeHtml(nodeDescription(node))}">`;
+        if (!children.length) return `<label class="permission-tree-leaf">${input}${escapeHtml(node.name)}</label>`;
+        return `<details open><summary>${input}${escapeHtml(node.name)}</summary><div class="permission-tree-children">${children.map((child) => renderChild(child, rootId, [...path, node.name])).join("")}</div></details>`;
+      };
+      panel.innerHTML = menuNodeChildren("").map((root) => {
+        const children = menuNodeChildren(root.id);
+        const input = `<input type="checkbox" ${isChecked(root) ? "checked" : ""} data-permission-menu="${root.id}" data-menu-node-id="${root.id}" data-permission-name="${escapeHtml(root.name)}" data-permission-description="${escapeHtml(nodeDescription(root))}">`;
+        if (!children.length) return `<div class="permission-tree-root"><label>${input}${escapeHtml(root.name)}</label></div>`;
+        return `<details open><summary>${input}${escapeHtml(root.name)}</summary><div class="permission-tree-children">${children.map((child) => renderChild(child, root.id, [root.name])).join("")}</div></details>`;
+      }).join("");
+    }
+
     function openRolePermissionModal(mode, roleName = "") {
       const isEdit = mode === "edit";
       $("#rolePermissionTitle").textContent = isEdit ? `编辑角色｜${roleName}` : "新增角色";
       $("#roleNameInput").value = isEdit ? roleName : "";
-      $("#roleScopeInput").value = isEdit ? ({
+      $("#roleScopeInput").value = isEdit && roleBranchScopeAssignments[roleName]?.length ? "特定分院" : isEdit ? ({
         "系统管理员": "全量",
         "线索管理员": "负责分院",
         "顾问": "负责分院",
@@ -7516,6 +7849,9 @@ setRule("R-01");
         "客服": "负责患者"
       }[roleName] || "全量") : "全量";
       $("#rolePermissionModal").dataset.mode = mode;
+      $("#rolePermissionModal").dataset.originalRoleName = roleName;
+      setRoleBranchScopeSelection(roleName);
+      renderRolePermissionTree(roleName, isEdit);
       refreshRolePermissionSummary();
       $("#rolePermissionModal").classList.add("is-open");
       $("#rolePermissionModal").setAttribute("aria-hidden", "false");
@@ -7691,6 +8027,22 @@ setRule("R-01");
     document.addEventListener("click", (event) => {
       if (!event.target.closest(".account-menu-wrap")) closeAccountMenu();
 
+      if (event.target.closest("#roleBranchScopeToggle")) {
+        const options = $("#roleBranchScopeOptions");
+        const toggle = $("#roleBranchScopeToggle");
+        const willOpen = Boolean(options?.hidden);
+        if (options) options.hidden = !willOpen;
+        if (toggle) toggle.setAttribute("aria-expanded", String(willOpen));
+        return;
+      }
+
+      if (!event.target.closest(".role-branch-multiselect")) {
+        const options = $("#roleBranchScopeOptions");
+        const toggle = $("#roleBranchScopeToggle");
+        if (options) options.hidden = true;
+        if (toggle) toggle.setAttribute("aria-expanded", "false");
+      }
+
       const leadMoreToggle = event.target.closest("[data-lead-more-toggle]");
       if (leadMoreToggle) {
         const currentMenu = leadMoreToggle.parentElement?.querySelector(".lead-more-menu");
@@ -7763,6 +8115,64 @@ setRule("R-01");
         $$("[data-lead-source-option]").forEach((button) => button.classList.toggle("is-selected", button === sourceOption));
         $("#leadSourceOptions").hidden = true;
         $("#leadSourceToggle").setAttribute("aria-expanded", "false");
+        return;
+      }
+
+      const menuNodeSelect = event.target.closest("[data-menu-node-select]");
+      if (menuNodeSelect) {
+        state.menuActiveId = menuNodeSelect.dataset.menuNodeSelect;
+        renderMenuSettingsView();
+        return;
+      }
+
+      const menuNodeToggle = event.target.closest("[data-menu-node-toggle]");
+      if (menuNodeToggle && !menuNodeToggle.disabled) {
+        const id = menuNodeToggle.dataset.menuNodeToggle;
+        state.menuCollapsedIds = state.menuCollapsedIds.includes(id)
+          ? state.menuCollapsedIds.filter((itemId) => itemId !== id)
+          : [...state.menuCollapsedIds, id];
+        renderMenuSettingsView();
+        return;
+      }
+
+      const menuNodeNew = event.target.closest("[data-menu-node-new]");
+      if (menuNodeNew) {
+        const parentId = menuNodeNew.dataset.menuNodeNew;
+        openMenuNodeModal(parentId === "root" ? "root" : "child", parentId === "root" ? "" : parentId);
+        return;
+      }
+
+      const menuNodeEdit = event.target.closest("[data-menu-node-edit]");
+      if (menuNodeEdit) {
+        openMenuNodeModal("edit", menuNodeEdit.dataset.menuNodeEdit);
+        return;
+      }
+
+      const menuNodeDelete = event.target.closest("[data-menu-node-delete]");
+      if (menuNodeDelete) {
+        deleteMenuNode(menuNodeDelete.dataset.menuNodeDelete);
+        return;
+      }
+
+      if (event.target.closest("[data-menu-query]")) {
+        state.menuQuery = $("#menuNodeQuery")?.value.trim() || "";
+        renderMenuSettingsView();
+        return;
+      }
+
+      if (event.target.closest("[data-menu-query-reset]")) {
+        state.menuQuery = "";
+        renderMenuSettingsView();
+        return;
+      }
+
+      if (event.target.closest("[data-menu-modal-close]") || event.target.id === "menuNodeModal") {
+        closeMenuNodeModal();
+        return;
+      }
+
+      if (event.target.closest("[data-menu-modal-submit]")) {
+        submitMenuNodeModal();
         return;
       }
 
@@ -8055,7 +8465,22 @@ setRule("R-01");
           showToast("请填写角色名称。 ");
           return;
         }
+        const scope = $("#roleScopeInput").value;
+        const branchScope = selectedRoleBranches();
+        if (scope === "特定分院" && !branchScope.length) {
+          showToast("请至少选择一个分院。 ");
+          return;
+        }
         const mode = $("#rolePermissionModal").dataset.mode;
+        const originalRoleName = $("#rolePermissionModal").dataset.originalRoleName || "";
+        const selectedNodeIds = new Set($$("#rolePermissionModal [data-menu-node-id]:checked").map((input) => input.dataset.menuNodeId));
+        menuPermissionNodes.forEach((node) => {
+          node.roles = node.roles.filter((role) => role !== originalRoleName && role !== roleName);
+          if (selectedNodeIds.has(node.id)) node.roles.push(roleName);
+        });
+        if (originalRoleName && originalRoleName !== roleName) delete roleBranchScopeAssignments[originalRoleName];
+        if (scope === "特定分院") roleBranchScopeAssignments[roleName] = branchScope;
+        else delete roleBranchScopeAssignments[roleName];
         closeRolePermissionModal();
         showToast(mode === "edit" ? `角色“${roleName}”权限已保存。` : `角色“${roleName}”已新增。`);
         return;
@@ -8685,7 +9110,9 @@ setRule("R-01");
           showToast(`已跳转至回访管理：已按线索 ID ${leadId} 筛选。`);
           return;
         }
-        openLeadModal(leadAction.dataset.leadAction, { id: leadAction.dataset.leadId, name: leadAction.dataset.leadName, phone: leadAction.dataset.leadPhone, source: leadAction.dataset.leadSource, branch: leadAction.dataset.leadBranch, duplicateKey: leadAction.dataset.duplicateKey });
+        const leadRow = leadAction.closest("[data-lead-row]");
+        const rowLeadInfo = leadAction.closest("tr")?.querySelector('[data-lead-action="delete-lead"]');
+        openLeadModal(leadAction.dataset.leadAction, { id: leadAction.dataset.leadId || leadRow?.dataset.id, name: leadAction.dataset.leadName || leadRow?.dataset.name, phone: leadAction.dataset.leadPhone || rowLeadInfo?.dataset.leadPhone || leadRow?.dataset.phone, source: leadAction.dataset.leadSource || leadRow?.dataset.source, branch: leadAction.dataset.leadBranch || rowLeadInfo?.dataset.leadBranch || leadRow?.dataset.branch, duplicateKey: leadAction.dataset.duplicateKey });
         return;
       }
 
@@ -9046,6 +9473,20 @@ setRule("R-01");
       });
     });
     document.addEventListener("change", (event) => {
+      if (event.target.id === "roleScopeInput") {
+        syncRoleBranchScopeVisibility();
+        return;
+      }
+      if (event.target.matches("#roleBranchScopeOptions [data-role-branch-all]")) {
+        const checked = event.target.checked;
+        $$("#roleBranchScopeOptions [data-role-branch-option]").forEach((input) => { input.checked = checked; });
+        syncRoleBranchScopeLabel();
+        return;
+      }
+      if (event.target.matches("#roleBranchScopeOptions [data-role-branch-option]")) {
+        syncRoleBranchScopeLabel();
+        return;
+      }
       if (event.target.matches("#rolePermissionModal [data-permission-menu]")) {
         const menu = event.target.dataset.permissionMenu;
         $$(`#rolePermissionModal [data-permission-operation="${menu}"]`).forEach((item) => { item.checked = event.target.checked; });
@@ -9201,6 +9642,7 @@ setRule("R-01");
       if (event.target.id === "embryoStorageModal") closeEmbryoStorageModal();
     });
 
+    $("#currentAccountRoles").textContent = currentAccount.roles.join("/");
     render();
   </script>
 </body>
