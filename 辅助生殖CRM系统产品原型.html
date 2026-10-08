@@ -4941,11 +4941,12 @@
     }
 
     function embeddedRulesDocument(title, markdownFile, fallbackFile = "", options = {}) {
-      const fallback = fallbackFile ? ` data-fallback-document="${fallbackFile}"` : "";
       const actions = `<div class="compact-actions">${options.refreshButton ? `<button class="btn" ${fallbackFile ? `data-rule-html-refresh="${fallbackFile}"` : `data-markdown-rule-refresh="${markdownFile}"`}>更新</button>` : ""}<span class="badge badge-blue">只读展示</span></div>`;
+      const htmlDocumentUrl = fallbackFile ? new URL(fallbackFile, window.location.href) : null;
+      if (htmlDocumentUrl) htmlDocumentUrl.searchParams.set("v", Date.now());
       const documentView = fallbackFile
-        ? `<iframe src="${fallbackFile}" title="${title}"></iframe>`
-        : `<div class="markdown-document-content" data-markdown-document="${markdownFile}"${fallback} aria-label="${title}">正在加载规则文档…</div>`;
+        ? `<iframe src="${htmlDocumentUrl.href}" title="${title}"></iframe>`
+        : `<div class="markdown-document-content" data-markdown-document="${markdownFile}" aria-label="${title}">正在加载规则文档…</div>`;
       const sourceText = fallbackFile ? `规则来源：${markdownFile}；展示规则说明 HTML。` : `规则来源：${markdownFile}；下方直接展示当前规则文档。`;
       return `<section class="panel customer-rules-doc"><div class="panel-body"><div class="section-head"><div><h2>${title}</h2><span class="muted">${sourceText}</span></div>${actions}</div>${documentView}</div></section>`;
     }
