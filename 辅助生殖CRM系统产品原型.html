@@ -1116,20 +1116,27 @@
       grid-row: 2;
     }
 
+    .lead-filter-panel:not(.follow-filter-panel) > .lead-created-date {
+      grid-column: 3 / span 2;
+      grid-row: 2;
+    }
+
     .lead-filter-panel:not(.follow-filter-panel) > .lead-filter-actions {
-      grid-column: 3;
+      grid-column: 5;
       grid-row: 2;
       align-self: end;
     }
 
-    .lead-provided-date .date-range-input {
+    .lead-provided-date .date-range-input,
+    .lead-created-date .date-range-input {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       align-items: center;
       gap: 6px;
       min-width: 0;
     }
-    .lead-provided-date .date-range-input input { min-width: 0; padding: 0 5px; }
+    .lead-provided-date .date-range-input input,
+    .lead-created-date .date-range-input input { min-width: 0; padding: 0 5px; }
 
     .lead-filter-panel > .lead-filter-field:focus-within { position: relative; z-index: 30; }
     .lead-filter-dropdown { position: relative; }
@@ -1151,6 +1158,7 @@
       cursor: pointer;
     }
     .lead-filter-dropdown-toggle:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+    .lead-filter-dropdown-toggle:disabled { background: #f5f7fa; color: #9aa6b8; cursor: not-allowed; }
     .lead-filter-dropdown-options {
       position: absolute;
       z-index: 50;
@@ -1168,6 +1176,56 @@
       box-shadow: var(--shadow);
     }
     .lead-filter-dropdown-options[hidden] { display: none !important; }
+    .contract-category-options { display: block; max-height: 360px; padding: 7px; overflow-y: auto; }
+    .contract-category-clear { width: 100%; padding: 7px 9px; border: 0; border-radius: 5px; background: var(--primary-soft); color: var(--primary-strong); text-align: left; font: inherit; font-size: 12px; cursor: pointer; }
+    .contract-tree-node { min-width: 0; }
+    .contract-tree-row { display: flex; align-items: center; gap: 3px; min-height: 30px; padding-left: calc(var(--tree-depth) * 16px); }
+    .contract-tree-expand { width: 20px; height: 26px; flex: 0 0 20px; border: 0; border-radius: 4px; background: transparent; color: var(--muted); cursor: pointer; }
+    .contract-tree-expand:hover { background: var(--primary-soft); }
+    .contract-tree-expand.is-leaf { visibility: hidden; }
+    .contract-tree-select { min-width: 0; flex: 1; display: flex; align-items: center; gap: 7px; padding: 5px 6px; border: 0; border-radius: 5px; background: transparent; color: var(--ink); text-align: left; font: inherit; font-size: 12px; cursor: pointer; }
+    .contract-tree-select:hover { background: #f3f6fc; }
+    .contract-tree-checkbox { width: 14px; height: 14px; flex: 0 0 14px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #aab7c8; border-radius: 3px; background: #fff; color: #fff; font-size: 10px; line-height: 1; }
+    .contract-tree-select[aria-pressed="true"] .contract-tree-checkbox { border-color: var(--primary); background: var(--primary); }
+    .contract-tree-select.is-partial .contract-tree-checkbox { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
+    .contract-tree-label { overflow-wrap: anywhere; }
+    .contract-tree-folder { color: #6b95dc; font-size: 12px; }
+    .contract-category-selected { min-width: 0; max-width: 100%; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .lead-filter-panel.contract-search-panel {
+      width: 100%;
+      min-width: 0;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.15fr) 240px minmax(0, 1.15fr);
+    }
+    .contract-search-panel > * { min-width: 0; max-width: 100%; box-sizing: border-box; }
+    .contract-search-panel .contract-type-filter,
+    .contract-search-panel .contract-type-filter .lead-filter-dropdown { width: 100%; min-width: 0; max-width: 100%; }
+    .contract-search-panel .contract-type-filter .lead-filter-dropdown-toggle {
+      width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; overflow: hidden;
+    }
+    .contract-search-panel .contract-type-filter .contract-category-selected {
+      display: block; width: 0; min-width: 0; max-width: 100%; flex: 1 1 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .contract-search-panel .contract-type-filter .contract-category-options {
+      width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box;
+    }
+    .contract-search-panel > .contract-signed-range { grid-column: 1 / span 2; grid-row: 2; }
+    .contract-signed-range .date-range-input {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 6px;
+    }
+    .contract-signed-range .date-range-input input { min-width: 0; padding: 0 5px; }
+    .contract-search-panel > .contract-status { grid-column: 3; grid-row: 2; }
+    .contract-search-panel > .contract-cycle-phase { grid-column: 4; grid-row: 2; }
+    .lead-filter-panel.contract-search-panel > .lead-filter-actions { grid-column: 5; grid-row: 2; }
+    @media (max-width: 1200px) {
+      .contract-search-panel > .contract-signed-range,
+      .contract-search-panel > .contract-status,
+      .contract-search-panel > .contract-cycle-phase,
+      .lead-filter-panel.contract-search-panel > .lead-filter-actions { grid-column: auto; grid-row: auto; }
+      .lead-filter-panel.contract-search-panel { grid-template-columns: repeat(3, minmax(110px, 1fr)); }
+    }
     .lead-filter-dropdown-options button {
       min-height: 30px;
       padding: 6px 8px;
@@ -1285,6 +1343,11 @@
         grid-row: auto;
       }
 
+      .lead-filter-panel:not(.follow-filter-panel) > .lead-created-date {
+        grid-column: span 2;
+        grid-row: auto;
+      }
+
       .lead-filter-panel:not(.follow-filter-panel) > .lead-filter-actions {
         grid-column: auto;
         grid-row: auto;
@@ -1312,6 +1375,7 @@
       }
 
       .lead-filter-panel:not(.follow-filter-panel) > .lead-provided-date,
+      .lead-filter-panel:not(.follow-filter-panel) > .lead-created-date,
       .lead-filter-panel:not(.follow-filter-panel) > .lead-filter-actions {
         grid-column: auto;
         grid-row: auto;
@@ -1364,37 +1428,44 @@
 
     .contract-management-table th:nth-child(4),
     .contract-management-table td:nth-child(4) {
-      width: 96px;
-      min-width: 96px;
+      width: 250px;
+      min-width: 250px;
     }
 
     .contract-management-table th:nth-child(5),
     .contract-management-table td:nth-child(5) {
-      width: 132px;
-      min-width: 132px;
+      width: 290px;
+      min-width: 290px;
+      white-space: normal;
     }
 
     .contract-management-table th:nth-child(6),
     .contract-management-table td:nth-child(6) {
-      width: 110px;
-      min-width: 110px;
+      width: 132px;
+      min-width: 132px;
       white-space: nowrap;
     }
 
     .contract-management-table th:nth-child(7),
     .contract-management-table td:nth-child(7) {
-      width: 180px;
-      min-width: 180px;
+      width: 110px;
+      min-width: 110px;
     }
 
     .contract-management-table th:nth-child(8),
     .contract-management-table td:nth-child(8) {
-      width: 160px;
-      min-width: 160px;
+      width: 180px;
+      min-width: 180px;
     }
 
     .contract-management-table th:nth-child(9),
     .contract-management-table td:nth-child(9) {
+      width: 160px;
+      min-width: 160px;
+    }
+
+    .contract-management-table th:nth-child(10),
+    .contract-management-table td:nth-child(10) {
       width: 130px;
       min-width: 130px;
     }
@@ -3059,6 +3130,15 @@
       color: var(--ink);
     }
 
+    .fdd-contract-lookup {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+    }
+
+    .fdd-contract-lookup .btn { white-space: nowrap; }
+    .form-row input[readonly] { background: #f5f7fb; color: var(--muted); }
+
     .form-row textarea {
       min-height: 78px;
       resize: vertical;
@@ -4442,19 +4522,37 @@
 
     // 新版客户、合同、周期三层数据：夫妻档案可关联多份合同；每个周期只关联一份实际执行合同；同一夫妻同一时点最多一个进行中周期。
     const contractRecords = [
-      { id: "CT-001", coupleId: "CP-001", archiveId: "ARC-202607-0001", archiveSource: "线索转化", leadId: "L-20260713-022", contractNo: "FD-20260713-0088", parallelContractNo: "FD-20260801-0021", woman: "林女士", spouse: "李先生", medicalRecordNo: "", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥8,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 0 次", status: "执行中", signedAt: "2026-07-13", endsAt: "2027-02-20", advisor: "赵莹", branch: "海南分院", hasInsurance: true },
-      { id: "CT-002", coupleId: "CP-001", archiveId: "ARC-202607-0001", archiveSource: "线索转化", leadId: "L-20260713-022", contractNo: "FD-20260801-0021", parallelContractNo: "FD-20260713-0088", woman: "林女士", spouse: "李先生", medicalRecordNo: "", type: "试管", package: "一促二移", contractAmount: "¥76,000", discountAmount: "¥6,000", rights: "促 1 次｜移 2 次", used: "促 0 次｜移 0 次", status: "已签署待启用", signedAt: "2026-08-01", advisor: "赵莹", branch: "海南分院" },
-      { id: "CT-003", coupleId: "CP-002", archiveId: "ARC-202606-0002", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260620-0032", woman: "陈女士", spouse: "王先生", medicalRecordNo: "MR-202607-0002", type: "人授", package: "促排 + 3 次人工授精", contractAmount: "¥32,800", discountAmount: "¥2,800", rights: "促 3 次｜人授 3 次", used: "促 2 次｜人授 2 次", status: "合同结束", endType: "保险退款", signedAt: "2026-06-20", advisor: "黄琳", branch: "深圳分院" },
-      { id: "CT-004", coupleId: "CP-002", archiveId: "ARC-202606-0002", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260710-0162", woman: "陈女士", spouse: "王先生", medicalRecordNo: "MR-202607-0002", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥10,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 0 次", status: "执行中", signedAt: "2026-07-10", endsAt: "2026-09-20", advisor: "黄琳", branch: "深圳分院", hasInsurance: true },
-      { id: "CT-005", coupleId: "CP-003", archiveId: "ARC-202606-0003", archiveSource: "线索转化", leadId: "L-20260714-026", contractNo: "FD-20260628-0047", woman: "黄女士", spouse: "赵先生", medicalRecordNo: "MR-202606-0003", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥5,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 1 次", status: "合同结束", endType: "木棉花退款", signedAt: "2026-06-28", advisor: "陈芳", branch: "广州分院" },
-      { id: "CT-006", coupleId: "CP-004", archiveId: "ARC-202606-0004", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260618-0301", woman: "孙女士", spouse: "孙先生", medicalRecordNo: "MR-20260618-001", type: "人授", package: "3 次人工授精", contractAmount: "¥18,000", discountAmount: "¥1,000", rights: "人授 3 次", used: "人授 3 次", status: "合同结束", endType: "完成权益（移植成功超过8周）", signedAt: "2026-06-18", advisor: "赵莹", branch: "北京分院" },
-      { id: "CT-007", coupleId: "CP-005", archiveId: "ARC-202608-0005", archiveSource: "线索转化", leadId: "L-20260803-018", contractNo: "FD-20260803-0055", woman: "周女士", spouse: "吴先生", medicalRecordNo: "MR-202608-0005", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥12,000", rights: "促 1 次｜移 3 次", used: "促 0 次｜移 0 次", status: "执行中", signedAt: "2026-08-03", advisor: "李雯", branch: "上海分院" },
-      { id: "CT-008", coupleId: "CP-006", archiveId: "ARC-202607-0006", archiveSource: "线索转化", leadId: "L-20260728-011", contractNo: "FD-20260728-0072", changed: true, woman: "郑女士", spouse: "冯先生", medicalRecordNo: "MR-202607-0006", type: "试管", package: "一促二移", contractAmount: "¥76,000", discountAmount: "¥6,000", rights: "促 1 次｜移 2 次", used: "促 1 次｜移 0 次", status: "合同结束", endType: "合同解除", signedAt: "2026-07-28", advisor: "陈芳", branch: "广州分院" },
-      { id: "CT-009", coupleId: "CP-007", archiveId: "ARC-202607-0007", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260716-0093", woman: "何女士", spouse: "高先生", medicalRecordNo: "MR-202607-0007", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥8,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 1 次", status: "执行中", signedAt: "2026-07-16", endsAt: "2026-11-20", advisor: "赵莹", branch: "海南分院" },
-      { id: "CT-010", coupleId: "CP-008", archiveId: "ARC-202606-0008", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260608-0146", woman: "方女士", spouse: "罗先生", medicalRecordNo: "MR-202606-0008", type: "人授", package: "促排 + 3 次人工授精", contractAmount: "¥32,800", discountAmount: "¥2,800", rights: "促 3 次｜人授 3 次", used: "促 3 次｜人授 3 次", status: "合同结束", endType: "到合同截止时间", signedAt: "2026-06-08", advisor: "黄琳", branch: "深圳分院" }
+      { id: "CT-001", coupleId: "CP-001", archiveId: "ARC-202607-0001", archiveSource: "线索转化", leadId: "L-20260713-022", contractNo: "FD-20260713-0088", parallelContractNo: "FD-20260801-0021", woman: "林女士", spouse: "李先生", medicalRecordNo: "", contractCategory: "2026年合同/IVF/IVF-促三移", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥8,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 0 次", status: "执行中", signedAt: "2026-07-13", endsAt: "2027-02-20", advisor: "赵莹", branch: "海南分院", hasInsurance: true },
+      { id: "CT-002", coupleId: "CP-001", archiveId: "ARC-202607-0001", archiveSource: "线索转化", leadId: "L-20260713-022", contractNo: "FD-20260801-0021", parallelContractNo: "FD-20260713-0088", woman: "林女士", spouse: "李先生", medicalRecordNo: "", contractCategory: "2026年合同/IVF/IVF-促二移", type: "试管", package: "一促二移", contractAmount: "¥76,000", discountAmount: "¥6,000", rights: "促 1 次｜移 2 次", used: "促 0 次｜移 0 次", status: "已签署待启用", signedAt: "2026-08-01", advisor: "赵莹", branch: "海南分院" },
+      { id: "CT-003", coupleId: "CP-002", archiveId: "ARC-202606-0002", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260620-0032", woman: "陈女士", spouse: "王先生", medicalRecordNo: "MR-202607-0002", contractCategory: "未分类", type: "人授", package: "促排 + 3 次人工授精", contractAmount: "¥32,800", discountAmount: "¥2,800", rights: "促 3 次｜人授 3 次", used: "促 2 次｜人授 2 次", status: "合同结束", endType: "保险退款", signedAt: "2026-06-20", advisor: "黄琳", branch: "深圳分院" },
+      { id: "CT-004", coupleId: "CP-002", archiveId: "ARC-202606-0002", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260710-0162", woman: "陈女士", spouse: "王先生", medicalRecordNo: "MR-202607-0002", contractCategory: "2026年合同/广东", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥10,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 0 次", status: "执行中", signedAt: "2026-07-10", endsAt: "2026-09-20", advisor: "黄琳", branch: "深圳分院", hasInsurance: true },
+      { id: "CT-005", coupleId: "CP-003", archiveId: "ARC-202606-0003", archiveSource: "线索转化", leadId: "L-20260714-026", contractNo: "FD-20260628-0047", woman: "黄女士", spouse: "赵先生", medicalRecordNo: "MR-202606-0003", contractCategory: "2026年合同/广州中二专属/一促二移", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥5,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 1 次", status: "合同结束", endType: "木棉花退款", signedAt: "2026-06-28", advisor: "陈芳", branch: "广州分院" },
+      { id: "CT-006", coupleId: "CP-004", archiveId: "ARC-202606-0004", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260618-0301", woman: "孙女士", spouse: "孙先生", medicalRecordNo: "MR-20260618-001", contractCategory: "2026年合同/北京", type: "人授", package: "3 次人工授精", contractAmount: "¥18,000", discountAmount: "¥1,000", rights: "人授 3 次", used: "人授 3 次", status: "合同结束", endType: "完成权益（移植成功超过8周）", signedAt: "2026-06-18", advisor: "赵莹", branch: "北京分院" },
+      { id: "CT-007", coupleId: "CP-005", archiveId: "ARC-202608-0005", archiveSource: "线索转化", leadId: "L-20260803-018", contractNo: "FD-20260803-0055", woman: "周女士", spouse: "吴先生", medicalRecordNo: "MR-202608-0005", contractCategory: "未分类", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥12,000", rights: "促 1 次｜移 3 次", used: "促 0 次｜移 0 次", status: "执行中", signedAt: "2026-08-03", advisor: "李雯", branch: "上海分院" },
+      { id: "CT-008", coupleId: "CP-006", archiveId: "ARC-202607-0006", archiveSource: "线索转化", leadId: "L-20260728-011", contractNo: "FD-20260728-0072", changed: true, woman: "郑女士", spouse: "冯先生", medicalRecordNo: "MR-202607-0006", contractCategory: "2026年合同/广州中二专属/一促二移", type: "试管", package: "一促二移", contractAmount: "¥76,000", discountAmount: "¥6,000", rights: "促 1 次｜移 2 次", used: "促 1 次｜移 0 次", status: "合同结束", endType: "合同解除", signedAt: "2026-07-28", advisor: "陈芳", branch: "广州分院" },
+      { id: "CT-009", coupleId: "CP-007", archiveId: "ARC-202607-0007", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260716-0093", woman: "何女士", spouse: "高先生", medicalRecordNo: "MR-202607-0007", contractCategory: "2026年合同/IVF/IVF-促三移", type: "试管", package: "一促三移", contractAmount: "¥98,000", discountAmount: "¥8,000", rights: "促 1 次｜移 3 次", used: "促 1 次｜移 1 次", status: "执行中", signedAt: "2026-07-16", endsAt: "2026-11-20", advisor: "赵莹", branch: "海南分院" },
+      { id: "CT-010", coupleId: "CP-008", archiveId: "ARC-202606-0008", archiveSource: "互创历史同步", leadId: "", contractNo: "FD-20260608-0146", woman: "方女士", spouse: "罗先生", medicalRecordNo: "MR-202606-0008", contractCategory: "未分类", type: "人授", package: "促排 + 3 次人工授精", contractAmount: "¥32,800", discountAmount: "¥2,800", rights: "促 3 次｜人授 3 次", used: "促 3 次｜人授 3 次", status: "合同结束", endType: "到合同截止时间", signedAt: "2026-06-08", advisor: "黄琳", branch: "深圳分院" },
+      { id: "CT-011", coupleId: "CP-008", archiveId: "ARC-202606-0008", archiveSource: "线索转化", leadId: "", contractNo: "FD-20260812-0099", woman: "方女士", spouse: "罗先生", medicalRecordNo: "MR-202606-0008", contractCategory: "未分类", type: "人授", package: "（不涉及费用）试管合同解除协议", contractAmount: "¥32,800", discountAmount: "¥0", rights: "—", used: "—", status: "已解除", endType: "合同解除", signedAt: "2026-08-12", advisor: "黄琳", branch: "深圳分院" }
     ];
     const contractEndTypes = ["完成权益（移植成功超过8周）", "到合同截止时间", "保险退款", "木棉花退款", "合同解除"];
+    const contractSubjects = ["海南木棉花医院有限公司", "广东省木棉花医疗服务有限公司"];
 
+    function contractSubjectFor(contract) {
+      return contract.contractSubject || (contract.branch === "海南分院" ? contractSubjects[0] : contractSubjects[1]);
+    }
+
+    function populateContractPackagesFromSubjectTemplates() {
+      const packageNamesBySubject = Object.fromEntries(contractSubjects.map((subject) => [
+        subject,
+        [...new Set(Object.values(contractPackagesByCategory[subject] || {}).flat())]
+      ]));
+      contractRecords.forEach((contract) => {
+        const packageNames = packageNamesBySubject[contractSubjectFor(contract)] || [];
+        if (!packageNames.length) return;
+        const seed = [...contract.id].reduce((value, character) => (value * 31 + character.charCodeAt(0)) >>> 0, 7);
+        contract.package = packageNames[seed % packageNames.length];
+      });
+    }
     // 合同财务台账：财务只维护金额、收款、对账、开票、退款与保险进度；合同及患者主数据仍来自合同管理。
     const contractFinanceRecords = [
       { id: "FIN-001", contractId: "CT-001", receivable: 90000, paid: 32000, due: 58000, dueDate: "2026-08-14", overdueDays: 6, paymentStatus: "逾期", reconcileStatus: "已对账", invoiceStatus: "未申请", refundStatus: "无", insuranceStatus: "资料审核中", lastPayment: "2026-07-13｜定金 ¥32,000｜微信", reminder: "待首次催缴" },
@@ -4591,6 +4689,7 @@
       leadRegistration: { id: "", name: "" },
       leadPatientDetail: { id: "", name: "", phone: "", branch: "", status: "" },
       leadContractTarget: { id: "", name: "", advisor: "" },
+      leadContractLookup: null,
       leadModalIdentity: { id: "", name: "", phone: "", branch: "" },
       leadSignedContracts: {},
       wecomTab: "crm",
@@ -4629,7 +4728,7 @@
       cycleArchiveId: "",
       contractCycleLink: { contractId: "", cycleId: "" },
       contractDiscountEditingId: "",
-      contractSearch: { contractNo: "", name: "", idCard: "", type: "", package: "", status: "", signedFrom: "", signedTo: "", cyclePhase: "" },
+      contractSearch: { contractNo: "", name: "", idCard: "", subject: "", type: [], package: "", status: "", signedFrom: "", signedTo: "", cyclePhase: "" },
       contractSort: { key: "status", direction: "asc" },
       financeFilter: "all",
       financeSearch: { keyword: "", branch: "", paymentStatus: "", taskType: "" },
@@ -5046,9 +5145,129 @@
       `;
     }
 
-    function renderLeadFilterDropdown(id, label, placeholder, values) {
+    function renderLeadFilterDropdown(id, label, placeholder, values, selectedValue = "", disabled = false, fieldClass = "") {
       const options = [{ value: "", label: placeholder }, ...values.map((value) => ({ value, label: value }))];
-      return `<div class="lead-filter-field"><label for="${id}">${label}</label><input id="${id}" type="hidden" value=""><div class="lead-filter-dropdown"><button type="button" class="lead-filter-dropdown-toggle" id="${id}Toggle" data-lead-filter-toggle="${id}" data-placeholder="${escapeHtml(placeholder)}" aria-expanded="false"><span id="${id}Label">${placeholder}</span><span aria-hidden="true">▾</span></button><div class="lead-filter-dropdown-options" data-lead-filter-options="${id}" role="listbox" hidden>${options.map((option) => `<button type="button" class="lead-filter-dropdown-option ${option.value === "" ? "is-selected" : ""}" data-lead-filter-option="${id}" data-value="${escapeHtml(option.value)}" role="option" aria-selected="${option.value === ""}">${escapeHtml(option.label)}</button>`).join("")}</div></div></div>`;
+      const selectedLabel = options.find((option) => option.value === selectedValue)?.label || placeholder;
+      return `<div class="lead-filter-field ${fieldClass}"><label for="${id}">${label}</label><input id="${id}" type="hidden" value="${escapeHtml(selectedValue)}"><div class="lead-filter-dropdown"><button type="button" class="lead-filter-dropdown-toggle" id="${id}Toggle" data-lead-filter-toggle="${id}" data-placeholder="${escapeHtml(placeholder)}" aria-expanded="false" ${disabled ? "disabled" : ""}><span id="${id}Label">${escapeHtml(selectedLabel)}</span><span aria-hidden="true">▾</span></button><div class="lead-filter-dropdown-options" data-lead-filter-options="${id}" role="listbox" hidden>${options.map((option) => `<button type="button" class="lead-filter-dropdown-option ${option.value === selectedValue ? "is-selected" : ""}" data-lead-filter-option="${id}" data-value="${escapeHtml(option.value)}" role="option" aria-selected="${option.value === selectedValue}">${escapeHtml(option.label)}</button>`).join("")}</div></div></div>`;
+    }
+
+    const contractCategoryPaths = {
+      "海南木棉花医院有限公司": [
+        "未分类", "2026年合同/IVF/IVF-促一移", "2026年合同/IVF/IVF-促二移", "2026年合同/IVF/IVF-促三移",
+        "2026年合同/IVF/IVF-二促一移", "2026年合同/IVF/IVF单促", "2026年合同/IVF/IVF三促", "2026年合同/IVF/单移",
+        "2026年合同/PGT/PGT一促一移", "2026年合同/PGT/PGT一促二移", "2026年合同/PGT/PGT一促三移",
+        "2026年合同/PGT/PGT二促一移", "2026年合同/PGT/PGT单促", "2026年合同/PGT/PGT不限次取卵",
+        "2026年合同/卵巢低储备-IVF", "2026年合同/卵巢低储备-PGT", "2026年合同/满足医学指征冻卵套餐",
+        "2026年合同/IUI人工授精", "2026年合同/天津", "2026年合同/活动补贴告知书", "2026年合同/上海"
+      ],
+      "广东省木棉花医疗服务有限公司": [
+        "未分类", "北京专属", "2026年合同/广州中二专属/一促二移", "2026年合同/北京", "2026年合同/人保", "2026年合同/太保",
+        "2026年合同/汕头", "2026年合同/济南", "2026年合同/广东", "2026年合同/泰国试管", "2026年合同/湛江", "其他"
+      ]
+    };
+
+    const contractPackagesByCategory = {
+      "海南木棉花医院有限公司": {
+        "未分类": [
+          "【2026特惠】IVF一促一移19800元套餐补充协议", "【2026特惠】IVF一促一移19800元套餐",
+          "【2026长沙特惠】IVF一促一移16800元套餐补充协议", "【2026长沙特惠】IVF一促一移16800元套餐",
+          "供卵一配一移49000元套餐", "【2026长沙特惠】IVF一促一移15800元套餐补充协议",
+          "【2026长沙特惠】IVF一促一移15800元套餐", "【2026汕头】PGT一促一移VIP套餐",
+          "辅助生殖病历复印申请单", "【上海专属】105000元三代不限次数取卵套餐补充协议",
+          "【上海定制】10.5万一年内不限次数取卵套餐", "海南木棉花生殖与遗传医院辅助生殖技术自费项目说明表",
+          "合同解除协议", "合同解除协议（不涉及费用版本）", "补充协议"
+        ],
+        "2026年合同/IVF/IVF-促一移": ["【2026】IVF一促一移3万"]
+      },
+      "广东省木棉花医疗服务有限公司": {
+        "未分类": ["补充协议", "变更协议", "（不涉及费用）试管合同解除协议", "试管直通车合同解除协议"],
+        "北京专属": ["260101北京1.28万一促一移服务", "宫腔内人工授精助孕管理服务协议"],
+        "2026年合同/北京": [
+          "【2026】二促一移7.9万", "【2026】一促一移4.6万套餐", "【2026】三促7万套餐",
+          "【2026】宫腔内人工授精助孕管理服务协议", "【2026】单次促排3.4万套餐",
+          "【2026】北京7.38万一促二移（失败退5.38万）", "【2026】1.6万单次移植套餐"
+        ]
+      }
+    };
+
+    populateContractPackagesFromSubjectTemplates();
+
+    function contractPackageOptionsFor(subject, selectedTypes) {
+      if (!subject) return [];
+      const subjectPackages = contractPackagesByCategory[subject] || {};
+      const categories = selectedTypes?.length ? selectedTypes : (contractCategoryPaths[subject] || []);
+      const options = categories.flatMap((path) => {
+        if (Object.prototype.hasOwnProperty.call(subjectPackages, path)) return subjectPackages[path];
+        return contractRecords
+          .filter((contract) => contractSubjectFor(contract) === subject && contract.contractCategory === path)
+          .map((contract) => contract.package);
+      });
+      return [...new Set([
+        ...options,
+        ...(selectedTypes?.length ? [] : contractRecords.filter((contract) => contractSubjectFor(contract) === subject).map((contract) => contract.package))
+      ])].filter((option) => subject !== contractSubjects[0] || !["一促二移", "一促三移"].includes(option));
+    }
+
+    function refreshContractPackageDropdown(subject, selectedTypes, selectedPackage = "") {
+      const field = $("#contractSearchPackage")?.closest(".lead-filter-field");
+      if (!field) return;
+      const options = contractPackageOptionsFor(subject, selectedTypes);
+      const available = Boolean(subject && options.length);
+      const placeholder = !subject ? "请先选择合同主体" : options.length ? "全部套餐" : "暂无套餐";
+      const selected = options.includes(selectedPackage) ? selectedPackage : "";
+      field.outerHTML = renderLeadFilterDropdown("contractSearchPackage", "套餐类型", placeholder, options, selected, !available);
+    }
+
+    function renderContractCategoryTree(paths, selectedPaths) {
+      const roots = new Map();
+      paths.forEach((path) => {
+        let parentMap = roots;
+        let currentPath = "";
+        path.split("/").forEach((label) => {
+          currentPath = currentPath ? `${currentPath}/${label}` : label;
+          if (!parentMap.has(label)) {
+            const node = { label, path: currentPath, children: new Map() };
+            parentMap.set(label, node);
+          }
+          parentMap = parentMap.get(label).children;
+        });
+      });
+      const leafPaths = paths;
+      const renderNodes = (nodes, depth) => [...nodes.values()].map((node) => {
+        const descendants = leafPaths.filter((path) => path === node.path || path.startsWith(`${node.path}/`));
+        const selectedCount = descendants.filter((path) => selectedPaths.includes(path)).length;
+        const checked = descendants.length > 0 && selectedCount === descendants.length;
+        const partial = selectedCount > 0 && !checked;
+        const hasChildren = node.children.size > 0;
+        return `<div class="contract-tree-node"><div class="contract-tree-row" style="--tree-depth:${depth}"><button type="button" class="contract-tree-expand ${hasChildren ? "" : "is-leaf"}" data-contract-tree-expand aria-expanded="true" aria-label="${hasChildren ? `收起${escapeHtml(node.label)}` : ""}">${hasChildren ? "▾" : ""}</button><button type="button" class="contract-tree-select ${partial ? "is-partial" : ""}" data-contract-category-node data-path="${escapeHtml(node.path)}" aria-pressed="${checked}" aria-checked="${partial ? "mixed" : checked}"><span class="contract-tree-checkbox">${checked ? "✓" : partial ? "−" : ""}</span>${hasChildren ? '<span class="contract-tree-folder" aria-hidden="true">▰</span>' : ""}<span class="contract-tree-label">${escapeHtml(node.label)}</span></button></div>${hasChildren ? `<div class="contract-tree-children">${renderNodes(node.children, depth + 1)}</div>` : ""}</div>`;
+      }).join("");
+      return renderNodes(roots, 0);
+    }
+
+    function refreshContractTypeDropdown(subject, selectedValues = [], keepOpen = false) {
+      const input = $("#contractSearchType");
+      const toggle = $("#contractSearchTypeToggle");
+      const label = $("#contractSearchTypeLabel");
+      const menu = $('[data-lead-filter-options="contractSearchType"]');
+      if (!input || !toggle || !label || !menu) return;
+      const paths = contractCategoryPaths[subject] || [];
+      const requested = Array.isArray(selectedValues) ? selectedValues : selectedValues ? [selectedValues] : [];
+      const validValues = requested.filter((value) => paths.includes(value));
+      const placeholder = subject ? "全部类型" : "请先选择合同主体";
+      input.value = JSON.stringify(validValues);
+      toggle.disabled = !subject;
+      toggle.dataset.placeholder = placeholder;
+      const selectedLabel = validValues.length ? validValues.join("、") : placeholder;
+      label.textContent = selectedLabel;
+      label.title = validValues.length ? selectedLabel : "";
+      toggle.title = validValues.length ? selectedLabel : "";
+      label.classList.add("contract-category-selected");
+      menu.classList.add("contract-category-options");
+      menu.setAttribute("role", "tree");
+      menu.setAttribute("aria-multiselectable", "true");
+      menu.innerHTML = `<button type="button" class="contract-category-clear" data-contract-category-clear>全部类型</button>${renderContractCategoryTree(paths, validValues)}`;
+      menu.hidden = !keepOpen;
+      toggle.setAttribute("aria-expanded", String(keepOpen));
     }
 
     function renderLeadSortHeader(label, key) {
@@ -5142,6 +5361,7 @@
               ${renderLeadFilterDropdown("leadFilterIntent", "意向分级", "全部分级", ["未定级", "A", "B", "C", "D"])}
               ${renderLeadFilterDropdown("leadFilterSource", "数据来源", "全部数据来源", ["HIS", "企业微信", "飞书", "CRM本地"])}
               <div class="lead-filter-field lead-provided-date"><label for="leadFilterProvidedFrom">线索提供日期</label><div class="date-range-input"><input id="leadFilterProvidedFrom" type="date" aria-label="线索提供日期开始"><span>至</span><input id="leadFilterProvidedTo" type="date" aria-label="线索提供日期结束"></div></div>
+              <div class="lead-filter-field lead-created-date"><label for="leadFilterCreatedFrom">创建时间</label><div class="date-range-input"><input id="leadFilterCreatedFrom" type="date" aria-label="创建时间开始"><span>至</span><input id="leadFilterCreatedTo" type="date" aria-label="创建时间结束"></div></div>
               <div class="lead-filter-actions"><button class="btn btn-primary" data-lead-filter-query>查询</button><button class="btn" data-lead-filter-reset>重置</button></div>
             </div>
             <div class="lead-table-scroll">
@@ -7064,7 +7284,7 @@ applyLeadTableSort();
     }
 
     function contractStatusBadge(status) {
-      const cls = status === "执行中" ? "badge-green" : status === "已签署待启用" ? "badge-amber" : "badge-gray";
+      const cls = status === "执行中" ? "badge-green" : status === "已签署待启用" ? "badge-amber" : status === "已解除" ? "badge-red" : "badge-gray";
       return `<span class="badge ${cls}">${status}</span>`;
     }
     function ivfHospitalForContract(contract) {
@@ -7239,6 +7459,7 @@ applyLeadTableSort();
 
     function filteredContractRecords() {
       const query = state.contractSearch;
+      const selectedTypes = Array.isArray(query.type) ? query.type : query.type ? [query.type] : [];
       const filtered = contractRecords.filter((contract) => {
         const identity = coupleIdentities[contract.coupleId] || {};
         const hasCyclePhase = !query.cyclePhase || contractCycles(contract.id).some((cycle) => cycle.phase === query.cyclePhase);
@@ -7246,14 +7467,15 @@ applyLeadTableSort();
           && (!query.contractNo || contract.contractNo.toLowerCase().includes(query.contractNo.toLowerCase()))
           && (!query.name || `${contract.woman} ${contract.spouse}`.includes(query.name))
           && (!query.idCard || `${identity.womanId || ""} ${identity.spouseId || ""}`.includes(query.idCard))
-          && (!query.type || contract.type === query.type)
+          && (!query.subject || contractSubjectFor(contract) === query.subject)
+          && (!selectedTypes.length || selectedTypes.includes(contract.contractCategory || ""))
           && (!query.package || contract.package === query.package)
           && (!query.status || contract.status === query.status)
           && (!query.signedFrom || contract.signedAt >= query.signedFrom)
           && (!query.signedTo || contract.signedAt <= query.signedTo)
           && hasCyclePhase;
       });
-      const order = { "已签署待启用": 0, "执行中": 1, "合同结束": 2 };
+      const order = { "已签署待启用": 0, "执行中": 1, "合同结束": 2, "已解除": 3 };
       return filtered.sort((left, right) => {
         const result = order[left.status] - order[right.status];
         return state.contractSort.direction === "asc" ? result : -result;
@@ -7265,7 +7487,8 @@ applyLeadTableSort();
         contractNo: $("#contractSearchNo")?.value.trim() || "",
         name: $("#contractSearchName")?.value.trim() || "",
         idCard: $("#contractSearchIdCard")?.value.trim() || "",
-        type: $("#contractSearchType")?.value || "",
+        subject: $("#contractSearchSubject")?.value || "",
+        type: JSON.parse($("#contractSearchType")?.value || "[]"),
         package: $("#contractSearchPackage")?.value || "",
         status: $("#contractSearchStatus")?.value || "",
         signedFrom: $("#contractSearchSignedFrom")?.value || "",
@@ -7316,12 +7539,17 @@ applyLeadTableSort();
       $("#searchInput")?.setAttribute("placeholder", "搜索合同编号、夫妻姓名或套餐");
       const query = state.contractSearch;
       const contracts = filteredContractRecords();
-      const contractTypes = [...new Set(contractRecords.map((item) => item.type))];
-      const packages = [...new Set(contractRecords.map((item) => item.package))];
+      const subjects = contractSubjects;
+      const selectedTypes = Array.isArray(query.type) ? query.type : query.type ? [query.type] : [];
+      const packages = contractPackageOptionsFor(query.subject, selectedTypes);
+      const packagePlaceholder = !query.subject ? "请先选择合同主体" : packages.length ? "全部套餐" : "暂无套餐";
+      const selectedPackage = packages.includes(query.package) ? query.package : "";
       const statuses = [...new Set(contractRecords.map((item) => item.status))];
       const phases = [...new Set(cycleRecords.map((item) => item.phase))];
-      mainEl.innerHTML = `<section class="module-grid full"><div class="panel"><div class="panel-body"><div class="lead-filter-panel"><div class="lead-filter-field"><label for="contractSearchNo">合同编号</label><input id="contractSearchNo" value="${query.contractNo}" placeholder="请输入合同编号"></div><div class="lead-filter-field"><label for="contractSearchName">姓名</label><input id="contractSearchName" value="${query.name}" placeholder="女方或男方姓名"></div><div class="lead-filter-field"><label for="contractSearchIdCard">身份证</label><input id="contractSearchIdCard" value="${query.idCard}" placeholder="请输入身份证号"></div><div class="lead-filter-field"><label for="contractSearchType">合同类型</label><select id="contractSearchType"><option value="">全部类型</option>${contractTypes.map((item) => `<option value="${item}" ${query.type === item ? "selected" : ""}>${item}</option>`).join("")}</select></div><div class="lead-filter-field"><label for="contractSearchPackage">套餐类型</label><select id="contractSearchPackage"><option value="">全部套餐</option>${packages.map((item) => `<option value="${item}" ${query.package === item ? "selected" : ""}>${item}</option>`).join("")}</select></div><div class="lead-filter-field"><label for="contractSearchStatus">合同状态</label><select id="contractSearchStatus"><option value="">全部状态</option>${statuses.map((item) => `<option value="${item}" ${query.status === item ? "selected" : ""}>${item}</option>`).join("")}</select></div><div class="lead-filter-field"><label for="contractSearchSignedFrom">合同签署时间</label><input id="contractSearchSignedFrom" type="date" value="${query.signedFrom}"></div><div class="lead-filter-field"><label for="contractSearchSignedTo">至</label><input id="contractSearchSignedTo" type="date" value="${query.signedTo}"></div><div class="lead-filter-field"><label for="contractSearchCyclePhase">周期阶段</label><select id="contractSearchCyclePhase"><option value="">全部阶段</option>${phases.map((item) => `<option value="${item}" ${query.cyclePhase === item ? "selected" : ""}>${item}</option>`).join("")}</select></div><div class="lead-filter-actions"><button class="btn btn-primary" data-contract-search-query>查询</button><button class="btn" data-contract-search-reset>重置</button></div></div><div style="overflow-x:auto; margin-top:12px"><table class="small-table contract-management-table"><thead><tr><th class="contract-no-col">合同编号</th><th>女方姓名</th><th>男方姓名</th><th>合同类型</th><th>套餐类型</th><th>合约金额</th><th>优惠金额</th><th>套餐权益</th><th>已使用</th><th>合同状态</th><th>客户状态</th><th>签署时间</th><th class="contract-linked-cycles-col">进行中周期</th><th>操作</th></tr></thead><tbody>${contracts.map((contract) => { const linked = contractCycles(contract.id).filter((cycle) => cycle.outcome === "进行中"); const identity = coupleIdentities[contract.coupleId] || {}; return `<tr><td class="contract-no-col"><strong>${contract.contractNo}</strong>${contract.hasInsurance ? ' <span class="badge badge-green">有保险</span>' : ""}${contract.parallelContractNo ? `<span class="lead-id parallel-hint">与 ${contract.parallelContractNo} 并行</span>` : ""}${contract.changed ? '<span class="lead-id"><span class="badge badge-amber">已变更</span></span>' : ""}</td><td><strong>${contract.woman}</strong><span class="lead-id">身份证：${identity.womanId || "—"}</span></td><td><strong>${contract.spouse}</strong><span class="lead-id">身份证：${identity.spouseId || "—"}</span></td><td>${contract.type}</td><td>${contract.package}</td><td>${contract.contractAmount}</td><td>${contract.discountAmount}</td><td>${contract.rights}</td><td>${contract.used}</td><td>${contractStatusBadge(contract.status)}</td><td>${contractCustomerStatusBadge(contract.id)}</td><td>${contract.signedAt}</td><td class="contract-linked-cycles-col">${linked.length ? linked.map((cycle) => `<span class="contract-cycle-link is-active">${cycle.cycleNo}｜${cycle.phase}</span>`).join("<br>") : "—"}</td><td><button class="btn btn-primary" data-contract-detail="${contract.id}">查看详情</button></td></tr>`; }).join("") || '<tr><td colspan="14" class="muted">未找到符合条件的合同</td></tr>'}</tbody></table></div></div></div></section>`;
-      const contractStatusHeader = mainEl.querySelector(".small-table thead th:nth-child(10)");
+        mainEl.innerHTML = `<section class="module-grid full"><div class="panel"><div class="panel-body"><div class="lead-filter-panel contract-search-panel"><div class="lead-filter-field"><label for="contractSearchNo">合同编号</label><input id="contractSearchNo" value="${query.contractNo}" placeholder="请输入合同编号"></div><div class="lead-filter-field"><label for="contractSearchName">姓名</label><input id="contractSearchName" value="${query.name}" placeholder="女方或男方姓名"></div><div class="lead-filter-field"><label for="contractSearchIdCard">身份证</label><input id="contractSearchIdCard" value="${query.idCard}" placeholder="请输入身份证号"></div>${renderLeadFilterDropdown("contractSearchSubject", "合同主体", "全部主体", subjects, query.subject)}${renderLeadFilterDropdown("contractSearchType", "合同类型", query.subject ? "全部类型" : "请先选择合同主体", [], "", !query.subject, "contract-type-filter")}${renderLeadFilterDropdown("contractSearchPackage", "套餐类型", packagePlaceholder, packages, selectedPackage, !query.subject || !packages.length)}<div class="lead-filter-field contract-status"><label for="contractSearchStatus">合同状态</label><select id="contractSearchStatus"><option value="">全部状态</option>${statuses.map((item) => `<option value="${item}" ${query.status === item ? "selected" : ""}>${item}</option>`).join("")}</select></div><div class="lead-filter-field contract-signed-range"><label for="contractSearchSignedFrom">合同签署时间</label><div class="date-range-input"><input id="contractSearchSignedFrom" type="date" value="${query.signedFrom}" aria-label="签署开始日期"><span>至</span><input id="contractSearchSignedTo" type="date" value="${query.signedTo}" aria-label="签署结束日期"></div></div><div class="lead-filter-field contract-cycle-phase"><label for="contractSearchCyclePhase">周期阶段</label><select id="contractSearchCyclePhase"><option value="">全部阶段</option>${phases.map((item) => `<option value="${item}" ${query.cyclePhase === item ? "selected" : ""}>${item}</option>`).join("")}</select></div><div class="lead-filter-actions"><button class="btn btn-primary" data-contract-search-query>查询</button><button class="btn" data-contract-search-reset>重置</button></div></div><div style="overflow-x:auto; margin-top:12px"><table class="small-table contract-management-table"><thead><tr><th class="contract-no-col">合同编号</th><th>女方姓名</th><th>男方姓名</th><th>合同主体</th><th>合同类型</th><th>套餐类型</th><th>合约金额</th><th>优惠金额</th><th>套餐权益</th><th>已使用</th><th>合同状态</th><th>客户状态</th><th>签署时间</th><th class="contract-linked-cycles-col">进行中周期</th><th>操作</th></tr></thead><tbody>${contracts.map((contract) => { const linked = contractCycles(contract.id).filter((cycle) => cycle.outcome === "进行中"); const identity = coupleIdentities[contract.coupleId] || {}; return `<tr><td class="contract-no-col"><strong>${contract.contractNo}</strong>${contract.hasInsurance ? ' <span class="badge badge-green">有保险</span>' : ""}${contract.parallelContractNo ? `<span class="lead-id parallel-hint">与 ${contract.parallelContractNo} 并行</span>` : ""}${contract.changed ? '<span class="lead-id"><span class="badge badge-amber">已变更</span></span>' : ""}</td><td><strong>${contract.woman}</strong><span class="lead-id">身份证：${identity.womanId || "—"}</span></td><td><strong>${contract.spouse}</strong><span class="lead-id">身份证：${identity.spouseId || "—"}</span></td><td>${contractSubjectFor(contract)}</td><td>${contract.contractCategory || contract.type}</td><td>${contract.package}</td><td>${contract.contractAmount}</td><td>${contract.discountAmount}</td><td>${contract.rights}</td><td>${contract.used}</td><td>${contractStatusBadge(contract.status)}</td><td>${contractCustomerStatusBadge(contract.id)}</td><td>${contract.signedAt}</td><td class="contract-linked-cycles-col">${linked.length ? linked.map((cycle) => `<span class="contract-cycle-link is-active">${cycle.cycleNo}｜${cycle.phase}</span>`).join("<br>") : "—"}</td><td><button class="btn btn-primary" data-contract-detail="${contract.id}">查看详情</button></td></tr>`; }).join("") || '<tr><td colspan="15" class="muted">未找到符合条件的合同</td></tr>'}</tbody></table></div></div></div></section>`;
+      refreshContractTypeDropdown(query.subject, query.type);
+      refreshContractPackageDropdown(query.subject, selectedTypes, query.package);
+      const contractStatusHeader = mainEl.querySelector(".small-table thead th:nth-child(11)");
       if (contractStatusHeader) {
         contractStatusHeader.innerHTML = `<button class="follow-sort-button ${state.contractSort.direction === "asc" ? "is-active" : ""}" data-contract-sort="status" title="点击切换合同状态正序或倒序">合同状态<span class="follow-sort-indicator" aria-hidden="true"><span style="opacity:${state.contractSort.direction === "asc" ? "1" : ".35"}">▲</span><span style="opacity:${state.contractSort.direction === "desc" ? "1" : ".35"}">▼</span></span></button>`;
         const endTypeHeader = document.createElement("th");
@@ -7331,14 +7559,14 @@ applyLeadTableSort();
         contractStatusHeader.insertAdjacentElement("afterend", endTypeHeader);
         mainEl.querySelectorAll(".small-table tbody tr").forEach((row, index) => {
           const contract = contracts[index];
-          if (!contract || row.cells.length < 10) return;
+          if (!contract || row.cells.length < 11) return;
           const endTypeCell = document.createElement("td");
           endTypeCell.className = "contract-end-type-col";
           endTypeCell.innerHTML = contractEndTypeLabel(contract);
-          row.cells[9].insertAdjacentElement("afterend", endTypeCell);
+          row.cells[10].insertAdjacentElement("afterend", endTypeCell);
         });
         const emptyContractRow = mainEl.querySelector(".small-table tbody tr td[colspan]");
-        if (emptyContractRow) emptyContractRow.colSpan = 15;
+        if (emptyContractRow) emptyContractRow.colSpan = 16;
       }
       const contractTable = mainEl.querySelector(".small-table");
       const contractActionHeader = contractTable.querySelector("thead th:last-child");
@@ -7355,18 +7583,18 @@ applyLeadTableSort();
           row.cells[row.cells.length - 1].insertAdjacentElement("beforebegin", hospitalCell);
         });
         const emptyContractRow = contractTable.querySelector("tbody tr td[colspan]");
-        if (emptyContractRow) emptyContractRow.colSpan = 16;
+        if (emptyContractRow) emptyContractRow.colSpan = 17;
       }
-      const discountHeader = contractTable.querySelector("thead th:nth-child(7)");
+      const discountHeader = contractTable.querySelector("thead th:nth-child(8)");
       if (discountHeader) discountHeader.textContent = "优惠内容";
       contractTable.querySelectorAll("tbody tr").forEach((row, index) => {
         const contract = contracts[index];
         if (!contract || !row.cells.length) return;
-        row.cells[6].textContent = contractDiscountContent(contract) || "—";
+        row.cells[7].textContent = contractDiscountContent(contract) || "—";
         const detailButton = row.querySelector("[data-contract-detail]");
         if (detailButton) detailButton.insertAdjacentHTML("beforebegin", `<button class="btn" data-contract-discount="${contract.id}">${contractDiscountContent(contract) ? "编辑优惠" : "录入优惠"}</button>`);
       });
-      mainEl.querySelector(".small-table thead th:nth-child(12)").textContent = "医疗状态";
+      mainEl.querySelector(".small-table thead th:nth-child(13)").textContent = "医疗状态";
       mainEl.querySelectorAll(".contract-cycle-link").forEach((link) => {
         const [cycleNo, phase] = link.textContent.split("｜");
         const cycle = cycleRecords.find((item) => item.cycleNo === cycleNo);
@@ -7472,7 +7700,7 @@ applyLeadTableSort();
       $("#contractDetailTitle").textContent = `合同详情｜${contract.contractNo}`;
       $("#contractDetailBody").innerHTML = `
         <div class="status-source"><strong>${contract.woman} / ${contract.spouse}｜${contract.type}｜${contract.package}</strong><span>合同基础信息来自法大大；以下优惠承诺由 HIS 门诊记录同步，仅供查看，不在 CRM 中手工维护。</span></div>
-        <table class="small-table"><tbody><tr><th>女方身份证号</th><td>${identity.womanId || "—"}</td><th>男方身份证号</th><td>${identity.spouseId || "—"}</td></tr><tr><th>合约金额</th><td>${contract.contractAmount}</td><th>优惠金额</th><td>${contract.discountAmount}</td></tr><tr><th>套餐权益</th><td>${contract.rights}</td><th>已使用权益</th><td>${contract.used}</td></tr><tr><th>合同状态</th><td>${contractStatusBadge(contract.status)}</td><th>签署时间</th><td>${contract.signedAt}</td></tr><tr><th>当前进行中周期</th><td>${linked.filter((cycle) => cycle.outcome === "进行中").slice(0, 1).map((cycle) => cycle.cycleNo).join("；") || "暂无进行中周期"}</td><th>客户状态</th><td>${customerStatusBadge(customerStatusForCouple(contract.coupleId))}</td></tr><tr><th>试管医院（法大大）</th><td colspan="3">${ivfHospitalForContract(contract)}</td></tr></tbody></table>
+        <table class="small-table"><tbody><tr><th>女方身份证号</th><td>${identity.womanId || "—"}</td><th>男方身份证号</th><td>${identity.spouseId || "—"}</td></tr><tr><th>合同主体</th><td colspan="3">${contractSubjectFor(contract)}</td></tr><tr><th>合约金额</th><td>${contract.contractAmount}</td><th>优惠金额</th><td>${contract.discountAmount}</td></tr><tr><th>套餐权益</th><td>${contract.rights}</td><th>已使用权益</th><td>${contract.used}</td></tr><tr><th>合同状态</th><td>${contractStatusBadge(contract.status)}</td><th>签署时间</th><td>${contract.signedAt}</td></tr><tr><th>当前进行中周期</th><td>${linked.filter((cycle) => cycle.outcome === "进行中").slice(0, 1).map((cycle) => cycle.cycleNo).join("；") || "暂无进行中周期"}</td><th>客户状态</th><td>${customerStatusBadge(customerStatusForCouple(contract.coupleId))}</td></tr><tr><th>试管医院（法大大）</th><td colspan="3">${ivfHospitalForContract(contract)}</td></tr></tbody></table>
         <div class="section-head" style="margin-top:20px"><div><h3>权益使用明细</h3><span class="muted">按周期记录已完成的促排、移植或人工授权益</span></div><span class="badge badge-blue">互创周期同步</span></div>
         <table class="small-table"><thead><tr><th>周期号</th><th>已完成权益</th><th>周期状态</th><th>周期结局</th><th>完成时间</th><th>数据来源</th></tr></thead><tbody>${rightsUsage.map((item) => { const cycle = cycleRecords.find((record) => record.cycleNo === item.cycleNo); return `<tr><td><strong>${item.cycleNo}</strong></td><td>${item.rights}</td><td>${cycle ? cycleStageBadge(cycle.phase) : "—"}</td><td>${cycle ? cycleOutcomeBadge(cycle.outcome) : "—"}</td><td>${item.completedAt}</td><td>互创｜周期记录</td></tr>`; }).join("") || '<tr><td colspan="6" class="muted">暂无按周期拆解的权益使用记录</td></tr>'}</tbody></table>
         <div class="section-head" style="margin-top:20px"><div><h3>优惠信息</h3><span class="muted">HIS 门诊承诺给患者的优惠项目</span></div><span class="badge badge-blue">HIS 同步</span></div>
@@ -7811,7 +8039,7 @@ applyLeadTableSort();
         submit: "确定",
         body: () => {
           const lead = state.leadContractTarget;
-          return `<div class="status-source"><strong>${lead.name || "—"}</strong><span>手机号：${lead.phone || "—"}｜分院：${lead.branch || "—"}</span></div><div class="form-row"><label>法大大合同 ID *</label><input id="fddContractId" placeholder="如 FD-20260810-001" aria-label="法大大合同 ID"></div><div class="form-row"><label>签约套餐</label><select aria-label="签约套餐"><option>三代套餐</option><option>一代套餐</option><option>二代套餐</option><option>冻胚移植套餐</option></select></div><div class="form-row"><label>关联备注</label><textarea>已核对患者、顾问与法大大已签署合同信息。</textarea></div>`;
+          return `<div class="status-source"><strong>${lead.name || "—"}</strong><span>手机号：${lead.phone || "—"}｜分院：${lead.branch || "—"}</span></div><div class="form-row"><label for="fddContractId">法大大合同 ID *</label><div class="fdd-contract-lookup"><input id="fddContractId" placeholder="如 FD-20260810-001" aria-label="法大大合同 ID"><button class="btn btn-primary" type="button" data-fdd-contract-lookup>查询</button></div></div><div class="form-row"><label for="fddPackageType">签约套餐</label><input id="fddPackageType" value="" placeholder="查询后自动填充" readonly aria-label="签约套餐" class="readonly-contract-field"></div><div class="form-row"><label>备注</label><textarea>已核对患者、顾问与法大大已签署合同信息。</textarea></div>`;
         }
       },
       assign: {
@@ -7865,7 +8093,7 @@ applyLeadTableSort();
         title: "签约依据",
         rule: "R-17",
         submit: "关闭",
-        body: () => `<div class="status-source"><strong>${state.leadModalIdentity.name || "黄女士"}</strong><span>手机号：${state.leadModalIdentity.phone || "13700003390"}｜分院：${state.leadModalIdentity.branch || "深圳分院"}</span></div><table class="small-table"><tbody><tr><th>法大大合同号</th><td>FD-20260628-0047</td></tr><tr><th>合同签署时间</th><td>2026-06-28 10:16</td></tr><tr><th>签约套餐</th><td>一促三移</td></tr><tr><th>试管医院（法大大）</th><td>当地医院｜广州妇女儿童医疗中心</td></tr><tr><th>最终负责顾问</th><td>陈芳</td></tr><tr><th>跟进客服</th><td>黄琳</td></tr></tbody></table>`
+        body: () => `<div class="status-source"><strong>${state.leadModalIdentity.name || "黄女士"}</strong><span>手机号：${state.leadModalIdentity.phone || "13700003390"}｜分院：${state.leadModalIdentity.branch || "深圳分院"}</span></div><table class="small-table"><tbody><tr><th>法大大合同号</th><td>FD-20260628-0047</td></tr><tr><th>合同签署时间</th><td>2026-06-28 10:16</td></tr><tr><th>签约套餐</th><td>【2026】单次移植套餐</td></tr><tr><th>试管医院（法大大）</th><td>当地医院｜广州妇女儿童医疗中心</td></tr><tr><th>最终负责顾问</th><td>陈芳</td></tr><tr><th>跟进客服</th><td>黄琳</td></tr></tbody></table>`
       },
       timeline: {
         title: "线索操作时间轴",
@@ -7910,6 +8138,7 @@ applyLeadTableSort();
         state.leadRegistrationEditing = false;
       }
       if (action === "contract-sign") state.leadContractTarget = { id: context.id || "", name: context.name || "", phone: context.phone || "", branch: context.branch || "", advisor: context.advisor || "" };
+      if (action === "contract-sign") state.leadContractLookup = null;
       const leadDialog = $("#leadModal").querySelector(".dialog");
       leadDialog.classList.toggle("lead-registration-dialog", action === "registration");
       leadDialog.classList.toggle("lead-new-dialog", action === "new");
@@ -8084,8 +8313,12 @@ applyLeadTableSort();
           showToast("请输入法大大合同 ID。");
           return;
         }
+        if (!state.leadContractLookup || state.leadContractLookup.contractNo.toLowerCase() !== contractId.toLowerCase()) {
+          showToast("请先查询当前法大大合同 ID，确认合同名称和签约套餐。");
+          return;
+        }
         state.leadSignedContracts[state.leadContractTarget.id] = contractId;
-        appendLeadFollowEvent(state.leadContractTarget.id, { type: "合同签约", time: "2026-07-15", operator: "线索管理员-张敏", contractId, reason: "法大大合同已关联，线索已更新为已签约并停止后续回访任务。" });
+        appendLeadFollowEvent(state.leadContractTarget.id, { type: "合同签约", time: "2026-07-15", operator: "线索管理员-张敏", contractId, reason: `签约套餐：${state.leadContractLookup.packageType}。法大大合同已关联，线索已更新为已签约并停止后续回访任务。` });
         closeLeadModal();
         render();
         setRule("R-17");
@@ -8393,13 +8626,13 @@ applyLeadTableSort();
     function contractNotificationItems() {
       const today = new Date("2026-08-20T00:00:00");
       const daysUntil = (date) => Math.round((new Date(`${date}T00:00:00`) - today) / 86400000);
-      const activeContracts = contractRecords.filter((contract) => contract.status !== "合同结束" && contract.endsAt);
+      const activeContracts = contractRecords.filter((contract) => !["合同结束", "已解除"].includes(contract.status) && contract.endsAt);
       const toRow = (contract) => [contract.contractNo, contract.woman, contract.spouse, contract.medicalRecordNo || "—", contract.endsAt, `剩余 ${daysUntil(contract.endsAt)} 天`, contract.advisor || "待分配顾问", `${contract.woman}（企微）`];
       const terminatedRow = (contract) => [contract.contractNo, contract.woman, contract.spouse, contract.medicalRecordNo || "—", contract.endType || "合同终止", contract.advisor || "待分配顾问", `${contract.woman}（企微）`];
       const halfYear = activeContracts.filter((contract) => { const days = daysUntil(contract.endsAt); return days >= 151 && days <= 184; });
       const threeMonths = activeContracts.filter((contract) => { const days = daysUntil(contract.endsAt); return days >= 61 && days <= 92; });
       const oneMonth = activeContracts.filter((contract) => { const days = daysUntil(contract.endsAt); return days >= 1 && days <= 31; });
-      const terminated = contractRecords.filter((contract) => contract.status === "合同结束");
+      const terminated = contractRecords.filter((contract) => ["合同结束", "已解除"].includes(contract.status));
       const headers = ["合同编号", "女方姓名", "男方姓名", "病历号", "合同到期日", "到期情况", "负责顾问", "企微接收对象"];
       const terminatedHeaders = ["合同编号", "女方姓名", "男方姓名", "病历号", "终止类型", "负责顾问", "企微接收对象"];
       return [
@@ -8704,7 +8937,9 @@ applyLeadTableSort();
         branch: $("#leadFilterBranch")?.value || "",
         source: $("#leadFilterSource")?.value || "",
         providedFrom: $("#leadFilterProvidedFrom")?.value || "",
-        providedTo: $("#leadFilterProvidedTo")?.value || ""
+        providedTo: $("#leadFilterProvidedTo")?.value || "",
+        createdFrom: $("#leadFilterCreatedFrom")?.value || "",
+        createdTo: $("#leadFilterCreatedTo")?.value || ""
       };
       let count = 0;
       $$('[data-lead-row]').forEach((row) => {
@@ -8718,7 +8953,9 @@ applyLeadTableSort();
           && (!values.branch || row.dataset.branch === values.branch)
           && (!values.source || row.dataset.source === values.source)
           && (!values.providedFrom || (row.dataset.providedAt || "").replaceAll("/", "-") >= values.providedFrom)
-          && (!values.providedTo || (row.dataset.providedAt || "").replaceAll("/", "-") <= values.providedTo);
+          && (!values.providedTo || (row.dataset.providedAt || "").replaceAll("/", "-") <= values.providedTo)
+          && (!values.createdFrom || (row.dataset.createdAt || "").replaceAll("/", "-").slice(0, 10) >= values.createdFrom)
+          && (!values.createdTo || (row.dataset.createdAt || "").replaceAll("/", "-").slice(0, 10) <= values.createdTo);
         row.hidden = !match;
         if (match) count += 1;
       });
@@ -8726,7 +8963,7 @@ applyLeadTableSort();
     }
 
     function resetLeadFieldFilters() {
-      ["#leadFilterPhone", "#leadFilterName", "#leadFilterAdvisor", "#leadFilterStatus", "#leadFilterIntent", "#leadFilterManager", "#leadFilterBranch", "#leadFilterSource", "#leadFilterProvidedFrom", "#leadFilterProvidedTo"].forEach((selector) => {
+      ["#leadFilterPhone", "#leadFilterName", "#leadFilterAdvisor", "#leadFilterStatus", "#leadFilterIntent", "#leadFilterManager", "#leadFilterBranch", "#leadFilterSource", "#leadFilterProvidedFrom", "#leadFilterProvidedTo", "#leadFilterCreatedFrom", "#leadFilterCreatedTo"].forEach((selector) => {
         const el = $(selector);
         if (el) el.value = "";
       });
@@ -8880,6 +9117,36 @@ applyLeadTableSort();
         $$(".lead-filter-dropdown-options:not([hidden])").forEach((menu) => { menu.hidden = true; });
         $$('[data-lead-filter-toggle][aria-expanded="true"]').forEach((button) => button.setAttribute("aria-expanded", "false"));
       }
+      const contractTreeExpand = event.target.closest("[data-contract-tree-expand]");
+      if (contractTreeExpand) {
+        const children = contractTreeExpand.closest(".contract-tree-node")?.querySelector(":scope > .contract-tree-children");
+        if (children) {
+          children.hidden = !children.hidden;
+          contractTreeExpand.setAttribute("aria-expanded", String(!children.hidden));
+          contractTreeExpand.textContent = children.hidden ? "▸" : "▾";
+        }
+        return;
+      }
+      if (event.target.closest("[data-contract-category-clear]")) {
+        const subject = $("#contractSearchSubject")?.value || "";
+        refreshContractTypeDropdown(subject, [], true);
+        refreshContractPackageDropdown(subject, [], "");
+        return;
+      }
+      const contractCategoryNode = event.target.closest("[data-contract-category-node]");
+      if (contractCategoryNode) {
+        const subject = $("#contractSearchSubject")?.value || "";
+        const selectedPaths = JSON.parse($("#contractSearchType")?.value || "[]");
+        const path = contractCategoryNode.dataset.path;
+        const descendants = (contractCategoryPaths[subject] || []).filter((item) => item === path || item.startsWith(`${path}/`));
+        const allSelected = descendants.length > 0 && descendants.every((item) => selectedPaths.includes(item));
+        const nextSelection = allSelected
+          ? selectedPaths.filter((item) => !descendants.includes(item))
+          : [...new Set([...selectedPaths, ...descendants])];
+        refreshContractTypeDropdown(subject, nextSelection, true);
+        refreshContractPackageDropdown(subject, nextSelection, "");
+        return;
+      }
       if (leadFilterDropdownToggle) {
         const id = leadFilterDropdownToggle.dataset.leadFilterToggle;
         const menu = $(`[data-lead-filter-options="${id}"]`);
@@ -8907,6 +9174,10 @@ applyLeadTableSort();
         const menu = field?.querySelector(".lead-filter-dropdown-options");
         if (menu) menu.hidden = true;
         toggle?.setAttribute("aria-expanded", "false");
+        if (id === "contractSearchSubject") {
+          refreshContractTypeDropdown(value);
+          refreshContractPackageDropdown(value, [], "");
+        }
         return;
       }
 
@@ -9410,7 +9681,7 @@ applyLeadTableSort();
       }
 
       if (event.target.closest("[data-contract-search-reset]")) {
-        state.contractSearch = { contractNo: "", name: "", idCard: "", type: "", package: "", status: "", signedFrom: "", signedTo: "", cyclePhase: "" };
+        state.contractSearch = { contractNo: "", name: "", idCard: "", subject: "", type: [], package: "", status: "", signedFrom: "", signedTo: "", cyclePhase: "" };
         renderContractView();
         return;
       }
@@ -9492,7 +9763,7 @@ applyLeadTableSort();
       const customerArchiveContract = event.target.closest("[data-customer-archive-contract]");
       if (customerArchiveContract) {
         state.contractArchiveId = customerArchiveContract.dataset.customerArchiveContract;
-        state.contractSearch = { contractNo: "", name: "", idCard: "", type: "", package: "", status: "", signedFrom: "", signedTo: "", cyclePhase: "" };
+        state.contractSearch = { contractNo: "", name: "", idCard: "", subject: "", type: [], package: "", status: "", signedFrom: "", signedTo: "", cyclePhase: "" };
         state.activeView = "contract";
         updateNavState();
         renderContractView();
@@ -10337,6 +10608,19 @@ applyLeadTableSort();
       }
     });
 
+    // Keep primary navigation independent from the large delegated action handler.
+    // Patient selection switches the main area into the workbench; sidebar navigation
+    // must always be able to leave that view and render the selected module.
+    $(".sidebar").addEventListener("click", (event) => {
+      const navBtn = event.target.closest(".nav-item[data-view]");
+      if (!navBtn) return;
+      event.preventDefault();
+      event.stopPropagation();
+      state.activeView = navBtn.dataset.view;
+      updateNavState();
+      render();
+    }, true);
+
     function normalizeDialogHeadCloseButtons() {
       $$(".dialog-head button").forEach((button) => {
         const isCloseButton = button.id.toLowerCase().includes("close") || Object.keys(button.dataset).some((key) => key.toLowerCase().includes("close"));
@@ -10464,6 +10748,25 @@ applyLeadTableSort();
     });
     $("#leadModal").addEventListener("click", (event) => {
       if (event.target.id === "leadModal") closeLeadModal();
+      const lookupButton = event.target.closest("[data-fdd-contract-lookup]");
+      if (lookupButton) {
+        const contractId = $("#fddContractId")?.value.trim();
+        if (!contractId) {
+          showToast("请先输入法大大合同 ID。");
+          return;
+        }
+        const contract = contractRecords.find((item) => item.contractNo.toLowerCase() === contractId.toLowerCase());
+        if (!contract) {
+          state.leadContractLookup = null;
+          $("#fddPackageType").value = "";
+          showToast("未查询到该合同，请核对法大大合同 ID。");
+          return;
+        }
+        const packageName = contract.package || "—";
+        state.leadContractLookup = { contractNo: contract.contractNo, packageType: packageName };
+        $("#fddPackageType").value = packageName;
+        showToast("已查询到合同名称和套餐类型。");
+      }
     });
     $("#followModal").addEventListener("click", (event) => {
       if (event.target.id === "followModal") closeFollowModal();
