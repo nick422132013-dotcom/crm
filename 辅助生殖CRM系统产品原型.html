@@ -402,7 +402,7 @@
 
     .nav-recycle-parent {
       cursor: default;
-      color: var(--text);
+      color: var(--ink);
     }
 
     .nav-separator {
@@ -496,7 +496,7 @@
     .wecom-side { min-width: 0; background: #fff; display: flex; flex-direction: column; }
     .wecom-tabs { display: flex; border-bottom: 1px solid var(--line); padding: 0 12px; overflow-x: auto; }
     .wecom-tab { border: 0; background: transparent; padding: 15px 10px 12px; white-space: nowrap; color: var(--muted); font: inherit; }
-    .wecom-tab.is-active { color: var(--text); font-weight: 800; border-bottom: 3px solid #4c7ff0; }
+    .wecom-tab.is-active { color: var(--ink); font-weight: 800; border-bottom: 3px solid #4c7ff0; }
     .wecom-side-body { min-height: 0; overflow: auto; padding: 16px; }
     .wecom-tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
     .wecom-tag { padding: 7px 9px; background: #f3f5f7; border-radius: 4px; font-size: 12px; }
@@ -1090,7 +1090,7 @@
       width: 100%;
       justify-content: flex-start;
       background: var(--surface);
-      color: var(--text);
+      color: var(--ink);
       border-color: transparent;
     }
 
@@ -2199,8 +2199,7 @@
     /* 前六个业务页面直接进入筛选与台账，不展示顶部统计卡片。 */
     .module-page[data-view="lead"] > .module-grid.full > .panel:first-child,
     .module-page[data-view="followup"] > .module-grid.full > .panel:first-child,
-    .module-page[data-view="customer-new"] > .module-grid.full:first-child,
-    .module-page[data-view="embryo-storage"] .embryo-storage-page > .panel:first-child {
+    .module-page[data-view="customer-new"] > .module-grid.full:first-child {
       display: none;
     }
 
@@ -2903,6 +2902,27 @@
     .embryo-table-wrap { width: 100%; max-width: 100%; overflow-x: auto; }
     .embryo-table { min-width: 1810px; }
     .embryo-table td { vertical-align: top; }
+    .embryo-patient-list { display: grid; gap: 10px; margin-top: 12px; }
+    .embryo-patient-group { overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+    .embryo-patient-group > summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; padding: 13px 15px; background: #f4f7fc; color: var(--ink); cursor: pointer; list-style: none; }
+    .embryo-patient-group > summary::-webkit-details-marker { display: none; }
+    .embryo-patient-group > summary::before { content: "›"; color: var(--primary); font-size: 20px; font-weight: 800; transform: rotate(0); }
+    .embryo-patient-group[open] > summary::before { content: "⌄"; }
+    .embryo-patient-name { font-size: 15px; font-weight: 800; }
+    .embryo-patient-group > summary > span:not(.embryo-patient-name):not(.badge) { color: var(--muted); font-size: 12px; }
+    .embryo-patient-risk { color: #b45309 !important; font-weight: 700; }
+    .embryo-patient-cycle-list { display: grid; gap: 12px; padding: 12px; }
+    .embryo-cycle-group { min-width: 0; overflow: hidden; border: 1px solid #dbe5f2; border-radius: 8px; }
+    .embryo-cycle-heading { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 10px 12px; background: #f8faff; color: #52647d; font-size: 12px; }
+    .embryo-cycle-heading > div { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+    .embryo-cycle-heading strong { color: var(--ink); font-size: 13px; }
+    .embryo-tube-table-wrap { width: 100%; overflow-x: auto; }
+    .embryo-tube-table { min-width: 1860px; }
+    .embryo-tube-table td { vertical-align: top; }
+    .embryo-id-chip { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-bottom: 4px; font-size: 11px; }
+    .embryo-id-chip small { padding: 1px 5px; border-radius: 10px; background: #e7f5ee; color: #21825c; }
+    .embryo-id-chip small.is-unusable { background: #f1f3f6; color: #707d90; }
+    .embryo-cycle-note { padding: 8px 12px; color: var(--muted); font-size: 11px; }
     .embryo-days { font-weight: 800; white-space: nowrap; }
     .embryo-days.is-warning { color: #a96708; }
     .embryo-days.is-risk { color: var(--danger); }
@@ -3520,7 +3540,7 @@
       background: #eef5ff;
       font-size: 24px;
     }
-    .patient-detail-empty strong { color: var(--text); font-size: 16px; }
+    .patient-detail-empty strong { color: var(--ink); font-size: 16px; }
     .patient-detail-empty span { font-size: 13px; }
 
     .medical-record-dates h3 {
@@ -3800,7 +3820,7 @@
 
     .registration-item > span {
       flex: 1;
-      color: var(--text);
+      color: var(--ink);
       line-height: 1.55;
     }
 
@@ -4221,6 +4241,21 @@
       border-radius: 8px;
       background: #f7faff;
     }
+    .cycle-embryo-summary { padding: 18px 20px; background: #fff; color: #111; font-family: "Songti SC", SimSun, serif; }
+    .embryo-original-report { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13px; line-height: 1.35; }
+    .embryo-original-report td { border: 1px solid #222; padding: 7px 6px; vertical-align: middle; }
+    .embryo-original-report .report-hospital { border: 0; border-bottom: 1px solid #222; padding: 4px 2px; }
+    .embryo-original-report .report-heading { border: 0; text-align: center; font-weight: 700; font-size: 19px; padding: 12px 0 14px; }
+    .embryo-original-report .report-meta { border: 0; text-align: right; padding: 2px; }
+    .embryo-original-report .report-label { font-weight: 700; white-space: nowrap; }
+    .embryo-original-report .report-center { text-align: center; }
+    .embryo-original-report .report-tall { height: 54px; }
+    .embryo-original-report .report-notes { height: 58px; vertical-align: top; }
+    .embryo-original-report .report-freeze-label { text-align: center; width: 8%; vertical-align: middle; border-bottom: 1px solid #222; }
+    .embryo-original-report .report-sign { height: 140px; vertical-align: top; }
+    @media (max-width: 900px) { .embryo-original-report { min-width: 850px; } .cycle-embryo-summary { overflow-x: auto; } }
+    .cycle-embryo-recommendation { min-height: 130px; padding: 14px; border: 1px solid var(--line); border-radius: 7px; }
+    .cycle-embryo-recommendation > div { display: grid; justify-items: end; gap: 8px; margin-top: 28px; font-weight: 700; }
     .cycle-plan-record-view { display: grid; grid-template-columns: 210px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); height: 68vh; min-height: 540px; max-height: 68vh; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
     .cycle-plan-record-view > .outpatient-record-dates { min-width: 0; }
     .cycle-plan-record-content { min-width: 0; min-height: 0; overflow-x: hidden; overflow-y: scroll; scrollbar-gutter: stable; scrollbar-width: thin; scrollbar-color: #aebbd0 #edf2f8; padding: 12px 12px 20px; }
@@ -5603,17 +5638,17 @@
 
     const contractRightsUsage = {
       "CT-001": [
-        { cycleNo: "P260701", rights: "第 1 次促排；第 1 次移植", completedAt: "2026-07-18" },
-        { cycleNo: "P260702", rights: "第2次促排", completedAt: "2026-08-04" },
-        { cycleNo: "P260708", rights: "第1次促排；第1次移植", completedAt: "2026-10-01" }
+        { cycleNo: "P260701", rights: "促1次；移1次", completedAt: "2026-07-18" },
+        { cycleNo: "P260702", rights: "促1次", completedAt: "2026-08-04" },
+        { cycleNo: "P260708", rights: "移1次", completedAt: "2026-10-01" }
       ],
       "CT-003": [
         { cycleNo: "I260601", rights: "第 1 次促排；第 1 次人工授精", completedAt: "2026-06-24" },
         { cycleNo: "I260602", rights: "第 2 次促排；第 2 次人工授精", completedAt: "2026-07-22" }
       ],
-      "CT-008": [{ cycleNo: "P260703", rights: "第1次促排；第1次移植", completedAt: "2026-07-28" }],
+      "CT-008": [{ cycleNo: "P260703", rights: "促1次；移1次", completedAt: "2026-07-28" }],
       "CT-009": [{ cycleNo: "F260704", rights: "第1次促排；第1次移植", completedAt: "2026-08-01" }],
-      "CT-016": [{ cycleNo: "F260717", rights: "第2次移植", completedAt: "2026-09-25" }],
+      "CT-016": [{ cycleNo: "F260717", rights: "移1次", completedAt: "2026-09-25" }],
       "CT-010": [{ cycleNo: "F260705", rights: "第 3 次人工授精", completedAt: "2026-07-30" }]
     };
 
@@ -5643,12 +5678,38 @@
       { id: "ES-20250815-005", archiveId: "ARC-202606-0004", woman: "孙女士", spouse: "孙先生", medicalRecordNo: "MR-20260618-001", branch: "北京分院", advisor: "赵莹", embryoCount: 2, tubeCount: 1, frozenAt: "2025-08-16", includedUntil: "2026-08-15", validUntil: "2026-08-15", daysRemaining: -5, renewalFee: 1800, storageStatus: "逾期", intention: "明确不续费", renewalTerm: "—", paymentStatus: "未缴费", labStatus: "宽限期保管", nextFollowAt: "2026-08-20", lastContactAt: "2026-08-19", lastContactNote: "未接通，今日再次联系并同步区域负责人。", history: ["2026-08-19｜顾问赵莹｜未接通，已升级提醒"] },
       { id: "ES-20270901-006", archiveId: "ARC-202607-0006", woman: "郑女士", spouse: "冯先生", medicalRecordNo: "MR-202607-0006", branch: "广州分院", advisor: "陈芳", embryoCount: 6, tubeCount: 3, frozenAt: "2025-09-02", includedUntil: "2026-09-01", validUntil: "2027-09-01", daysRemaining: 377, renewalFee: 3000, storageStatus: "已续费", intention: "续费1年", renewalTerm: "12个月", paymentStatus: "已入账", labStatus: "已确认", nextFollowAt: "2027-06-01", lastContactAt: "2026-08-20", lastContactNote: "续费已完成，实验室已确认新的保存有效期。", history: ["2026-08-20｜实验室确认｜有效期更新至 2027-09-01"] },
       { id: "ES-20250831-008", archiveId: "ARC-202606-0008", woman: "方女士", spouse: "罗先生", medicalRecordNo: "MR-202606-0008", branch: "深圳分院", advisor: "黄琳", embryoCount: 1, tubeCount: 1, frozenAt: "2025-09-01", includedUntil: "2026-08-31", validUntil: "2026-08-31", daysRemaining: 11, renewalFee: 1800, storageStatus: "终止保存", intention: "明确不续费", renewalTerm: "—", paymentStatus: "不适用", labStatus: "待终止审批", nextFollowAt: "2026-08-22", lastContactAt: "2026-08-20", lastContactNote: "患者明确不续费，待签署终止保存知情文件。", history: ["2026-08-20｜顾问黄琳｜记录明确不续费"] },
-      { id: "ES-20260731-009", archiveId: "ARC-202607-0001", woman: "林女士", spouse: "李先生", medicalRecordNo: "—", branch: "海南分院", advisor: "赵莹", embryoCount: 2, tubeCount: 1, frozenAt: "2026-08-01", includedUntil: "2027-07-31", validUntil: "2027-07-31", daysRemaining: 345, renewalFee: 1800, storageStatus: "保存有效", intention: "未到提醒期", renewalTerm: "首年合同包含", paymentStatus: "合同包含", labStatus: "当前有效", nextFollowAt: "2027-05-02", lastContactAt: "—", lastContactNote: "首年保存期内。", history: [] }
+      { id: "ES-20260731-009", archiveId: "ARC-202608-0009", woman: "林女士", spouse: "李先生", medicalRecordNo: "—", branch: "海南分院", advisor: "赵莹", embryoCount: 2, tubeCount: 1, frozenAt: "2026-08-01", includedUntil: "2027-07-31", validUntil: "2027-07-31", daysRemaining: 345, renewalFee: 1800, storageStatus: "保存有效", intention: "未到提醒期", renewalTerm: "首年合同包含", paymentStatus: "合同包含", labStatus: "当前有效", nextFollowAt: "2027-05-02", lastContactAt: "—", lastContactNote: "首年保存期内。", history: [] }
     ];
 
     const embryoIntentionOptions = ["暂未决定", "续费6个月", "续费1年", "续费2年", "明确不续费"];
     embryoStorageRecords.forEach((record) => {
       record.labValidUntil = record.validUntil;
+      const cycleDigits = record.frozenAt.replaceAll("-", "").slice(2);
+      record.cycleNo = `P${cycleDigits}`;
+      const countsByTube = Array.from({ length: record.tubeCount }, (_, index) => Math.floor(record.embryoCount / record.tubeCount) + (index < record.embryoCount % record.tubeCount ? 1 : 0));
+      record.tubes = countsByTube.map((embryoCount, index) => {
+        const tubeNo = index + 1;
+        const freezeDate = record.id === "ES-20251118-004" && tubeNo === 3 ? "2025-11-13" : record.frozenAt;
+        return {
+          id: `${record.id}-T${String(tubeNo).padStart(2, "0")}`,
+          embryos: Array.from({ length: embryoCount }, (_, embryoIndex) => ({ id: `${record.id}-E${String(countsByTube.slice(0, index).reduce((sum, count) => sum + count, 0) + embryoIndex + 1).padStart(2, "0")}`, useStatus: "可用", usedAt: "" })),
+          frozenAt: freezeDate,
+          includedUntil: record.includedUntil,
+          validUntil: record.validUntil,
+          labValidUntil: record.labValidUntil,
+          daysRemaining: record.daysRemaining,
+          storageStatus: record.storageStatus,
+          intention: record.intention,
+          renewalTerm: record.renewalTerm,
+          paymentStatus: record.paymentStatus,
+          renewalFee: 0,
+          discountAmount: 0,
+          thawHistory: [],
+          renewalHistory: [],
+          voidType: "",
+          voidNote: ""
+        };
+      });
       record.communicationHistory = [
         { at: "2026-08-20 10:30", method: "企业微信", intention: record.intention, content: record.lastContactNote || "已发送冻存有效期与续存说明，等待患者回复。", nextFollowAt: record.nextFollowAt },
         { at: "2026-08-18 15:10", method: "电话", intention: record.intention === "未到提醒期" ? "暂未决定" : record.intention, content: "已说明当前保存有效期、续费期限与相关安排。", nextFollowAt: record.nextFollowAt },
@@ -5772,6 +5833,7 @@
       embryoStorageFilter: "all",
       embryoStorageSearch: { keyword: "", advisor: "", status: "", intention: "" },
       embryoStorageModalAction: "",
+      embryoStorageTubeId: "",
       embryoStorageRecordId: "",
       cycleCareAssignId: "",
       cycleDetailId: "",
@@ -7218,7 +7280,7 @@ applyLeadTableSort();
     function embryoStorageBadge(record) {
       if (["逾期", "7天内到期"].includes(record.storageStatus)) return "badge-red";
       if (["60天内到期", "30天内到期"].includes(record.storageStatus)) return "badge-amber";
-      if (record.storageStatus === "终止保存") return "badge-gray";
+      if (["终止保存", "合同作废", "口头说明废弃"].includes(record.storageStatus)) return "badge-gray";
       return "badge-green";
     }
 
@@ -7229,76 +7291,121 @@ applyLeadTableSort();
 
     function filteredEmbryoStorageRows() {
       const query = state.embryoStorageSearch;
+      const keyword = query.keyword.toLowerCase();
       return embryoStorageRecords.filter((record) => {
-        const keyword = query.keyword.toLowerCase();
         const identity = embryoStorageIdentity(record);
-        const matchesKeyword = !keyword || [record.id, record.woman, record.spouse, identity.womanId, identity.spouseId, record.medicalRecordNo].some((value) => String(value || "").toLowerCase().includes(keyword));
-        const matchesAdvisor = !query.advisor || record.advisor === query.advisor;
-        const matchesStatus = !query.status || record.storageStatus === query.status;
-        const matchesIntention = !query.intention || record.intention === query.intention;
-        const matchesTab = state.embryoStorageFilter === "all" || record.storageStatus === state.embryoStorageFilter;
-        return matchesKeyword && matchesAdvisor && matchesStatus && matchesIntention && matchesTab;
+        const tubeText = (record.tubes || []).flatMap((tube) => [tube.id, ...tube.embryos.map((embryo) => embryo.id)]);
+        const matchesKeyword = !keyword || [record.id, record.cycleNo, record.woman, record.spouse, identity.womanId, identity.spouseId, record.medicalRecordNo, ...tubeText].some((value) => String(value || "").toLowerCase().includes(keyword));
+        const tubes = record.tubes || [];
+        const matchesStatus = !query.status || tubes.some((tube) => (tube.voidType || tube.storageStatus) === query.status);
+        const matchesIntention = !query.intention || tubes.some((tube) => tube.intention === query.intention);
+        const matchesTab = state.embryoStorageFilter === "all" || tubes.some((tube) => tube.storageStatus === state.embryoStorageFilter);
+        return matchesKeyword && (!query.advisor || record.advisor === query.advisor) && matchesStatus && matchesIntention && matchesTab;
       }).sort((a, b) => ["保存有效", "60天内到期", "30天内到期", "7天内到期", "逾期", "已续费", "终止保存"].indexOf(a.storageStatus) - ["保存有效", "60天内到期", "30天内到期", "7天内到期", "逾期", "已续费", "终止保存"].indexOf(b.storageStatus));
+    }
+
+    function embryoStorageTubesForDisplay(record) {
+      const query = state.embryoStorageSearch;
+      const keyword = query.keyword.toLowerCase();
+      return (record.tubes || []).filter((tube) => {
+        const matchesKeyword = !keyword || [tube.id, ...tube.embryos.map((embryo) => embryo.id)].some((value) => String(value || "").toLowerCase().includes(keyword));
+        return matchesKeyword && (!query.status || (tube.voidType || tube.storageStatus) === query.status) && (!query.intention || tube.intention === query.intention) && (state.embryoStorageFilter === "all" || tube.storageStatus === state.embryoStorageFilter);
+      });
     }
 
     function renderEmbryoStorageView() {
       mainEl.classList.add("module-page");
       mainEl.dataset.view = "embryo-storage";
-      embryoStorageRecords.forEach((record) => {
-        const months = Number(record.renewalTerm?.match(/\d+/)?.[0] || 0);
-        record.renewalFee = record.tubeCount * months * 150;
-      });
       const rows = filteredEmbryoStorageRows();
+      const allTubes = embryoStorageRecords.flatMap((record) => record.tubes || []);
       const statusSequence = ["保存有效", "60天内到期", "30天内到期", "7天内到期", "逾期", "已续费", "终止保存"];
-      const statusCounts = Object.fromEntries(statusSequence.map((status) => [status, embryoStorageRecords.filter((item) => item.storageStatus === status).length]));
+      const statusCounts = Object.fromEntries(statusSequence.map((status) => [status, allTubes.filter((tube) => tube.storageStatus === status).length]));
       const search = state.embryoStorageSearch;
+      const patientGroups = new Map();
+      rows.forEach((record) => {
+        const identity = embryoStorageIdentity(record);
+        const key = `${identity.womanId || record.woman}-${identity.spouseId || record.spouse}`;
+        if (!patientGroups.has(key)) patientGroups.set(key, { woman: record.woman, spouse: record.spouse, identity, records: [] });
+        patientGroups.get(key).records.push(record);
+      });
+      const statusOptions = [...new Set([...statusSequence, "合同作废", "口头说明废弃"])];
+      const patientMarkup = [...patientGroups.values()].map((patient, patientIndex) => {
+        const patientRecords = patient.records;
+        const patientTubes = patientRecords.flatMap((record) => record.tubes || []);
+        const usableEmbryos = patientTubes.flatMap((tube) => tube.embryos).filter((embryo) => embryo.useStatus === "可用" && !embryo.usedAt).length;
+        const remainingTubeCount = patientTubes.filter((tube) => tube.embryos.some((embryo) => embryo.useStatus === "可用" && !embryo.usedAt)).length;
+        const earliestExpiry = patientTubes.filter((tube) => tube.storageStatus !== "终止保存" && !tube.voidType).map((tube) => tube.validUntil).sort()[0] || "—";
+        const highRisk = patientTubes.some((tube) => ["逾期", "7天内到期"].includes(tube.storageStatus));
+        return `<details class="embryo-patient-group" ${patientIndex < 2 ? "open" : ""}><summary><span class="embryo-patient-name">${patient.woman} / ${patient.spouse}</span><span>病历号：${patientRecords[0].medicalRecordNo || "—"}</span><span>${patientRecords.length} 个周期 · ${patientTubes.length} 管</span><span>可用胚胎 ${usableEmbryos} 枚 / 剩余 ${remainingTubeCount} 管</span><span class="${highRisk ? "embryo-patient-risk" : ""}">最近到期：${earliestExpiry}</span><span class="badge ${highRisk ? "badge-amber" : "badge-blue"}">${highRisk ? "有临期冻存管" : "患者汇总"}</span></summary><div class="embryo-patient-cycle-list">${patientRecords.map((record) => {
+          const identity = embryoStorageIdentity(record);
+          const tubes = embryoStorageTubesForDisplay(record);
+          const cycleEmbryos = record.tubes.flatMap((tube) => tube.embryos).length;
+          return `<section class="embryo-cycle-group"><div class="embryo-cycle-heading"><div><strong>周期 ${record.cycleNo}</strong><span>冻存档案 ${record.id}</span><span>${cycleEmbryos} 枚胚胎 · ${record.tubes.length} 管</span></div><span>顾问：${record.advisor}　来源：${record.branch}</span></div><div class="embryo-tube-table-wrap"><table class="small-table embryo-tube-table"><thead><tr><th>冻存管 ID</th><th>管内胚胎 ID / 可用状态</th><th>胚胎数</th><th>冷冻日期</th><th>套餐免费保存截止</th><th>当前保存有效期</th><th>实验室保存有效期</th><th>剩余天数</th><th>保存状态</th><th>续费意向 / 期限</th><th>续费金额</th><th>解冻 / 使用记录</th><th>作废标记</th><th>操作</th></tr></thead><tbody>${tubes.map((tube) => {
+            const remainingEmbryos = tube.embryos.filter((embryo) => embryo.useStatus === "可用" && !embryo.usedAt).length;
+            const months = Number(tube.renewalTerm?.match(/\d+/)?.[0] || 0);
+            const fee = tube.renewalFee || Math.max(0, months) * 150;
+            const daysRemaining = Math.ceil((new Date(`${tube.validUntil}T00:00:00`) - new Date("2026-08-20T00:00:00")) / 86400000);
+            const canRenew = !tube.voidType && remainingEmbryos > 0 && !["已续费", "终止保存"].includes(tube.storageStatus);
+            const tubeStatus = tube.voidType || tube.storageStatus;
+            return `<tr><td><strong>${tube.id}</strong><span class="lead-id">周期：${record.cycleNo}</span></td><td>${tube.embryos.map((embryo) => `<span class="embryo-id-chip">${embryo.id}<small class="${embryo.useStatus === "可用" && !embryo.usedAt ? "is-usable" : "is-unusable"}">${embryo.usedAt ? "已使用" : embryo.useStatus}</small></span>`).join("")}</td><td><strong>${remainingEmbryos} / ${tube.embryos.length} 枚</strong><span class="lead-id">剩余 / 冻存</span></td><td>${tube.frozenAt}</td><td>${tube.includedUntil}</td><td><strong>${tube.validUntil}</strong></td><td>${tube.labValidUntil}</td><td><span class="embryo-days ${daysRemaining < 0 || daysRemaining <= 7 ? "is-risk" : daysRemaining <= 90 ? "is-warning" : ""}">${daysRemaining < 0 ? `逾期 ${Math.abs(daysRemaining)} 天` : `${daysRemaining} 天`}</span></td><td><span class="badge ${embryoStorageBadge({ storageStatus: tubeStatus })}">${tubeStatus}</span>${tube.voidType === "口头说明废弃" ? '<span class="lead-id">已关闭续费提醒</span>' : ""}</td><td>${tube.intention}<span class="lead-id">${tube.renewalTerm}</span></td><td>${formatFinanceAmount(fee)}<span class="lead-id">单管估算 · 可录减免</span></td><td>${tube.thawHistory.length ? tube.thawHistory.map((item) => `<span class="lead-id">${item.at} · ${item.embryoIds.join("、")}${item.fullyUsed ? " · 整管用尽" : ""}</span>`).join("") : "—"}</td><td>${tube.voidType ? `<span class="badge badge-gray">${tube.voidType}</span><span class="lead-id">${tube.voidNote || ""}</span>` : "—"}</td><td><div class="compact-actions"><button class="btn" data-embryo-action="thaw" data-embryo-id="${record.id}" data-embryo-tube="${tube.id}">记录解冻</button><button class="btn" data-embryo-action="embryo-status" data-embryo-id="${record.id}" data-embryo-tube="${tube.id}">胚胎状态</button>${canRenew ? `<button class="btn btn-primary" data-embryo-action="renew" data-embryo-id="${record.id}" data-embryo-tube="${tube.id}">续费此管</button>` : ""}<button class="btn" data-embryo-action="void" data-embryo-id="${record.id}" data-embryo-tube="${tube.id}">作废标记</button><button class="btn" data-embryo-action="renewal-history" data-embryo-id="${record.id}" data-embryo-tube="${tube.id}">续费记录</button></div></td></tr>`;
+          }).join("") || '<tr><td colspan="14" class="muted">当前筛选下没有冻存管</td></tr>'}</tbody></table></div><div class="embryo-cycle-note">每管分别记录冷冻日期、有效期和续费；同周期分批冻存时保留各自时间。胚胎 ID 随所属冻存管管理。</div></section>`;
+        }).join("")}</div></details>`;
+      }).join("");
+      const patientCount = patientGroups.size;
+      const tubeCount = rows.reduce((sum, record) => sum + embryoStorageTubesForDisplay(record).length, 0);
       mainEl.innerHTML = `
-        ${moduleHeader("胚胎冻存管理", "顾问续费工作台：以实验室确认的保存有效期为准，统一管理到期提醒、续费意向、缴费入账、实验室确认和终止保存。统计截止 2026-08-20 12:00。", '<button class="btn" data-embryo-export>导出冻存台账 Excel</button><button class="btn btn-primary" data-rule="ES-02">查看提醒规则</button>')}
+        ${moduleHeader("胚胎冻存管理", "以患者汇总查看、以周期和冻存管追踪；每管独立记录胚胎 ID、冷冻时间、有效期、续费和解冻使用。统计截止 2026-08-20。", '<button class="btn" data-embryo-export>导出冻存台账 Excel</button><button class="btn btn-primary" data-rule="ES-02">查看提醒规则</button>')}
         <section class="embryo-storage-page">
-          <div class="panel"><div class="panel-body"><div class="embryo-summary-grid">
-            <div class="embryo-summary-card"><span class="muted">冻存档案</span><strong>${embryoStorageRecords.length}</strong><span class="muted">按冻存批次独立管理</span></div>
-            ${statusSequence.map((status) => `<div class="embryo-summary-card ${["逾期", "7天内到期", "终止保存"].includes(status) ? "is-risk" : ["60天内到期", "30天内到期"].includes(status) ? "is-warning" : ""}"><span class="muted">${status}</span><strong>${statusCounts[status]}</strong><span class="muted">${status === "保存有效" ? "当前保存有效" : status === "已续费" ? "已完成续存确认" : "按状态持续跟进"}</span></div>`).join("")}
-          </div></div></div>
-
           <div class="panel"><div class="panel-body">
-            <div class="section-head"><div><h2>冻存档案台账</h2><span class="muted">“套餐免费保存截止”和“当前保存有效期”分别展示，避免把合同权益期限误当成实际保存有效期。</span></div><span class="badge badge-blue">${rows.length} 条</span></div>
+            <div class="section-head"><div><h2>患者冻存台账</h2><span class="muted">患者行汇总，展开查看周期与单管明细；套餐免费期限、CRM 当前有效期及实验室有效期分开记录。</span></div><span class="badge badge-blue">${patientCount} 位患者 · ${rows.length} 个冻存周期 · ${tubeCount} 管</span></div>
             <div class="embryo-filter-grid">
-              <div class="form-row"><label for="embryoSearchKeyword">冻存档案ID / 姓名 / 身份证号 / 病历号</label><input id="embryoSearchKeyword" value="${search.keyword}" placeholder="输入冻存档案ID、姓名、身份证号或病历号"></div>
+              <div class="form-row"><label for="embryoSearchKeyword">患者 / 周期 / 冻存档案 / 管号 / 胚胎 ID</label><input id="embryoSearchKeyword" value="${search.keyword}" placeholder="输入姓名、病历号、周期号、管号或胚胎 ID"></div>
               <div class="form-row"><label for="embryoSearchAdvisor">负责顾问</label><select id="embryoSearchAdvisor"><option value="">全部顾问</option>${["赵莹", "黄琳", "陈芳", "李雯"].map((value) => `<option ${search.advisor === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
-              <div class="form-row"><label for="embryoSearchStatus">保存状态</label><select id="embryoSearchStatus"><option value="">全部状态</option>${statusSequence.map((value) => `<option ${search.status === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
+              <div class="form-row"><label for="embryoSearchStatus">保存状态</label><select id="embryoSearchStatus"><option value="">全部状态</option>${statusOptions.map((value) => `<option ${search.status === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
               <div class="form-row"><label for="embryoSearchIntention">续费意向</label><select id="embryoSearchIntention"><option value="">全部意向</option>${embryoIntentionOptions.map((value) => `<option ${search.intention === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
               <div class="compact-actions"><button class="btn btn-primary" data-embryo-search>查询</button><button class="btn" data-embryo-reset>重置</button></div>
             </div>
-            <div class="filter-row" style="margin-top:12px">${[["all", `全部 ${embryoStorageRecords.length}`], ...statusSequence.map((status) => [status, `${status} ${statusCounts[status]}`])].map(([key, label]) => `<button class="chip ${state.embryoStorageFilter === key ? "is-active" : ""}" data-embryo-tab="${key}">${label}</button>`).join("")}</div>
-            <div class="embryo-table-wrap"><table class="small-table embryo-table"><thead><tr><th>序号</th><th>冻存档案ID</th><th>女方姓名</th><th>男方姓名</th><th>病历号</th><th>胚胎 / 管数</th><th>冷冻日期</th><th>套餐免费保存截止</th><th>当前保存有效期</th><th>实验室保存有效期</th><th>剩余天数</th><th>保存状态</th><th>续费意向</th><th>续存期限</th><th>续费金额</th><th>顾问</th><th>最近联系 / 下次跟进</th><th>操作</th></tr></thead><tbody>
-              ${rows.map((record, index) => { const identity = embryoStorageIdentity(record); const canProcessRenewal = !["保存有效", "已续费", "终止保存"].includes(record.storageStatus); const showRenewalHistory = record.storageStatus !== "保存有效"; const months = Number(record.renewalTerm?.match(/\d+/)?.[0] || 0); const fee = record.renewalFee || record.tubeCount * months * 150; return `<tr><td>${index + 1}</td><td><strong>${record.id}</strong><span class="lead-id"><span class="badge badge-blue">唯一标识</span></span></td><td><strong>${record.woman}</strong><span class="lead-id">身份证：${identity.womanId || "—"}</span></td><td><strong>${record.spouse}</strong><span class="lead-id">身份证：${identity.spouseId || "—"}</span></td><td>${record.medicalRecordNo}</td><td><strong>${record.embryoCount} 枚</strong><span class="lead-id">${record.tubeCount} 管</span></td><td>${record.frozenAt}</td><td>${record.includedUntil}</td><td><strong>${record.validUntil}</strong></td><td>${record.labValidUntil}</td><td><span class="embryo-days ${record.daysRemaining < 0 || record.daysRemaining <= 7 ? "is-risk" : record.daysRemaining <= 90 ? "is-warning" : ""}">${record.daysRemaining < 0 ? `逾期 ${Math.abs(record.daysRemaining)} 天` : `${record.daysRemaining} 天`}</span></td><td><span class="badge ${embryoStorageBadge(record)}">${record.storageStatus}</span></td><td>${record.intention}</td><td>${record.renewalTerm}</td><td>${formatFinanceAmount(fee)}<span class="lead-id">（${record.tubeCount} 管）</span></td><td>${record.advisor}</td><td>${record.lastContactAt}<span class="lead-id">${record.lastContactNote}</span><span class="lead-id">下次：${record.nextFollowAt}</span></td><td><div class="compact-actions"><button class="btn" data-embryo-action="intent" data-embryo-id="${record.id}">录入意向</button><button class="btn" data-embryo-action="communication" data-embryo-id="${record.id}">沟通记录</button>${canProcessRenewal ? `<button class="btn btn-primary" data-embryo-action="renew" data-embryo-id="${record.id}">确认续费</button>` : ""}${showRenewalHistory ? `<button class="btn" data-embryo-action="renewal-history" data-embryo-id="${record.id}">续费记录</button>` : ""}${canProcessRenewal ? `<button class="btn btn-primary" data-embryo-action="terminate" data-embryo-id="${record.id}">确认终止</button>` : ""}</div></td></tr>`; }).join("") || '<tr><td colspan="18" class="muted">当前筛选下没有冻存档案</td></tr>'}
-            </tbody></table></div>
+            <div class="filter-row" style="margin-top:12px">${[["all", `全部 ${allTubes.length}`], ...statusSequence.map((status) => [status, `${status} ${statusCounts[status]}`])].map(([key, label]) => `<button class="chip ${state.embryoStorageFilter === key ? "is-active" : ""}" data-embryo-tab="${key}">${label}</button>`).join("")}</div>
+            <div class="embryo-patient-list">${patientMarkup || '<div class="record muted">当前筛选下没有冻存档案</div>'}</div>
           </div></div>
-
-          <div class="panel"><div class="panel-body"><div class="section-head"><div><h2>续存协同闭环</h2><span class="muted">角色分工清晰，任何一步未完成都不能把续存标记为完成。</span></div><button class="btn" data-rule="ES-03">ES-03</button></div><div class="embryo-process-grid">
-            <div class="embryo-process-step"><strong>1. 实验室 / HIS</strong><span class="muted">同步胚胎数量、管数、冷冻日期和实际有效期。</span></div><div class="embryo-process-step"><strong>2. 顾问</strong><span class="muted">按 90 / 30 / 7 天提醒，记录意向、联系和续存期限。</span></div><div class="embryo-process-step"><strong>3. 财务</strong><span class="muted">核对缴费流水并确认入账，不以顾问口头确认替代。</span></div><div class="embryo-process-step"><strong>4. 实验室</strong><span class="muted">确认续存并回写新有效期，形成最终闭环。</span></div>
+          <div class="panel"><div class="panel-body"><div class="section-head"><div><h2>冻存与续存规则</h2><span class="muted">逐管维护，不同冻存时间和有效期不得合并；解冻、续费及作废信息均保留历史。</span></div><button class="btn" data-rule="ES-03">ES-03</button></div><div class="embryo-process-grid">
+            <div class="embryo-process-step"><strong>1. 冷冻入库</strong><span class="muted">新鲜周期取卵后冷冻；记录每管 ID、管内胚胎 ID、冻存时间及到期日。</span></div><div class="embryo-process-step"><strong>2. 保存 / 续费</strong><span class="muted">逐管查看合同免费期；续费选择具体周期和冻存管，折扣金额人工录入。</span></div><div class="embryo-process-step"><strong>3. 解冻 / 使用</strong><span class="muted">记录解冻管号、胚胎 ID、使用时间；支持一管分次解冻并标记整管用尽。</span></div><div class="embryo-process-step"><strong>4. 作废处理</strong><span class="muted">区分合同作废与口头说明废弃；口头放弃记录后关闭该管续费提醒。</span></div>
           </div></div></div>
-          ${embeddedRulesDocument("胚胎冻存管理规则说明", "胚胎冻存管理.md")}
+          ${embeddedRulesDocument("胚胎冻存管理规则说明", "胚胎冻存管理.md", "胚胎冻存管理规则说明.html")}
         </section>`;
       setRule("ES-02");
     }
 
-    function openEmbryoStorageModal(action, recordId) {
+    function openEmbryoStorageModal(action, recordId, tubeId = "") {
       const record = embryoStorageRecords.find((item) => item.id === recordId);
       if (!record) return;
+      const tube = record.tubes.find((item) => item.id === tubeId);
       state.embryoStorageModalAction = action;
       state.embryoStorageRecordId = recordId;
-      const titleMap = { intent: "录入意向", communication: "沟通记录", renew: "确认续费", "renewal-history": "续费记录", terminate: "确认终止保存" };
+      state.embryoStorageTubeId = tubeId;
+      const titleMap = { intent: "录入意向", communication: "沟通记录", renew: "确认续费", "renewal-history": "续费记录", terminate: "确认终止保存", thaw: "记录解冻 / 使用", "embryo-status": "更新胚胎状态", void: "记录作废处理" };
       $("#embryoStorageModalTitle").textContent = titleMap[action] || "胚胎冻存处理";
-      let body = `<div class="status-source"><strong>${record.id}｜${record.woman} / ${record.spouse}</strong><span>当前保存有效期至 ${record.validUntil}｜实验室保存有效期至 ${record.labValidUntil}</span></div>`;
+      const context = tube
+        ? `<div class="status-source"><strong>${record.woman} / ${record.spouse}｜周期 ${record.cycleNo}｜${tube.id}</strong><span>冻存日期 ${tube.frozenAt}｜当前保存有效期至 ${tube.validUntil}｜实验室有效期至 ${tube.labValidUntil}</span></div>`
+        : `<div class="status-source"><strong>${record.id}｜${record.woman} / ${record.spouse}</strong><span>当前保存有效期至 ${record.validUntil}｜实验室保存有效期至 ${record.labValidUntil}</span></div>`;
+      let body = context;
       if (action === "intent") body += `<div class="form-row"><label for="embryoContactMethod">联系方式</label><select id="embryoContactMethod"><option>电话</option><option>企业微信</option><option>短信</option><option>面谈</option></select></div><div class="form-row"><label for="embryoIntentValue">续费意向</label><select id="embryoIntentValue">${embryoIntentionOptions.map((value) => `<option ${record.intention === value ? "selected" : ""}>${value}</option>`).join("")}</select></div><div class="form-row"><label for="embryoNextFollow">下次跟进日期</label><input type="date" id="embryoNextFollow" value="${record.nextFollowAt}"></div><div class="form-row"><label for="embryoActionNote">沟通备注</label><textarea id="embryoActionNote" placeholder="记录患者考虑因素、约定事项及需协同内容"></textarea></div>`;
       if (action === "communication") body += `<div class="communication-timeline">${record.communicationHistory.slice().sort((a, b) => b.at.localeCompare(a.at)).map((item) => `<div class="communication-item"><strong>${item.at}｜${item.method}</strong><div class="communication-meta"><span>续费意向：${item.intention}</span><span>下次跟进：${item.nextFollowAt}</span></div><p>${item.content}</p></div>`).join("")}</div>`;
-      if (action === "renew") body += `<div class="form-row"><label for="embryoOriginalValidUntil">原截止日期</label><input id="embryoOriginalValidUntil" value="${record.validUntil}" readonly></div><div class="form-row"><label>续费期限</label><div class="date-range-input"><input id="embryoRenewYears" type="number" min="0" value="${Math.floor(Number(record.renewalTerm?.match(/\d+/)?.[0] || 12) / 12)}" aria-label="续费年数"><span>年</span><input id="embryoRenewMonths" type="number" min="0" max="11" value="${Number(record.renewalTerm?.match(/\d+/)?.[0] || 12) % 12}" aria-label="续费月数"><span>个月</span></div><span class="muted">可手动输入几年几个月。</span></div><div class="form-row"><label>续费金额</label><input id="embryoRenewFee" readonly><span class="muted" id="embryoRenewFeeHint"></span></div><div class="form-row"><label for="embryoRenewDate">续费日期</label><input type="date" id="embryoRenewDate" value="2026-08-20"></div><div class="form-row"><label for="embryoRenewedValidUntil">续费后截止日期</label><input id="embryoRenewedValidUntil" readonly></div>`;
-      if (action === "renewal-history") body += `<div class="communication-timeline">${record.renewalHistory.length ? record.renewalHistory.slice().sort((a, b) => b.at.localeCompare(a.at)).map((item) => `<div class="communication-item"><strong>${item.at}｜确认续费 ${item.term}</strong><div class="communication-meta"><span>续费日期：${item.renewedAt}</span><span>当前保存有效期：${item.validUntil}</span><span>实验室保存有效期：${item.labValidUntil}</span></div><p>${item.note}</p><span>操作人：${item.operator}</span></div>`).join("") : '<div class="record"><span class="muted">暂无既往续费记录</span></div>'}</div>`;
+      if (action === "renew") {
+        const months = Number(tube.renewalTerm?.match(/\d+/)?.[0] || 12);
+        body += `<div class="form-row"><label for="embryoOriginalValidUntil">本管原截止日期</label><input id="embryoOriginalValidUntil" value="${tube.validUntil}" readonly></div><div class="form-row"><label>续费期限</label><div class="date-range-input"><input id="embryoRenewYears" type="number" min="0" value="${Math.floor(months / 12)}" aria-label="续费年数"><span>年</span><input id="embryoRenewMonths" type="number" min="0" max="11" value="${months % 12}" aria-label="续费月数"><span>个月</span></div><span class="muted">仅续费当前冻存管；期限和费用逐管记录。</span></div><div class="form-row"><label for="embryoDiscountAmount">人工减免金额</label><input id="embryoDiscountAmount" type="number" min="0" value="${tube.discountAmount || 0}"></div><div class="form-row"><label>续费金额</label><input id="embryoRenewFee" readonly><span class="muted" id="embryoRenewFeeHint"></span></div><div class="form-row"><label for="embryoRenewDate">续费日期</label><input type="date" id="embryoRenewDate" value="2026-08-20"></div><div class="form-row"><label for="embryoRenewedValidUntil">续费后截止日期</label><input id="embryoRenewedValidUntil" readonly></div><div class="form-row"><label for="embryoActionNote">备注</label><textarea id="embryoActionNote" placeholder="可填写合同、活动或缴费依据"></textarea></div>`;
+      }
+      if (action === "renewal-history") body += `<div class="communication-timeline">${tube?.renewalHistory?.length ? tube.renewalHistory.slice().sort((a, b) => b.at.localeCompare(a.at)).map((item) => `<div class="communication-item"><strong>${item.at}｜${item.term}｜${formatFinanceAmount(item.fee)}</strong><div class="communication-meta"><span>续费日期：${item.renewedAt}</span><span>有效期至：${item.validUntil}</span><span>减免：${formatFinanceAmount(item.discountAmount)}</span></div><p>${item.note || "—"}</p><span>操作人：${item.operator}</span></div>`).join("") : '<div class="record"><span class="muted">该冻存管暂无续费记录</span></div>'}</div>`;
       if (action === "terminate") body += `<div class="status-source"><strong>确认后将保存状态更新为“终止保存”</strong><span>须已取得患者明确不续费意向及合规知情文件；此操作仅更新 CRM 台账状态。</span></div><div class="form-row"><label for="embryoActionNote">确认备注</label><textarea id="embryoActionNote" placeholder="填写知情文件编号、确认依据及其他说明"></textarea></div>`;
+      if (action === "thaw") {
+        const available = tube.embryos.filter((embryo) => embryo.useStatus === "可用" && !embryo.usedAt);
+        body += `<div class="form-row"><label>本次解冻 / 使用胚胎</label><div class="filter-row">${available.map((embryo) => `<label class="chip"><input type="checkbox" class="embryo-thaw-check" value="${embryo.id}"> ${embryo.id}</label>`).join("") || '<span class="muted">没有可用胚胎</span>'}</div></div><div class="form-row"><label for="embryoThawAt">使用时间</label><input type="datetime-local" id="embryoThawAt" value="2026-08-20T12:00"></div><div class="form-row"><label><input type="checkbox" id="embryoTubeFullyUsed"> 本次处理后整管胚胎已全部使用</label></div><div class="form-row"><label for="embryoActionNote">备注</label><textarea id="embryoActionNote" placeholder="记录解冻用途、实验室确认等"></textarea></div>`;
+      }
+      if (action === "embryo-status") body += `<div class="form-row"><label for="embryoStatusId">胚胎 ID</label><select id="embryoStatusId">${tube.embryos.map((embryo) => `<option value="${embryo.id}">${embryo.id}｜${embryo.usedAt ? "已使用" : embryo.useStatus}</option>`).join("")}</select></div><div class="form-row"><label for="embryoStatusValue">可用状态</label><select id="embryoStatusValue"><option>可用</option><option>不可用</option></select></div><div class="form-row"><label for="embryoActionNote">标记原因</label><textarea id="embryoActionNote" placeholder="记录实验室评估或患者确认依据"></textarea></div>`;
+      if (action === "void") body += `<div class="form-row"><label for="embryoVoidType">处理类型</label><select id="embryoVoidType"><option>合同作废</option><option>口头说明废弃</option></select></div><div class="form-row"><label for="embryoActionNote">处理依据 / 备注</label><textarea id="embryoActionNote" placeholder="记录合同文件或患者口头确认信息"></textarea></div><div class="status-source"><strong>口头说明废弃将关闭本管续费提醒</strong><span>记录仍保留，避免与合同作废混淆。</span></div>`;
       $("#embryoStorageModalBody").innerHTML = body;
       $("#submitEmbryoStorageModal").hidden = ["communication", "renewal-history"].includes(action);
-      $("#submitEmbryoStorageModal").textContent = action === "renew" ? "确认续费" : action === "terminate" ? "确认终止" : "保存";
+      $("#submitEmbryoStorageModal").textContent = action === "renew" ? "确认续费" : action === "thaw" ? "保存解冻记录" : action === "void" ? "保存作废标记" : action === "terminate" ? "确认终止" : "保存";
       if (action === "renew") {
         const syncRenewedValidUntil = () => {
           const date = new Date(`${$("#embryoRenewDate").value}T00:00:00`);
@@ -7306,13 +7413,12 @@ applyLeadTableSort();
           date.setMonth(date.getMonth() + months);
           date.setDate(date.getDate() - 1);
           $("#embryoRenewedValidUntil").value = date.toISOString().slice(0, 10);
-          const fee = record.tubeCount * months * 150;
-          $("#embryoRenewFee").value = formatFinanceAmount(fee);
-          $("#embryoRenewFeeHint").textContent = `（${record.tubeCount} 管 × ${months} 个月 × 150 元 / 管 / 月）`;
+          const discount = Math.max(0, Number($("#embryoDiscountAmount").value || 0));
+          const gross = months * 150;
+          $("#embryoRenewFee").value = formatFinanceAmount(Math.max(0, gross - discount));
+          $("#embryoRenewFeeHint").textContent = `（1 管 × ${months} 个月 × 150 元 / 管 / 月，减免 ${formatFinanceAmount(discount)}）`;
         };
-        $("#embryoRenewYears").addEventListener("input", syncRenewedValidUntil);
-        $("#embryoRenewMonths").addEventListener("input", syncRenewedValidUntil);
-        $("#embryoRenewDate").addEventListener("change", syncRenewedValidUntil);
+        ["#embryoRenewYears", "#embryoRenewMonths", "#embryoRenewDate", "#embryoDiscountAmount"].forEach((selector) => $(selector).addEventListener("input", syncRenewedValidUntil));
         syncRenewedValidUntil();
       }
       $("#embryoStorageModal").classList.add("is-open");
@@ -7328,7 +7434,9 @@ applyLeadTableSort();
       const record = embryoStorageRecords.find((item) => item.id === state.embryoStorageRecordId);
       if (!record) return;
       const action = state.embryoStorageModalAction;
+      const tube = record.tubes.find((item) => item.id === state.embryoStorageTubeId);
       const note = $("#embryoActionNote")?.value.trim() || "无补充备注";
+      const at = "2026-08-20 16:10";
       if (action === "intent") {
         record.intention = $("#embryoIntentValue").value;
         record.nextFollowAt = $("#embryoNextFollow").value;
@@ -7337,22 +7445,49 @@ applyLeadTableSort();
         record.communicationHistory.unshift({ at: "2026-08-20 16:00", method: $("#embryoContactMethod").value, intention: record.intention, content: note, nextFollowAt: record.nextFollowAt });
         record.history.unshift(`2026-08-20｜顾问${record.advisor}｜记录意向：${record.intention}｜${note}`);
       }
-      if (action === "renew") {
+      if (action === "renew" && tube) {
         const months = Number($("#embryoRenewYears").value || 0) * 12 + Number($("#embryoRenewMonths").value || 0);
         const renewedAt = $("#embryoRenewDate").value;
         const newValidUntil = $("#embryoRenewedValidUntil").value;
-        record.intention = months === 6 ? "续费6个月" : months === 24 ? "续费2年" : "续费1年";
-        record.renewalTerm = `${months}个月`;
-        record.renewalFee = record.tubeCount * months * 150;
-        record.validUntil = newValidUntil;
-        record.daysRemaining = Math.ceil((new Date(`${newValidUntil}T00:00:00`) - new Date("2026-08-20T00:00:00")) / 86400000);
-        record.storageStatus = "已续费";
-        record.renewalHistory.unshift({ at: "2026-08-20 16:10", term: record.renewalTerm, renewedAt, validUntil: newValidUntil, labValidUntil: record.labValidUntil, operator: record.advisor, note: "已确认续费；当前保存有效期按续费日期和续费期限自动生成，等待互创同步实验室实际有效期。" });
-        record.history.unshift(`2026-08-20｜顾问${record.advisor}｜确认续费 ${record.renewalTerm}｜当前保存有效期更新至 ${newValidUntil}`);
+        const discountAmount = Math.max(0, Number($("#embryoDiscountAmount").value || 0));
+        const fee = Math.max(0, months * 150 - discountAmount);
+        tube.intention = months === 6 ? "续费6个月" : months === 24 ? "续费2年" : `续费${months}个月`;
+        tube.renewalTerm = `${months}个月`;
+        tube.renewalFee = fee;
+        tube.discountAmount = discountAmount;
+        tube.validUntil = newValidUntil;
+        tube.daysRemaining = Math.ceil((new Date(`${newValidUntil}T00:00:00`) - new Date("2026-08-20T00:00:00")) / 86400000);
+        tube.storageStatus = "已续费";
+        tube.paymentStatus = "待入账";
+        tube.renewalHistory.unshift({ at, term: tube.renewalTerm, renewedAt, validUntil: newValidUntil, labValidUntil: tube.labValidUntil, fee, discountAmount, operator: record.advisor, note });
+        record.history.unshift(`${at}｜顾问${record.advisor}｜冻存管 ${tube.id} 确认续费 ${tube.renewalTerm}｜减免 ${formatFinanceAmount(discountAmount)}｜有效期至 ${newValidUntil}`);
       }
       if (action === "terminate") {
         record.storageStatus = "终止保存";
         record.history.unshift(`2026-08-20｜顾问${record.advisor}｜确认终止保存｜${note}`);
+      }
+      if (action === "thaw" && tube) {
+        const embryoIds = [...$("#embryoStorageModalBody").querySelectorAll(".embryo-thaw-check:checked")].map((input) => input.value);
+        const fullyUsed = $("#embryoTubeFullyUsed").checked;
+        if (!embryoIds.length && !fullyUsed) { showToast("请选择本次使用的胚胎，或标记整管已全部使用。", "warning"); return; }
+        const usedAt = $("#embryoThawAt").value.replace("T", " ");
+        const idsToUse = fullyUsed ? tube.embryos.filter((embryo) => embryo.useStatus === "可用" && !embryo.usedAt).map((embryo) => embryo.id) : embryoIds;
+        idsToUse.forEach((id) => { const embryo = tube.embryos.find((item) => item.id === id); if (embryo) { embryo.usedAt = usedAt; embryo.useStatus = "已使用"; } });
+        tube.thawHistory.unshift({ at: usedAt, embryoIds: idsToUse, fullyUsed: fullyUsed || tube.embryos.every((embryo) => embryo.usedAt || embryo.useStatus !== "可用"), note });
+        record.history.unshift(`${usedAt}｜冻存管 ${tube.id} 解冻 / 使用 ${idsToUse.join("、") || "整管"}｜${note}`);
+      }
+      if (action === "embryo-status" && tube) {
+        const id = $("#embryoStatusId").value;
+        const embryo = tube.embryos.find((item) => item.id === id);
+        if (embryo && !embryo.usedAt) embryo.useStatus = $("#embryoStatusValue").value;
+        record.history.unshift(`${at}｜冻存管 ${tube.id}｜胚胎 ${id} 状态更新为 ${embryo?.useStatus || "—"}｜${note}`);
+      }
+      if (action === "void" && tube) {
+        tube.voidType = $("#embryoVoidType").value;
+        tube.voidNote = note;
+        tube.intention = tube.voidType === "口头说明废弃" ? "明确不续费" : tube.intention;
+        tube.renewalHistory = tube.renewalHistory || [];
+        record.history.unshift(`${at}｜冻存管 ${tube.id}｜${tube.voidType}${tube.voidType === "口头说明废弃" ? "，关闭续费提醒" : ""}｜${note}`);
       }
       closeEmbryoStorageModal();
       renderEmbryoStorageView();
@@ -7360,11 +7495,11 @@ applyLeadTableSort();
     }
 
     function exportEmbryoStorageExcel() {
-      const data = [["序号", "冻存档案ID（唯一标识）", "女方姓名", "女方身份证号", "男方姓名", "男方身份证号", "病历号", "顾问", "胚胎数", "管数", "冷冻日期", "套餐免费保存截止", "当前保存有效期", "实验室保存有效期", "剩余天数", "保存状态", "续费意向", "续存期限", "下次跟进"], ...filteredEmbryoStorageRows().map((item, index) => { const identity = embryoStorageIdentity(item); return [index + 1, item.id, item.woman, identity.womanId || "—", item.spouse, identity.spouseId || "—", item.medicalRecordNo, item.advisor, item.embryoCount, item.tubeCount, item.frozenAt, item.includedUntil, item.validUntil, item.labValidUntil, item.daysRemaining, item.storageStatus, item.intention, item.renewalTerm, item.nextFollowAt]; })];
-      const csv = data.map((row) => row.map((cell) => `"${String(cell).replaceAll('"', '""')}"`).join(",")).join("\r\n");
+      const data = [["序号", "冻存档案ID", "周期号", "女方姓名", "女方身份证号", "男方姓名", "男方身份证号", "病历号", "冻存管ID", "胚胎ID", "剩余胚胎数", "冻存胚胎数", "冷冻日期", "套餐免费保存截止", "当前保存有效期", "实验室保存有效期", "保存状态", "续费意向", "续存期限", "续费金额", "减免金额", "解冻使用记录", "作废类型", "作废备注"], ...filteredEmbryoStorageRows().flatMap((record) => { const identity = embryoStorageIdentity(record); return embryoStorageTubesForDisplay(record).map((tube) => { const remaining = tube.embryos.filter((embryo) => embryo.useStatus === "可用" && !embryo.usedAt).length; return [record.id, record.cycleNo, record.woman, identity.womanId || "—", record.spouse, identity.spouseId || "—", record.medicalRecordNo, tube.id, tube.embryos.map((embryo) => `${embryo.id}(${embryo.usedAt ? "已使用" : embryo.useStatus})`).join("；"), remaining, tube.embryos.length, tube.frozenAt, tube.includedUntil, tube.validUntil, tube.labValidUntil, tube.voidType || tube.storageStatus, tube.intention, tube.renewalTerm, tube.renewalFee, tube.discountAmount, tube.thawHistory.map((item) => `${item.at}:${item.embryoIds.join("、")}`).join("；"), tube.voidType, tube.voidNote]; }); }).map((row, index) => [index + 1, ...row])];
+      const csv = data.map((row) => row.map((cell) => `"${String(cell ?? "").replaceAll('"', '""')}"`).join(",")).join("\r\n");
       const url = URL.createObjectURL(new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8" }));
-      const link = document.createElement("a"); link.href = url; link.download = "胚胎冻存管理台账-2026-08-20.csv"; document.body.appendChild(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-      showToast("已导出胚胎冻存管理台账（Excel 兼容 CSV）。");
+      const link = document.createElement("a"); link.href = url; link.download = "胚胎冻存管理台账-逐管明细-2026-08-20.csv"; document.body.appendChild(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+      showToast("已导出胚胎冻存管理逐管台账（Excel 兼容 CSV）。");
     }
 
     function formatFinanceAmount(amount) {
@@ -8543,7 +8678,7 @@ applyLeadTableSort();
             coupleId: contract.coupleId, woman: customer.woman, spouse: customer.spouse,
             cycleNo: `P${String(260700 + index + 1)}`, type: index === 1 ? "解冻周期" : "新鲜周期",
             phase: ["促排", "取卵", "移植"][index % 3], outcome: index === 2 ? "未妊娠" : "进行中",
-            completedRights: index === 1 ? "第2次促排" : index === 2 ? "第1次促排；第1次移植" : "",
+            completedRights: index === 1 ? "促1次" : index === 2 ? "促1次；移1次" : "",
             startedAt: `2026-07-${day}`, currentNo: index + 1, totalNo: 6
           });
         }
@@ -8579,7 +8714,7 @@ applyLeadTableSort();
       const cycleField = (label, value) => `<div class="cycle-plan-field"><span>${label}</span><strong>${value || "—"}</strong></div>`;
       const cycleHistory = `<div class="section-head cycle-plan-history-head"><div><h3>患者历史周期信息</h3><span class="muted">周期方案及执行情况</span></div><span class="badge badge-blue">${relatedCycles.length} 个周期</span></div><div class="customer-table-wrap"><table class="small-table cycle-plan-history"><thead><tr><th>周期号</th><th>周期类型</th><th>周期阶段</th><th>周期结局</th><th>进周日期</th><th>执行医生</th><th>周期序号</th></tr></thead><tbody>${[...relatedCycles].sort((a, b) => b.startedAt.localeCompare(a.startedAt)).map((cycle) => `<tr><td>${cycle.cycleNo}</td><td>${cycle.type}</td><td>${cycleStageBadge(cycle.phase)}</td><td>${cycleOutcomeBadge(cycle.outcome)}</td><td>${cycle.startedAt}</td><td>${cycle.hainanDoctor || cycle.clinicDoctor || "—"}</td><td>${cycle.currentNo} / ${cycle.totalNo}</td></tr>`).join("") || '<tr><td colspan="7" class="muted">暂无历史周期信息</td></tr>'}</tbody></table></div>`;
       const cyclePlanContent = `<div class="cycle-plan-panel"><div class="cycle-plan-banner"><div><strong>${customer.woman}（${customer.womanAge}）</strong><span>${customer.spouse}（${customer.spouseAge}）</span><span>病历号：${customer.medicalRecordNo}</span></div><div><strong>${selectedCycle?.cycleNo || "暂无周期号"}</strong><span>${selectedCycle?.type || customer.package}</span><span>${selectedCycle?.startedAt || customer.cycleAt || "—"}</span></div></div><div class="cycle-plan-section-title">周期信息</div><div class="cycle-plan-grid">${cycleField("总周期次数", selectedCycle?.totalNo || customer.totalCycles)}${cycleField("第几周期", selectedCycle?.currentNo || customer.currentCycle)}${cycleField("外院次数", "—")}${cycleField("外院移植次数", "—")}${cycleField("第几人授周期", selectedCycle?.type?.includes("人授") ? selectedCycle.currentNo : "—")}${cycleField("第几取卵周期", selectedCycle?.phase === "取卵" ? selectedCycle.currentNo : "—")}${cycleField("第几复苏周期", selectedCycle?.type?.includes("解冻") ? selectedCycle.currentNo : "—")}${cycleField("进周日期", selectedCycle?.startedAt || customer.cycleAt)}${cycleField("医生", selectedCycle?.clinicDoctor || selectedCycle?.hainanDoctor || customer.doctor)}${cycleField("周期号", selectedCycle?.cycleNo)}${cycleField("分组", "—")}</div><div class="cycle-plan-grid cycle-plan-grid-spaced">${cycleField("周期类型", selectedCycle?.type)}${cycleField("拟行助孕方案", customer.package)}${cycleField("取精方式", "—")}${cycleField("周期类型说明", selectedCycle?.phase)}</div><div class="cycle-plan-options"><div><span>精子来源：</span><b>丈夫</b></div><div><span>精子类型：</span><b>新鲜</b></div><div><span>卵子来源：</span><b>本人</b></div><div><span>卵子类型：</span><b>新鲜</b></div><div><span>胚胎筛查：</span><b>PGT-A</b></div></div><div class="cycle-plan-grid cycle-plan-grid-spaced">${cycleField("用药方案", "—")}${cycleField("用药方案明细", "—")}</div><div class="cycle-plan-field cycle-plan-remarks"><span>备注</span><strong>${customer.diagnosis || "暂无备注"}</strong></div></div>`;
-      const cycleDetailTabs = [["plan", "周期方案"], ["monitor", "促排卵监测"], ["retrieval", "取卵"], ["pickup", "拾卵"], ["culture", "胚胎培养"], ["transfer", "移植"]];
+      const cycleDetailTabs = [["plan", "周期方案"], ["monitor", "促排卵监测"], ["retrieval", "取卵"], ["pickup", "拾卵"], ["culture", "胚胎培养"], ["transfer", "移植"], ["embryoSummary", "胚胎小结"]];
       const cycleDetailExamples = {
         monitor: [ ["监测日期", selectedCycle?.startedAt || "2026-07-14"], ["周期阶段", "促排卵监测"], ["子宫内膜", "8.6 mm"], ["卵泡情况", "右侧 18、16 mm；左侧 17、15 mm"], ["激素检查", "E2 1250 pg/ml；LH 3.2 mIU/ml；P 0.8 ng/ml"], ["用药方案", "按医嘱继续促排用药"], ["医生", selectedCycle?.clinicDoctor || customer.doctor] ],
         retrieval: [ ["取卵日期", "2026-07-20"], ["取卵数量", "12 枚"], ["麻醉方式", "静脉麻醉"], ["手术医生", selectedCycle?.clinicDoctor || customer.doctor], ["术后情况", "生命体征平稳，按医嘱观察"], ["备注", "取卵记录示例"] ],
@@ -8636,7 +8771,8 @@ applyLeadTableSort();
       ];
       const cultureBool = (checked) => `<input type="checkbox"${checked ? " checked" : ""} disabled aria-label="${checked ? "是" : "否"}">`;
       const cultureContent = `<div class="cycle-culture-wrap"><div class="cycle-culture-layout"><table class="cycle-culture-table"><thead><tr><th rowspan="2">来源</th><th rowspan="2">NO</th><th rowspan="2">IVF/ICSI</th><th rowspan="2">成熟度</th><th rowspan="2">胞质颗粒</th><th rowspan="2">透明带情况</th><th rowspan="2">内容物</th><th rowspan="2">破膜类型</th><th rowspan="2">备注</th><th colspan="3">D0</th><th colspan="5">D1</th><th colspan="5">D2</th><th colspan="5">D3</th><th colspan="3">D5</th><th colspan="3">D6</th><th colspan="9">胚胎结局</th></tr><tr><th>原核数</th><th>原核评分</th><th>极体数</th><th>细胞数</th><th>均一度</th><th>碎片</th><th>评分手工</th><th>备注</th><th>细胞数</th><th>均一度</th><th>碎片</th><th>评分手工</th><th>备注</th><th>细胞数</th><th>均一度</th><th>碎片</th><th>评分手工</th><th>备注</th><th>分期</th><th>内细胞团</th><th>滋养层</th><th>分期</th><th>内细胞团</th><th>滋养层</th><th>是否形成囊胚</th><th>辅助孵化</th><th>移植</th><th>冷冻</th><th>丢弃</th><th>IVM</th><th>冻卵</th><th>PGT</th><th>是否已受孕</th></tr></thead><tbody>${cultureRows.map((row, rowIndex) => `<tr class="${rowIndex === 0 ? "cycle-culture-row-active" : "cycle-culture-row-muted"}">${row.slice(0, 33).map((value) => `<td>${value}</td>`).join("")}${row.slice(33).map((checked) => `<td>${cultureBool(checked)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>`;
-      const cycleDetailContent = selectedCycleDetail === "plan" ? cyclePlanContent : selectedCycleDetail === "monitor" ? monitoringContent : selectedCycleDetail === "retrieval" ? retrievalContent : selectedCycleDetail === "pickup" ? pickupContent : selectedCycleDetail === "culture" ? cultureContent : selectedCycleDetail === "transfer" ? transferContent : `<div class="cycle-plan-panel"><div class="cycle-plan-banner"><div><strong>${customer.woman}｜${customer.spouse}</strong><span>${selectedCycle?.cycleNo || "周期示例"}</span></div><div><strong>${cycleDetailTabs.find(([key]) => key === selectedCycleDetail)?.[1]}</strong><span>${selectedCycle?.startedAt || "—"}</span></div></div><div class="cycle-plan-grid cycle-plan-grid-spaced">${cycleDetailExamples[selectedCycleDetail].map(([label, value]) => cycleField(label, value)).join("")}</div></div>`;
+      const embryoSummaryContent = `<div class="cycle-embryo-summary"><table class="embryo-original-report"><colgroup><col style="width:10%"><col style="width:15%"><col style="width:10%"><col style="width:15%"><col style="width:10%"><col style="width:40%"></colgroup><tbody><tr><td colspan="3" class="report-hospital">海南木棉花医院</td><td colspan="3" class="report-meta">病历号：${customer.medicalRecordNo || "01149"}</td></tr><tr><td colspan="3" class="report-hospital"></td><td colspan="3" class="report-meta">周期号：${selectedCycle?.cycleNo || "F261000438"}</td></tr><tr><td colspan="6" class="report-heading">胚胎去向告知书及助孕小结</td></tr><tr><td colspan="2">女方姓名：${customer.woman}</td><td colspan="2" class="report-center"><b>年龄：${customer.womanAge || 34} 岁</b></td><td colspan="2">男方姓名：${customer.spouse}　　<b>年龄：${customer.spouseAge || 35} 岁</b></td></tr><tr><td colspan="2"><b>取精方式：</b>针精</td><td colspan="2"><b>精子来源：</b>☑丈夫　□精子库</td><td colspan="2"><b>精子类型：</b>☑新鲜　□冷冻　　□ IVM</td></tr><tr><td rowspan="3" colspan="1" class="report-label">取卵日期</td><td rowspan="3">2026-11-01</td><td class="report-label">助孕方式：</td><td colspan="3">IVF　　□PGT_A　□PGT_SR　□PGT_M</td></tr><tr><td class="report-label">助孕方案：</td><td colspan="3">黄体期长效长方案</td></tr><tr><td class="report-label">Gn天数：</td><td colspan="3">11</td></tr><tr><td colspan="2"><b>获卵数：</b>　9　枚</td><td colspan="4"><b>2PN：</b>　4　枚　　<b>1PN：</b>　0　枚　　<b>多PN：</b>　2　枚　　<b>未见PN：</b>　3　枚</td></tr><tr><td colspan="2"><b>ICSI/RICSI<br>成熟卵子数：</b>　0　枚</td><td colspan="4"><b>Ⅱ：</b>　0　枚　　<b>GV：</b>　0　枚　　<b>退化：</b>　0　枚</td></tr><tr><td colspan="2"><b>赠卵：</b>　/　枚</td><td colspan="4"><b>受赠：</b>　/　枚</td></tr><tr><td colspan="6" class="report-notes"><b>异常情况说明：</b>　部分卵子卵间隙宽。</td></tr><tr><td colspan="6"><b>D3可利用胚胎数：</b>　4　枚　其中优质胚胎数：　3　枚。<br><b>I级胚胎</b>　0　枚，　<b>II级胚胎</b>　3　枚，　<b>III级胚胎</b>　1　枚，　<b>IV级胚胎</b>　0　枚。</td></tr><tr><td colspan="6"><b>囊胚培养：</b>　3　枚　<b>可利用囊胚：</b>　1　枚</td></tr><tr><td rowspan="2" class="report-freeze-label">冷冻</td><td colspan="2">冷冻日期：2026-11-04</td><td colspan="3">冷冻胚胎形态　10CIIa；8CIIa</td></tr><tr><td colspan="2">冷冻第　3　天</td><td colspan="1">冷冻管数　2　管</td><td colspan="2">冷冻数　2　个</td></tr><tr><td colspan="6" class="report-sign"><b>建议门诊复诊定下一步治疗方案。</b><div style="text-align:right;margin-top:32px"><b>医生：${selectedCycle?.clinicDoctor || selectedCycle?.hainanDoctor || customer.doctor || "杨冬梓"}</b><br><br><b>日期：2026-10-13</b></div></td></tr></tbody></table></div>`;
+      const cycleDetailContent = selectedCycleDetail === "plan" ? cyclePlanContent : selectedCycleDetail === "monitor" ? monitoringContent : selectedCycleDetail === "retrieval" ? retrievalContent : selectedCycleDetail === "pickup" ? pickupContent : selectedCycleDetail === "culture" ? cultureContent : selectedCycleDetail === "transfer" ? transferContent : selectedCycleDetail === "embryoSummary" ? embryoSummaryContent : `<div class="cycle-plan-panel"><div class="cycle-plan-banner"><div><strong>${customer.woman}｜${customer.spouse}</strong><span>${selectedCycle?.cycleNo || "周期示例"}</span></div><div><strong>${cycleDetailTabs.find(([key]) => key === selectedCycleDetail)?.[1]}</strong><span>${selectedCycle?.startedAt || "—"}</span></div></div><div class="cycle-plan-grid cycle-plan-grid-spaced">${cycleDetailExamples[selectedCycleDetail].map(([label, value]) => cycleField(label, value)).join("")}</div></div>`;
       const cyclePlanOwner = customer.id || customer.medicalRecordNo || `${customer.woman}-${customer.spouse}`;
       const cycleSummaryStrip = selectedCycle ? `<div class="customer-cycle-summary-strip" aria-label="周期摘要"><span>拟行助孕方案：<strong>ICSI/PGT-A</strong></span><span>授精方式：<strong>ICSI</strong></span><span>PGT：<strong>PGT-A</strong></span><span>用药方案：<strong>黄体期促排方案</strong></span><span>冻存情况：<strong>1管1胚0裂胚1囊胚0管卵0管精</strong></span></div>` : "";
       const cyclePlanRecordContent = `<div class="cycle-plan-record-content">${cycleSummaryStrip}<div class="customer-medical-tabs cycle-detail-tabs" role="tablist" aria-label="周期详情分类">${cycleDetailTabs.map(([key, label]) => `<button class="tab ${selectedCycleDetail === key ? "is-active" : ""}" role="tab" aria-selected="${selectedCycleDetail === key}" data-customer-cycle-detail-tab="${key}">${label}</button>`).join("")}</div>${cycleDetailContent}</div>`;
@@ -8655,7 +8791,7 @@ applyLeadTableSort();
         const outcome = cycleOutcomeParts(cycle);
         return { ...outcome, statisticDate: cycleStatisticDate(cycle) };
       };
-      const cycleRightsText = (cycle, contractId) => (contractRightsUsage[cycle.contractId || contractId] || []).find((item) => item.cycleNo === cycle.cycleNo)?.rights || cycle.completedRights || "—";
+      const cycleRightsText = (cycle, contractId) => ((contractRightsUsage[cycle.contractId || contractId] || []).find((item) => item.cycleNo === cycle.cycleNo)?.rights || cycle.completedRights || "—").replace(/[。．.]+$/, "");
       const sortCyclesByStatisticDate = (cycles) => [...cycles].sort((a, b) => {
         const aDate = cycleOverviewValues(a).statisticDate;
         const bDate = cycleOverviewValues(b).statisticDate;
@@ -8663,7 +8799,15 @@ applyLeadTableSort();
         if (bDate === "-") return -1;
         return aDate.localeCompare(bDate);
       });
-      const contractCycleOverview = `<div class="section-head customer-contract-cycle-head"><div><h3>合同信息</h3></div><span class="badge badge-blue">${sortedOverviewContracts.length} 份合同</span></div><div class="customer-table-wrap customer-contract-info-wrap"><table class="small-table customer-contract-info-table"><thead><tr><th>合同名称</th><th>合同金额</th><th>合同时效</th><th>优惠内容</th><th>合同状态</th><th>结束类型</th><th>试管医院</th><th>签署日期</th></tr></thead><tbody>${sortedOverviewContracts.map((contract) => `<tr><td><div class="customer-contract-title"><strong>${contract.package || contract.contractCategory || contract.type}</strong>${contractNumberTags(contract)}</div></td><td>${contract.contractAmount || "—"}</td><td>${contractValidityText(contract)}</td><td>${contractDiscountContent(contract) || "—"}</td><td>${contractStatusBadge(contract.status)}</td><td>${contract.endType ? contractEndTypeLabel(contract) : "-"}</td><td>${ivfHospitalForContract(contract)}</td><td>${contract.signedAt || "—"}</td></tr>`).join("")}</tbody></table></div><div class="section-head customer-contract-cycle-head"><div><h3>周期信息</h3></div><span class="badge badge-blue">${overviewCycles.length} 个周期</span></div>${sortedOverviewContracts.map((contract) => { const linked = sortCyclesByStatisticDate(overviewCycles.filter((cycle) => cycle.contractId === contract.id)); return `<div class="panel" style="margin-top:12px"><div class="panel-body"><div class="section-head"><div class="customer-contract-title"><h3>${contract.package || contract.contractCategory || contract.type}</h3><span class="muted">签署日期：${contract.signedAt || "—"}</span></div>${contractStatusBadge(contract.status)}</div><div style="overflow-x:auto"><table class="small-table"><thead><tr><th>周期号</th><th>周期类型</th><th>周期阶段</th><th>周期结局</th><th>取消类型</th><th>取消原因</th><th>妊娠结局</th><th>已完成权益</th><th>进周日期</th><th>统计日期</th></tr></thead><tbody>${linked.map((cycle) => { const detail = cycleOverviewValues(cycle); return `<tr><td>${cycle.cycleNo || "—"}（${cycle.currentNo || "—"}/${cycle.totalNo || "—"}）</td><td>${cycle.type || "-"}</td><td>${cycleStageBadge(cycle.phase)}</td><td>${detail.result}</td><td>${detail.cancelType}</td><td>${detail.cancelReason}</td><td>${detail.pregnancy}</td><td>${cycleRightsText(cycle, contract.id)}</td><td>${cycle.startedAt || "-"}</td><td>${detail.statisticDate}</td></tr>`; }).join("")}</tbody></table></div></div></div>`; }).join("")}`;
+      const unmanagedCycles = overviewCycles.filter((cycle) => !cycle.contractId || !overviewContracts.some((contract) => contract.id === cycle.contractId));
+      if (!unmanagedCycles.length) unmanagedCycles.push({
+        id: `${customer.id || customer.medicalRecordNo || "customer"}-unmanaged-cycle-example`,
+        cycleNo: "F260718", type: "解冻周期", phase: "移植", outcome: "进行中", startedAt: "2026-06-12",
+        currentNo: "—", totalNo: "—", statisticDate: "2026-07-08", cancelType: "—", cancelReason: "—", pregnancy: "—",
+        completedRights: "—", contractId: ""
+      });
+      const unmanagedCycleMarkup = `<div class="section-head customer-contract-cycle-head"><div><h3>未关联合同的周期</h3></div><span class="badge badge-blue">${unmanagedCycles.length} 个周期</span></div><div class="panel" style="margin-top:12px"><div class="panel-body"><div style="overflow-x:auto"><table class="small-table"><thead><tr><th>周期号</th><th>周期类型</th><th>周期阶段</th><th>周期结局</th><th>取消类型</th><th>取消原因</th><th>妊娠结局</th><th>已完成权益</th><th>进周日期</th><th>统计日期</th></tr></thead><tbody>${sortCyclesByStatisticDate(unmanagedCycles).map((cycle) => { const detail = cycleOverviewValues(cycle); return `<tr><td>${cycle.cycleNo || "—"}（${cycle.currentNo || "—"}/${cycle.totalNo || "—"}）</td><td>${cycle.type || "—"}</td><td>${cycleStageBadge(cycle.phase)}</td><td>${detail.result}</td><td>${detail.cancelType}</td><td>${detail.cancelReason}</td><td>${detail.pregnancy}</td><td>${cycle.completedRights || "—"}</td><td>${cycle.startedAt || "—"}</td><td>${detail.statisticDate}</td></tr>`; }).join("")}</tbody></table></div></div></div>`;
+      const contractCycleOverview = `<div class="section-head customer-contract-cycle-head"><div><h3>合同信息</h3></div><span class="badge badge-blue">${sortedOverviewContracts.length} 份合同</span></div><div class="customer-table-wrap customer-contract-info-wrap"><table class="small-table customer-contract-info-table"><thead><tr><th>合同名称</th><th>合同金额</th><th>合同时效</th><th>优惠内容</th><th>合同状态</th><th>结束类型</th><th>试管医院</th><th>签署日期</th></tr></thead><tbody>${sortedOverviewContracts.map((contract) => `<tr><td><div class="customer-contract-title"><strong>${contract.package || contract.contractCategory || contract.type}</strong>${contractNumberTags(contract)}</div></td><td>${contract.contractAmount || "—"}</td><td>${contractValidityText(contract)}</td><td>${contractDiscountContent(contract) || "—"}</td><td>${contractStatusBadge(contract.status)}</td><td>${contract.endType ? contractEndTypeLabel(contract) : "-"}</td><td>${ivfHospitalForContract(contract)}</td><td>${contract.signedAt || "—"}</td></tr>`).join("")}</tbody></table></div><div class="section-head customer-contract-cycle-head"><div><h3>周期信息</h3></div><span class="badge badge-blue">${overviewCycles.length} 个周期</span></div>${sortedOverviewContracts.map((contract) => { const linked = sortCyclesByStatisticDate(overviewCycles.filter((cycle) => cycle.contractId === contract.id)); return `<div class="panel" style="margin-top:12px"><div class="panel-body"><div class="section-head"><div class="customer-contract-title"><h3>${contract.package || contract.contractCategory || contract.type}</h3><span class="muted">签署日期：${contract.signedAt || "—"}</span></div>${contractStatusBadge(contract.status)}</div><div style="overflow-x:auto"><table class="small-table"><thead><tr><th>周期号</th><th>周期类型</th><th>周期阶段</th><th>周期结局</th><th>取消类型</th><th>取消原因</th><th>妊娠结局</th><th>已完成权益</th><th>进周日期</th><th>统计日期</th></tr></thead><tbody>${linked.map((cycle) => { const detail = cycleOverviewValues(cycle); return `<tr><td>${cycle.cycleNo || "—"}（${cycle.currentNo || "—"}/${cycle.totalNo || "—"}）</td><td>${cycle.type || "-"}</td><td>${cycleStageBadge(cycle.phase)}</td><td>${detail.result}</td><td>${detail.cancelType}</td><td>${detail.cancelReason}</td><td>${detail.pregnancy}</td><td>${cycleRightsText(cycle, contract.id)}</td><td>${cycle.startedAt || "-"}</td><td>${detail.statisticDate}</td></tr>`; }).join("")}</tbody></table></div></div></div>`; }).join("")}${unmanagedCycleMarkup}`;
       const feeReceivable = relatedFinances.reduce((sum, item) => sum + Number(item.receivable || 0), 0);
       const feePaid = relatedFinances.reduce((sum, item) => sum + Number(item.paid || 0), 0);
       const feeDue = relatedFinances.reduce((sum, item) => sum + Number(item.due || 0), 0);
@@ -9455,7 +9599,7 @@ applyLeadTableSort();
       });
       const cycleInfoRows = sortedLinkedCycles.map((cycle) => {
         const outcome = detailCycleValues(cycle);
-        const benefits = rightsUsage.find((item) => item.cycleNo === cycle.cycleNo)?.rights || "—";
+        const benefits = (rightsUsage.find((item) => item.cycleNo === cycle.cycleNo)?.rights || "—").replace(/[。．.]+$/, "");
         return `<tr><td>${cycle.cycleNo || "—"}（${cycle.currentNo || "—"}/${cycle.totalNo || "—"}）</td><td>${cycle.type || "-"}</td><td>${cycleStageBadge(cycle.phase)}</td><td>${outcome.result}</td><td>${outcome.cancelType}</td><td>${outcome.cancelReason}</td><td>${outcome.pregnancy}</td><td>${benefits}</td><td>${cycle.startedAt || "-"}</td><td>${outcome.statisticDate}</td></tr>`;
       }).join("") || '<tr><td colspan="10" class="muted">暂无周期信息</td></tr>';
       const couple = coupleManagementRows().find((item) => item.coupleId === contract.coupleId) || {};
@@ -9498,7 +9642,7 @@ applyLeadTableSort();
         <div class="customer-profile-list contract-detail-profile-list">${detailFields.map(([label, value]) => `<span class="customer-profile-item"><strong>${label}：</strong>${value}</span>`).join("")}</div>
         <div class="section-head" style="margin-top:20px"><div><h3>周期信息</h3></div><span class="badge badge-blue">${sortedLinkedCycles.length} 个周期</span></div>
         <div style="overflow-x:auto"><table class="small-table"><thead><tr><th>周期号</th><th>周期类型</th><th>周期阶段</th><th>周期结局</th><th>取消类型</th><th>取消原因</th><th>妊娠结局</th><th>已完成权益</th><th>进周日期</th><th>统计日期</th></tr></thead><tbody>${cycleInfoRows}</tbody></table></div>`;
-      const tabs = [["overview", "总览"], ["original", "原始合同"], ["amendment", "变更协议"], ...(contract.status === "已解除" ? [["termination", "解除协议"]] : [])];
+      const tabs = [["overview", "总览"], ["original", "原始合同"], ["amendment", "变更/补充协议"], ...(contract.status === "已解除" ? [["termination", "解除协议"]] : [])];
       const page = Math.min(8, Math.max(1, state.contractOriginalPage));
       const originalPageDimensions = [[604, 822], [609, 823], [612, 833], [606, 831], [607, 834], [592, 797], [599, 832], [625, 827]];
       const originalPages = originalPageDimensions.map(([width, height], index) => {
@@ -12819,7 +12963,7 @@ applyLeadTableSort();
           renderNewCustomerView();
           return;
         }
-        openEmbryoStorageModal(embryoAction.dataset.embryoAction, record.id);
+        openEmbryoStorageModal(embryoAction.dataset.embryoAction, record.id, embryoAction.dataset.embryoTube || "");
         return;
       }
 
