@@ -903,6 +903,8 @@
       overflow-x: hidden;
     }
 
+    .main.module-page[data-view="embryo-storage"] { overflow: visible; }
+
     .sidebar { grid-row: 2 / -1; }
 
     .module-header {
@@ -2906,12 +2908,37 @@
       background: var(--primary-soft);
     }
 
-    .embryo-filter-grid .form-row { gap: 4px; }
+    .embryo-filter-grid .form-row { position: relative; z-index: 0; gap: 4px; }
+    .embryo-filter-grid .form-row:focus-within { z-index: 20; }
     .embryo-filter-grid .form-row label { font-size: 11px; }
     .embryo-filter-grid .form-row input,
     .embryo-filter-grid .form-row select { padding: 7px 8px; }
     .embryo-filter-grid .embryo-filter-keyword input,
     .embryo-filter-grid .embryo-filter-keyword input::placeholder { text-overflow: ellipsis; }
+    .embryo-filter-select { position: relative; min-width: 0; }
+    .embryo-filter-select-toggle {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      width: 100%; min-width: 0; height: 42px; padding: 7px 10px;
+      border: 1px solid var(--line); border-radius: 8px; background: #fff;
+      color: var(--ink); text-align: left; font: inherit; cursor: pointer;
+    }
+    .embryo-filter-select-toggle:hover,
+    .embryo-filter-select-toggle[aria-expanded="true"] { border-color: var(--primary); }
+    .embryo-filter-select-toggle:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+    .embryo-filter-select-toggle > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .embryo-filter-select-menu {
+      position: absolute; top: calc(100% + 4px); left: 0; z-index: 120;
+      display: grid; width: 100%; max-height: 260px; overflow-y: auto; padding: 4px;
+      border: 1px solid var(--line); border-radius: 8px; background: #fff;
+      box-shadow: 0 8px 22px rgba(24, 43, 71, .2);
+    }
+    .embryo-filter-select-menu[hidden] { display: none !important; }
+    .embryo-filter-select-option {
+      min-height: 34px; padding: 7px 9px; border: 0; border-radius: 5px;
+      background: #fff; color: var(--ink); text-align: left; font: inherit; cursor: pointer;
+    }
+    .embryo-filter-select-option:hover,
+    .embryo-filter-select-option.is-selected { background: var(--primary-soft); color: var(--primary-strong); }
     .embryo-filter-grid .embryo-date-range { display: flex; align-items: center; gap: 5px; min-width: 0; }
     .embryo-filter-grid .embryo-date-range input { width: 0; min-width: 0; flex: 1; padding: 7px 4px; }
     .embryo-filter-grid .embryo-date-range span { color: var(--muted); font-size: 11px; }
@@ -7506,6 +7533,12 @@ applyLeadTableSort();
       return tube.oralVoided || (record.id === "ES-20251118-004" && tube.id.endsWith("-T01")) ? "是" : "否";
     }
 
+    function renderEmbryoStorageFilterSelect(id, label, allLabel, values, currentValue) {
+      const options = [{ value: "", label: allLabel }, ...values.map((value) => ({ value, label: value }))];
+      const selected = options.find((option) => option.value === currentValue) || options[0];
+      return `<div class="form-row"><label id="${id}Label">${escapeHtml(label)}</label><input type="hidden" id="${id}" value="${escapeHtml(currentValue)}"><div class="embryo-filter-select"><button type="button" class="embryo-filter-select-toggle" data-embryo-filter-toggle="${id}" aria-labelledby="${id}Label ${id}Selected" aria-haspopup="listbox" aria-expanded="false"><span id="${id}Selected">${escapeHtml(selected.label)}</span><span aria-hidden="true">▾</span></button><div class="embryo-filter-select-menu" data-embryo-filter-menu="${id}" role="listbox" aria-labelledby="${id}Label" hidden>${options.map((option) => `<button type="button" class="embryo-filter-select-option ${option.value === currentValue ? "is-selected" : ""}" data-embryo-filter-option="${id}" data-value="${escapeHtml(option.value)}" role="option" aria-selected="${option.value === currentValue}">${escapeHtml(option.label)}</button>`).join("")}</div></div></div>`;
+    }
+
     function embryoStorageMatchesDateRange(value, from, to) {
       if (!from && !to) return true;
       const date = String(value || "").slice(0, 10);
@@ -7558,9 +7591,19 @@ applyLeadTableSort();
       const search = state.embryoStorageSearch;
       const advisorOptions = [...new Set(embryoStorageRecords.filter((record) => record.tubes?.length).map((record) => record.advisor).filter(Boolean))];
       const statusOptions = [...new Set(allTubes.map((tube) => tube.voidType || tube.storageStatus).filter(Boolean))];
+      const overdueStatusIndex = statusOptions.indexOf("已逾期");
+      if (overdueStatusIndex > 0) statusOptions.unshift(statusOptions.splice(overdueStatusIndex, 1)[0]);
+      const unsettledStatusIndex = statusOptions.indexOf("未结清");
+      if (unsettledStatusIndex >= 0) {
+        const [unsettledStatus] = statusOptions.splice(unsettledStatusIndex, 1);
+        const validStatusIndex = statusOptions.indexOf("有效期内");
+        statusOptions.splice(validStatusIndex >= 0 ? validStatusIndex + 1 : statusOptions.length, 0, unsettledStatus);
+      }
       const embryoStatusOptions = [...new Set(allTubes.map((tube) => tube.embryoStatus || "—"))];
       const embryoOutcomeOptions = [...new Set(allTubes.map((tube) => tube.embryoOutcome || "—"))];
       const pgtResultOptions = [...new Set(allTubes.map((tube) => tube.pgtResult || "—"))];
+      const emptyPgtResultIndex = pgtResultOptions.indexOf("—");
+      if (emptyPgtResultIndex > 0) pgtResultOptions.unshift(pgtResultOptions.splice(emptyPgtResultIndex, 1)[0]);
       const oralVoidOptions = [...new Set(embryoStorageRecords.flatMap((record) => (record.tubes || []).map((tube) => embryoStorageOralVoidStatus(record, tube))))];
       const patientCount = new Set(rows.map((record) => {
         const identity = embryoStorageIdentity(record);
@@ -7617,12 +7660,12 @@ applyLeadTableSort();
           <div class="panel"><div class="panel-body">
             <div class="embryo-filter-grid">
               <div class="form-row embryo-filter-keyword"><label for="embryoSearchKeyword">姓名 / 身份证 / 电话 / 病历号 / 周期号 / 麦管号</label><input id="embryoSearchKeyword" value="${search.keyword}" placeholder="输入姓名、身份证号、电话、病历号、周期号或麦管号"></div>
-              <div class="form-row"><label for="embryoSearchAdvisor">负责顾问</label><select id="embryoSearchAdvisor"><option value="">全部顾问</option>${advisorOptions.map((value) => `<option ${search.advisor === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
-              <div class="form-row"><label for="embryoSearchEmbryoStatus">胚胎状态</label><select id="embryoSearchEmbryoStatus"><option value="">全部状态</option>${embryoStatusOptions.map((value) => `<option ${search.embryoStatus === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
-              <div class="form-row"><label for="embryoSearchEmbryoOutcome">胚胎结局</label><select id="embryoSearchEmbryoOutcome"><option value="">全部结局</option>${embryoOutcomeOptions.map((value) => `<option ${search.embryoOutcome === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
-              <div class="form-row"><label for="embryoSearchStatus">费用状态</label><select id="embryoSearchStatus"><option value="">全部状态</option>${statusOptions.map((value) => `<option ${search.status === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
-              <div class="form-row"><label for="embryoSearchPgtResult">PGT结果</label><select id="embryoSearchPgtResult"><option value="">全部结果</option>${pgtResultOptions.map((value) => `<option ${search.pgtResult === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
-              <div class="form-row"><label for="embryoSearchOralVoided">是否口头作废</label><select id="embryoSearchOralVoided"><option value="">全部</option>${oralVoidOptions.map((value) => `<option value="${value}" ${search.oralVoided === value ? "selected" : ""}>${value}</option>`).join("")}</select></div>
+              ${renderEmbryoStorageFilterSelect("embryoSearchAdvisor", "负责顾问", "全部顾问", advisorOptions, search.advisor)}
+              ${renderEmbryoStorageFilterSelect("embryoSearchEmbryoStatus", "胚胎状态", "全部状态", embryoStatusOptions, search.embryoStatus)}
+              ${renderEmbryoStorageFilterSelect("embryoSearchEmbryoOutcome", "胚胎结局", "全部结局", embryoOutcomeOptions, search.embryoOutcome)}
+              ${renderEmbryoStorageFilterSelect("embryoSearchStatus", "费用状态", "全部状态", statusOptions, search.status)}
+              ${renderEmbryoStorageFilterSelect("embryoSearchPgtResult", "PGT结果", "全部结果", pgtResultOptions, search.pgtResult)}
+              ${renderEmbryoStorageFilterSelect("embryoSearchOralVoided", "是否口头作废", "全部", oralVoidOptions, search.oralVoided)}
               <div class="form-row"><label>冷冻日期</label><div class="embryo-date-range"><input type="date" id="embryoSearchFrozenFrom" value="${search.frozenFrom}" aria-label="冷冻日期开始"><span>至</span><input type="date" id="embryoSearchFrozenTo" value="${search.frozenTo}" aria-label="冷冻日期结束"></div></div>
               <div class="form-row"><label>到期日期</label><div class="embryo-date-range"><input type="date" id="embryoSearchValidUntilFrom" value="${search.validUntilFrom}" aria-label="到期日期开始"><span>至</span><input type="date" id="embryoSearchValidUntilTo" value="${search.validUntilTo}" aria-label="到期日期结束"></div></div>
               <div class="form-row"><label>停止收费日期</label><div class="embryo-date-range"><input type="date" id="embryoSearchStopChargingFrom" value="${search.stopChargingFrom}" aria-label="停止收费日期开始"><span>至</span><input type="date" id="embryoSearchStopChargingTo" value="${search.stopChargingTo}" aria-label="停止收费日期结束"></div></div>
@@ -11672,6 +11715,41 @@ applyLeadTableSort();
           select.classList.remove("is-open");
           select.querySelector("[data-customer-status-toggle]")?.setAttribute("aria-expanded", "false");
         });
+      }
+      if (!event.target.closest(".embryo-filter-select")) {
+        mainEl.querySelectorAll(".embryo-filter-select-menu:not([hidden])").forEach((menu) => { menu.hidden = true; });
+        mainEl.querySelectorAll("[data-embryo-filter-toggle][aria-expanded='true']").forEach((button) => button.setAttribute("aria-expanded", "false"));
+      }
+      const embryoFilterToggle = event.target.closest("[data-embryo-filter-toggle]");
+      if (embryoFilterToggle) {
+        const field = embryoFilterToggle.closest(".embryo-filter-select");
+        const menu = field?.querySelector(".embryo-filter-select-menu");
+        const willOpen = Boolean(menu?.hidden);
+        mainEl.querySelectorAll(".embryo-filter-select-menu").forEach((item) => { item.hidden = true; });
+        mainEl.querySelectorAll("[data-embryo-filter-toggle]").forEach((button) => button.setAttribute("aria-expanded", "false"));
+        if (menu) menu.hidden = !willOpen;
+        embryoFilterToggle.setAttribute("aria-expanded", String(willOpen));
+        return;
+      }
+      const embryoFilterOption = event.target.closest("[data-embryo-filter-option]");
+      if (embryoFilterOption) {
+        const field = embryoFilterOption.closest(".form-row");
+        const filterId = embryoFilterOption.dataset.embryoFilterOption;
+        const hiddenInput = field?.querySelector(`#${filterId}`);
+        if (hiddenInput) hiddenInput.value = embryoFilterOption.dataset.value;
+        const toggle = field?.querySelector("[data-embryo-filter-toggle]");
+        if (toggle) {
+          toggle.querySelector("span:first-child").textContent = embryoFilterOption.textContent;
+          toggle.setAttribute("aria-expanded", "false");
+        }
+        field?.querySelectorAll(".embryo-filter-select-option").forEach((option) => {
+          const selected = option === embryoFilterOption;
+          option.classList.toggle("is-selected", selected);
+          option.setAttribute("aria-selected", String(selected));
+        });
+        const menu = field?.querySelector(".embryo-filter-select-menu");
+        if (menu) menu.hidden = true;
+        return;
       }
       const cycleNurseRemove = event.target.closest("[data-cycle-nurse-remove]");
       if (cycleNurseRemove) {
